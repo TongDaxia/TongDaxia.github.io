@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等… CAP理论 一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效) 可用性(Ava">
+<meta name="keywords" content="java 开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="铜色记忆">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/22/分布式事务/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等… CAP理论 一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效) 可用性(Ava">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="f:/笔记/笔记/notes/250417-20171016132145537-970496141.png">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016141237443-2074834323.png">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016203840240-13953078.png">
+<meta property="og:image" content="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016220040115-805407978.png">
+<meta property="og:updated_time" content="2019-05-22T00:20:18.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="铜色记忆">
+<meta name="twitter:description" content="分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等… CAP理论 一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效) 可用性(Ava">
+<meta name="twitter:image" content="f:/笔记/笔记/notes/250417-20171016132145537-970496141.png">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-分布式事务" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/22/分布式事务/" class="article-date">
+  <time datetime="2019-05-22T00:20:18.475Z" itemprop="datePublished">2019-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
+<h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><ul>
+<li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li>
+<li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li>
+<li>分区容错性(Partition tolerance) ： 即使出现单个组件无法可用,操作依然可以完成</li>
+</ul>
+<h4 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h4><p>在分布式系统中，我们往往追求的是可用性，它的重要程序比一致性要高，那么如何实现高可用性呢？ 前人已经给我们提出来了另外一个理论，就是BASE理论，它是用来对CAP定理进行进一步扩充的。BASE理论指的是：</p>
+<ul>
+<li>Basically Available（基本可用）</li>
+<li>Soft state（软状态）</li>
+<li>Eventually consistent（最终一致性）</li>
+</ul>
+<p><strong>我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性</strong>（Eventual consistency）。</p>
+<p>解决方案：</p>
+<p>和上一节中提到的数据库XA事务一样，两阶段提交就是使用XA协议的原理，我们可以从下面这个图的流程来很容易的看出中间的一些比如commit和abort的细节。</p>
+<p><img src="F:\笔记\笔记\notes\250417-20171016132145537-970496141.png" alt="250417-20171016132145537-970496141"></p>
+<p>两阶段提交这种解决方案属于牺牲了一部分可用性来换取的一致性。在实现方面，在 .NET 中，可以借助 TransactionScop 提供的 API 来编程实现分布式系统中的两阶段提交，比如WCF中就有实现这部分功能。不过在多服务器之间，需要依赖于DTC来完成事务一致性，Windows下微软搞的有MSDTC服务，Linux下就比较悲剧了。</p>
+<p>另外说一句，TransactionScop 默认不能用于异步方法之间事务一致，因为事务上下文是存储于当前线程中的，所以如果是在异步方法，需要显式的传递事务上下文。</p>
+<p><strong>优点：</strong> 尽量保证了数据的强一致，适合对数据强一致要求很高的关键领域。（其实也不能100%保证强一致）</p>
+<p><strong>缺点：</strong> 实现复杂，牺牲了可用性，对性能影响较大，不适合高并发高性能场景，如果分布式系统跨接口调用，目前 .NET 界还没有实现方案。</p>
+<h4 id="二、补偿事务（TCC）"><a href="#二、补偿事务（TCC）" class="headerlink" title="二、补偿事务（TCC）"></a>二、补偿事务（TCC）</h4><p>TCC 其实就是采用的补偿机制，其核心思想是：针对每个操作，都要注册一个与其对应的确认和补偿（撤销）操作。它分为三个阶段：</p>
+<ul>
+<li>Try 阶段主要是对业务系统做检测及资源预留</li>
+<li>Confirm 阶段主要是对业务系统做确认提交，Try阶段执行成功并开始执行 Confirm阶段时，默认 Confirm阶段是不会出错的。即：只要Try成功，Confirm一定成功。</li>
+<li>Cancel 阶段主要是在业务执行错误，需要回滚的状态下执行的业务取消，预留资源释放。</li>
+</ul>
+<p>举个例子，假入 Bob 要向 Smith 转账，思路大概是：<br>我们有一个本地方法，里面依次调用<br>1、首先在 Try 阶段，要先调用远程接口把 Smith 和 Bob 的钱给冻结起来。<br>2、在 Confirm 阶段，执行远程调用的转账的操作，转账成功进行解冻。<br>3、如果第2步执行成功，那么转账成功，如果第二步执行失败，则调用远程冻结接口对应的解冻方法 (Cancel)。</p>
+<p><strong>优点：</strong> 跟2PC比起来，实现以及流程相对简单了一些，但数据的一致性比2PC也要差一些</p>
+<p><strong>缺点：</strong> 缺点还是比较明显的，在2,3步中都有可能失败。TCC属于应用层的一种补偿方式，所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用TCC不太好定义及处理。</p>
+<h4 id="三、本地消息表（异步确保）"><a href="#三、本地消息表（异步确保）" class="headerlink" title="三、本地消息表（异步确保）"></a>三、本地消息表（异步确保）</h4><p>本地消息表这种实现方式应该是业界使用最多的，其核心思想是将分布式事务拆分成本地事务进行处理，这种思路是来源于ebay。我们可以从下面的流程图中看出其中的一些细节：</p>
+<p><img src="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016141237443-2074834323.png" alt="img"></p>
+<p>基本思路就是：</p>
+<p>消息生产方，需要额外建一个消息表，并记录消息发送状态。消息表和业务数据要在一个事务里提交，也就是说他们要在一个数据库里面。然后消息会经过MQ发送到消息的消费方。如果消息发送失败，会进行重试发送。</p>
+<p>消息消费方，需要处理这个消息，并完成自己的业务逻辑。此时如果本地事务处理成功，表明已经处理成功了，如果处理失败，那么就会重试执行。如果是业务上面的失败，可以给生产方发送一个业务补偿消息，通知生产方进行回滚等操作。</p>
+<p>生产方和消费方定时扫描本地消息表，把还没处理完成的消息或者失败的消息再发送一遍。如果有靠谱的自动对账补账逻辑，这种方案还是非常实用的。</p>
+<p>这种方案遵循BASE理论，采用的是最终一致性，笔者认为是这几种方案里面比较适合实际业务场景的，即不会出现像2PC那样复杂的实现(当调用链很长的时候，2PC的可用性是非常低的)，也不会像TCC那样可能出现确认或者回滚不了的情况。</p>
+<p><strong>优点：</strong> 一种非常经典的实现，避免了分布式事务，实现了最终一致性。在 .NET中 有现成的解决方案。</p>
+<p><strong>缺点：</strong> 消息表会耦合到业务系统中，如果没有封装好的解决方案，会有很多杂活需要处理。</p>
+<h4 id="四、MQ-事务消息"><a href="#四、MQ-事务消息" class="headerlink" title="四、MQ 事务消息"></a>四、MQ 事务消息</h4><p>有一些第三方的MQ是支持事务消息的，比如RocketMQ，他们支持事务消息的方式也是类似于采用的二阶段提交，但是市面上一些主流的MQ都是不支持事务消息的，比如 RabbitMQ 和 Kafka 都不支持。</p>
+<p>以阿里的 RocketMQ 中间件为例，其思路大致为：</p>
+<p>第一阶段Prepared消息，会拿到消息的地址。<br>第二阶段执行本地事务，第三阶段通过第一阶段拿到的地址去访问消息，并修改状态。</p>
+<p>也就是说在业务方法内要想消息队列提交两次请求，一次发送消息和一次确认消息。如果确认消息发送失败了RocketMQ会定期扫描消息集群中的事务消息，这时候发现了Prepared消息，它会向消息发送者确认，所以生产方需要实现一个check接口，RocketMQ会根据发送端设置的策略来决定是回滚还是继续发送确认消息。这样就保证了消息发送与本地事务同时成功或同时失败。</p>
+<p><img src="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016203840240-13953078.png" alt="img"></p>
+<p>遗憾的是，RocketMQ并没有 .NET 客户端。有关 RocketMQ的更多消息，大家可以查看<a href="http://www.jianshu.com/p/453c6e7ff81c" target="_blank" rel="noopener">这篇博客</a></p>
+<p><strong>优点：</strong> 实现了最终一致性，不需要依赖本地数据库事务。</p>
+<p><strong>缺点：</strong> 实现难度大，主流MQ不支持，没有.NET客户端，RocketMQ事务消息部分代码也未开源。</p>
+<h4 id="五、Sagas-事务模型"><a href="#五、Sagas-事务模型" class="headerlink" title="五、Sagas 事务模型"></a>五、Sagas 事务模型</h4><p>Saga事务模型又叫做长时间运行的事务（Long-running-transaction）, 它是由普林斯顿大学的H.Garcia-Molina等人提出，它描述的是另外一种在没有两阶段提交的的情况下解决分布式系统中复杂的业务事务问题。你可以在<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf" target="_blank" rel="noopener">这里</a>看到 Sagas 相关论文。</p>
+<p>我们这里说的是一种基于 Sagas 机制的工作流事务模型，这个模型的相关理论目前来说还是比较新的，以至于百度上几乎没有什么相关资料。</p>
+<p>该模型其核心思想就是拆分分布式系统中的长事务为多个短事务，或者叫多个本地事务，然后由 Sagas 工作流引擎负责协调，如果整个流程正常结束，那么就算是业务成功完成，如果在这过程中实现失败，那么Sagas工作流引擎就会以相反的顺序调用补偿操作，重新进行业务回滚。</p>
+<p>比如我们一次关于购买旅游套餐业务操作涉及到三个操作，他们分别是预定车辆，预定宾馆，预定机票，他们分别属于三个不同的远程接口。可能从我们程序的角度来说他们不属于一个事务，但是从业务角度来说是属于同一个事务的。</p>
+<p><img src="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016220040115-805407978.png" alt="img"></p>
+<p>他们的执行顺序如上图所示，所以当发生失败时，会依次进行取消的补偿操作。</p>
+<p>因为长事务被拆分了很多个业务流，所以 Sagas 事务模型最重要的一个部件就是工作流或者你也可以叫流程管理器（Process Manager），工作流引擎和Process Manager虽然不是同一个东西，但是在这里，他们的职责是相同的。在选择工作流引擎之后，最终的代码也许看起来是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SagaBuilder saga = SagaBuilder.newSaga(&quot;trip&quot;)</span><br><span class="line">        .activity(&quot;Reserve car&quot;, ReserveCarAdapter.class) </span><br><span class="line">        .compensationActivity(&quot;Cancel car&quot;, CancelCarAdapter.class) </span><br><span class="line">        .activity(&quot;Book hotel&quot;, BookHotelAdapter.class) </span><br><span class="line">        .compensationActivity(&quot;Cancel hotel&quot;, CancelHotelAdapter.class) </span><br><span class="line">        .activity(&quot;Book flight&quot;, BookFlightAdapter.class) </span><br><span class="line">        .compensationActivity(&quot;Cancel flight&quot;, CancelFlightAdapter.class) </span><br><span class="line">        .end()</span><br><span class="line">        .triggerCompensationOnAnyError();</span><br><span class="line"></span><br><span class="line">camunda.getRepositoryService().createDeployment() </span><br><span class="line">        .addModelInstance(saga.getModel()) </span><br><span class="line">        .deploy();</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/flowing/flowing-trip-booking-saga-c-sharp" target="_blank" rel="noopener">这里</a>有一个 C# 相关示例，有兴趣的同学可以看一下。</p>
+<p>优缺点这里我们就不说了，因为这个理论比较新，目前市面上还没有什么解决方案，即使是 Java 领域，我也没有搜索的太多有用的信息。</p>
+<h3 id="分布式事务解决方案：CAP"><a href="#分布式事务解决方案：CAP" class="headerlink" title="分布式事务解决方案：CAP"></a>分布式事务解决方案：CAP</h3><p>上面介绍的那些分布式事务的处理方案你在其他地方或许也可以看到，但是并没有相关的实际代码或者是开源代码，所以算不上什么干货，下面就放干货了。</p>
+<p>在 .NET 领域，似乎没有什么现成的关于分布式事务的解决方案，或者说是有但未开源。具笔者了解，有一些公司内部其实是有这种解决方案的，但是也是作为公司的一个核心产品之一，并未开源…</p>
+<p>鉴于以上原因，所以博主就打算自己写一个并且开源出来，所以从17年初就开始做这个事情，然后花了大半年的时间在一直不断完善，就是下面这个 CAP。</p>
+<p>Github <a href="https://github.com/dotnetcore/CAP" target="_blank" rel="noopener">CAP</a>：这里的 CAP 就不是 CAP 理论了，而是一个 .NET 分布式事务解决方案的名字。</p>
+<p>详细介绍：<br><a href="http://www.cnblogs.com/savorboard/p/cap.html" target="_blank" rel="noopener">http://www.cnblogs.com/savorboard/p/cap.html</a><br>相关文档：<br><a href="http://www.cnblogs.com/savorboard/p/cap-document.html" target="_blank" rel="noopener">http://www.cnblogs.com/savorboard/p/cap-document.html</a></p>
+<p>夸张的是，这个解决方案是具有可视化界面（Dashboard）的，你可以很方面的看到哪些消息执行成功，哪些消息执行失败，到底是发送失败还是处理失败，一眼便知。</p>
+<p>最夸张的是，这个解决方案的可视化界面还提供了<strong>实时动态图表</strong>，这样不但可以看到实时的消息发送及处理情况，连当前的系统处理消息的速度都可以看到，还可以看到过去24小时内的历史消息吞吐量。</p>
+<p>最最夸张的是，这个解决方案的还帮你集成了 Consul 做分布式节点发现和注册还有心跳检查，你随时可以看到其他的节点的状况。</p>
+<p>最最最夸张的是，你以为你看其他节点的数据要登录到其他节点的Dashboard控制台看？错了，你随便打开其中任意一个节点的Dashboard，点一下就可以切换到你想看的节点的控制台界面了，就像你看本地的数据一样，他们是完全去中心化的。</p>
+<p>你以为这些就够了？不，远远不止：</p>
+<ul>
+<li>CAP 同时支持 RabbitMQ，Kafka 等消息队列</li>
+<li>CAP 同时支持 SQL Server, MySql, PostgreSql 等数据库</li>
+<li>CAP Dashboard 同时支持中文和英文界面双语言，妈妈再也不用担心我看不懂了</li>
+<li>CAP 提供了丰富的接口可以供扩展，什么序列化了，自定义处理了，自定义发送了统统不在话下</li>
+<li>CAP 基于MIT开源，你可以尽管拿去做二次开发。（记得保留MIT的License）</li>
+</ul>
+<p>这下你以为我说完了？ 不！</p>
+<p>你完全可以把 CAP 当做一个 EventBus 来使用，CAP具有优秀的消息处理能力，不要担心瓶颈会在CAP，那是永远不可能， 因为你随时可以在配置中指定CAP处理的消息使用的进程数， 只要你的数据库配置足够高…</p>
+<p>说了这么多，口干舌燥的，你不 <strong>Star</strong> 一下给个精神上的支持说不过去吧？ ^_^</p>
+<p>2号传送门： <a href="https://github.com/dotnetcore/CAP" target="_blank" rel="noopener">https://github.com/dotnetcore/CAP</a></p>
+<blockquote>
+<p>不 Star 也没关系，我选择原谅你~</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过本文我们了解到两个分布式系统的理论，他们分别是CAP和BASE 理论，同时我们也总结并对比了几种分布式分解方案的优缺点，分布式事务本身是一个技术难题，是没有一种完美的方案应对所有场景的，具体还是要根据业务场景去抉择吧。 然后我们介绍了一种基于本地消息的的分布式事务解决方案CAP。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tongdaxia.github.io/2019/05/22/分布式事务/" data-id="cjvykca5w00033k8z2b2nu18u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/22/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/22/JVM调优/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/连接池技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/分布式事务/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

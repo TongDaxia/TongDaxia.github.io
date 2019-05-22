@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="连接池技术JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。 在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库">
+<meta name="keywords" content="java 开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="铜色记忆">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/22/连接池技术/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="连接池技术JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。 在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-22T00:20:18.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="铜色记忆">
+<meta name="twitter:description" content="连接池技术JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。 在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-连接池技术" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/22/连接池技术/" class="article-date">
+  <time datetime="2019-05-22T00:20:18.475Z" itemprop="datePublished">2019-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="连接池技术"><a href="#连接池技术" class="headerlink" title="连接池技术"></a>连接池技术</h1><p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
+<p>在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库厂家实现的管理标准接口：连接缓冲(connection pooling)。引入了连接池( Connection Pool )的概念 ，也就是以缓冲池的机制管理数据库的资源。</p>
+<h6 id="ConnectionPool-主要作用："><a href="#ConnectionPool-主要作用：" class="headerlink" title="ConnectionPool 主要作用："></a>ConnectionPool 主要作用：</h6><p>在一定数量上限范围内，控制管理Connection，Statement和ResultSet。</p>
+<p>数据资源往往是瓶颈资源，不同的应用都会访问同一数据源。其中某个应用耗尽了数据库资源后，意味其他的应用也无法正常运行。因此，ConnectionPool的第一个任务是<strong>限制每个应用或系统可以拥有的最大资源</strong>。也就是确定连接池的大小(PoolSize)。</p>
+<p>在连接池的大小(PoolSize)范围内，<strong>最大限度地使用资源</strong>，缩短数据库访问的使用周期。许多数据库中，连接（Connection）并不是资源的最小单元，控制Statement资源比Connection更重要。</p>
+<p>以Oracle为例：<br>每申请一个连接（Connection）会在物理网络（如 TCP/IP网络）上建立一个用于通讯的连接，在此连接上还可以申请一定数量的Statement。同一连接可提供的活跃Statement数量可以达到几百。在节约网络资源的同时，缩短了每次会话周期（物理连接的建立是个费时的操作）。让几十、几百个Statement只占用同一个物理连接， 发挥数据库原有的优点。</p>
+<h6 id="连接池管理逻辑"><a href="#连接池管理逻辑" class="headerlink" title="连接池管理逻辑"></a>连接池管理逻辑</h6><p>当客户请求数据库连接时，首先查看连接池中是否有空闲连接（指当前没有分配出去的连接）。如果存在空闲连接，则把连接分配给客户并作相应处理（即标记该连接为正在使用，<a href="https://baike.baidu.com/item/%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0" target="_blank" rel="noopener">引用计数</a>加1）。如果没有空闲连接，则查看当前所开的连接数是不是已经达到maxConn（<a href="https://baike.baidu.com/item/%E6%9C%80%E5%A4%A7%E8%BF%9E%E6%8E%A5%E6%95%B0" target="_blank" rel="noopener">最大连接数</a>），如果没达到就重新创建一个连接给请求的客户；如果达到就按设定的maxWaitTime（最大等待时间）进行等待，如果等待maxWaitTime后仍没有空闲连接，就抛出无空闲连接的异常给用户。</p>
+<p>当客户释放数据库连接时，先判断该连接的引用次数是否超过了规定值，如果超过就删除该连接，并判断当前连接池内总的连接数是否小于minConn（最小连接数），若小于就将连接池充满；如果没超过就将该连接标记为开放状态，可供再次复用。可以看出正是这套策略保证了数据库连接的有效复用，避免频繁地建立、释放连接所带来的系统资源开销。</p>
+<h6 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h6><p>Connection本身具有提供了对于事务的支持，可以通过设置Connection的AutoCommit属性为false，显式的调用 commit或rollback方法来实现。但是要安全、高效的进行连接复用，就必须提供相应的事务支持机制。方法是：采用显式的事务支撑方法，每一个事务独占一个连接。这种方法可以大大降低对于事务处理的复杂性，并且又不会妨碍连接的复用。</p>
+<p>连接管理服务提供了显式的事务]开始、结束（commit 或rollback）声明，以及一个事务 注册表 ，用于登记事务发起者和事务使用的连接的对应关系，通过该表，使用事务的部分和连接管理部分就隔离开，因为该表是在运行时根据实际的调用情况动态生成的。事务使用的连接在该事务运行中不能被复用。在实现中,用户标识 是通过使用者所在的线程来标识的。后面的所有对于数据库的访问都是通过查找该注册表，使用已经分配的连接来完成的。当事务结束时，从注册表中删除相应表项。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tongdaxia.github.io/2019/05/22/连接池技术/" data-id="cjvykca5w00013k8zptmwlt67" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/22/JVM调优/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/22/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/22/JVM调优/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/连接池技术/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/分布式事务/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
