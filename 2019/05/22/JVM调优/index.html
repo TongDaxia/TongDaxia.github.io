@@ -5,15 +5,15 @@
   
 
   
-  <title>铜色记忆</title>
+  <title>JVM调优 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="JVM调优数据类型基本类型和引用类型 堆与栈​    栈是运行时的单位，而堆是存储的单位。 ​    栈解决程序的运行问题，即程序如何执行，或者说如何处理数据；堆解决的是数据存储的问题，即数据怎么放、放在哪儿。 ​    在Java中一个线程就会相应有一个线程栈与之对应，这点很容易理解，因为不同的线程执行逻辑有所不同，因此需要一个独立的线程栈。而堆则是所有线程共享的。栈因为是运行单位，因此里面存储">
-<meta name="keywords" content="java 开发">
+  <meta name="description" content="JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。">
+<meta name="keywords" content="java,底层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="铜色记忆">
+<meta property="og:title" content="JVM调优">
 <meta property="og:url" content="https://tongdaxia.github.io/2019/05/22/JVM调优/index.html">
 <meta property="og:site_name" content="铜色记忆">
-<meta property="og:description" content="JVM调优数据类型基本类型和引用类型 堆与栈​    栈是运行时的单位，而堆是存储的单位。 ​    栈解决程序的运行问题，即程序如何执行，或者说如何处理数据；堆解决的是数据存储的问题，即数据怎么放、放在哪儿。 ​    在Java中一个线程就会相应有一个线程栈与之对应，这点很容易理解，因为不同的线程执行逻辑有所不同，因此需要一个独立的线程栈。而堆则是所有线程共享的。栈因为是运行单位，因此里面存储">
+<meta property="og:description" content="JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning002.png">
 <meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning003.png">
@@ -35,10 +35,10 @@
 <meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning019.png">
 <meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning020.png">
 <meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning021.png">
-<meta property="og:updated_time" content="2019-05-22T00:20:18.475Z">
+<meta property="og:updated_time" content="2019-05-22T03:15:09.147Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="铜色记忆">
-<meta name="twitter:description" content="JVM调优数据类型基本类型和引用类型 堆与栈​    栈是运行时的单位，而堆是存储的单位。 ​    栈解决程序的运行问题，即程序如何执行，或者说如何处理数据；堆解决的是数据存储的问题，即数据怎么放、放在哪儿。 ​    在Java中一个线程就会相应有一个线程栈与之对应，这点很容易理解，因为不同的线程执行逻辑有所不同，因此需要一个独立的线程栈。而堆则是所有线程共享的。栈因为是运行单位，因此里面存储">
+<meta name="twitter:title" content="JVM调优">
+<meta name="twitter:description" content="JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。">
 <meta name="twitter:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning002.png">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
@@ -93,16 +93,28 @@
         <section id="main"><article id="post-JVM调优" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/22/JVM调优/" class="article-date">
-  <time datetime="2019-05-22T00:20:18.475Z" itemprop="datePublished">2019-05-22</time>
+  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JVM调优
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h1><h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>基本类型和引用类型</p>
+        <h1 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h1><p>​    Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>基本类型和引用类型</p>
+<a id="more"></a>
 <h2 id="堆与栈"><a href="#堆与栈" class="headerlink" title="堆与栈"></a>堆与栈</h2><p>​    栈是<strong>运行时的单位</strong>，而堆是<strong>存储的单位</strong>。</p>
 <p>​    栈解决程序的运行问题，即程序如何执行，或者说如何处理数据；堆解决的是数据存储的问题，即数据怎么放、放在哪儿。</p>
 <p>​    在Java中一个线程就会相应有一个线程栈与之对应，这点很容易理解，因为不同的线程执行逻辑有所不同，因此需要一个独立的线程栈。而堆则是所有线程共享的。栈因为是运行单位，因此里面存储的信息都是跟当前线程（或程序）相关信息的。包括局部变量、程序运行状态、方法返回值等等；而堆只负责存储对象信息。</p>
@@ -362,19 +374,30 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM调优/" data-id="cjvykca5h00003k8zoqkg6kep" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM调优/" data-id="cjvyny6m80005is8zmexrxjkl" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/底层/">底层</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
+    <a href="/2019/05/22/连接池技术/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          连接池思想
+        
+      </div>
+    </a>
   
-    <a href="/2019/05/22/连接池技术/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2019/03/22/分布式事务/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">分布式事务的解决</div>
     </a>
   
 </nav>
@@ -390,15 +413,29 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 10px;">分布式</a> <a href="/tags/底层/" style="font-size: 10px;">底层</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
     </div>
   </div>
 
@@ -411,19 +448,23 @@
       <ul>
         
           <li>
-            <a href="/2019/05/22/JVM调优/">(no title)</a>
+            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
           </li>
         
           <li>
-            <a href="/2019/05/22/连接池技术/">(no title)</a>
+            <a href="/2019/05/22/连接池技术/">连接池思想</a>
           </li>
         
           <li>
-            <a href="/2019/05/22/hello-world/">Hello World</a>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
           </li>
         
           <li>
-            <a href="/2019/05/22/分布式事务/">(no title)</a>
+            <a href="/2019/03/22/分布式事务/">分布式事务的解决</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/22/hello-world/">Hello World</a>
           </li>
         
       </ul>
