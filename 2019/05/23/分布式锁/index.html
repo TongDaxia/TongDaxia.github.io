@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>分布式锁的学习 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。">
+<meta name="keywords" content="java,分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式锁的学习">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/23/分布式锁/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-23T08:38:34.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式锁的学习">
+<meta name="twitter:description" content="锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-分布式锁" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/23/分布式锁/" class="article-date">
+  <time datetime="2019-05-23T03:04:56.000Z" itemprop="datePublished">2019-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      分布式锁的学习
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分布式锁的学习"><a href="#分布式锁的学习" class="headerlink" title="分布式锁的学习"></a>分布式锁的学习</h1><h2 id="锁是什么"><a href="#锁是什么" class="headerlink" title="锁是什么"></a>锁是什么</h2><p>锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。</p>
+<p>比如多个人买票，同一个座位只能卖给同一个人。</p>
+<p>实现锁的基本原理是设置一个所有人都能及时查看、修改的标记，然后所有人在操作资源之前查看修改该标记。</p>
+<a id="more"></a>
+<h2 id="实现锁的方式"><a href="#实现锁的方式" class="headerlink" title="实现锁的方式"></a>实现锁的方式</h2><h4 id="java原生"><a href="#java原生" class="headerlink" title="java原生"></a>java原生</h4><h5 id="synchronize-关键字"><a href="#synchronize-关键字" class="headerlink" title="synchronize 关键字"></a>synchronize 关键字</h5><p>synchronize 方法 当前对象</p>
+<p>在同步方法调用前，加入了 monitor.enter，退出时加入了monitor.exit。而每一个方法对应一个对象监视器( Monitor )；并且获取这个对象是排他的。</p>
+<p>synchronize 同步静态方法 当前Class对象</p>
+<p>synchronize 块 {}中对象</p>
+<h5 id="Lock接口"><a href="#Lock接口" class="headerlink" title="Lock接口"></a>Lock接口</h5><p>设置一个由volitile 修饰的变量，并保证每个线程都可以对查看，原子修改。</p>
+<h4 id="基于数据库"><a href="#基于数据库" class="headerlink" title="基于数据库"></a>基于数据库</h4><h5 id="唯一约束（主键）"><a href="#唯一约束（主键）" class="headerlink" title="唯一约束（主键）"></a>唯一约束（主键）</h5><p>在数据库中添加一个锁表，对于同样的一个操作，使用一个确定的主键操作锁表：加锁时在锁表中添加一条记录，然后执行业务逻辑，释放锁时删除对应的记录即可。</p>
+<p>可能有一些问题：</p>
+<p>数据库挂了就不可用；</p>
+<p>锁没有失效时间，可能死锁；</p>
+<p>是非阻塞式的，一旦插入失败就不会排队等待；</p>
+<p>非重入式的，当前线程没有释放锁之前没办法再次获得锁。</p>
+<h5 id="for-update语句"><a href="#for-update语句" class="headerlink" title="for update语句"></a>for update语句</h5><p>主要依赖以下SQL:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">lock</span> <span class="keyword">where</span> lock_name=xxx <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<p>在查询后面增加 for update ，数据库会在查询过程中给数据表增加排它锁，如果查询没有 commit，其他线程始终查询不到结果。</p>
+<p>注意：</p>
+<p>1、InnoDB引擎在加锁的时候，只有通过索引进行检索的时候才会使用行级锁，否则会使用表级锁。这里我们希望使用行级锁，就要给method_name添加索引。重载方法的话建议把参数类型也加上。</p>
+<p>2、MySql会对查询进行优化，即便在条件中使用了索引字段，但是否使用索引来检索数据是由 MySQL 通过判断不同执行计划的代价来决定的，如果 MySQL 认为全表扫效率更高，比如对一些很小的表，它就不会使用索引，这种情况下 InnoDB 将使用表锁，而不是行锁。</p>
+<p>3、要使用排他锁来进行分布式锁的lock，那么一个排他锁长时间不提交，就会占用数据库连接。一旦类似的连接变得多了，数据库连接池就爆了。</p>
+<h5 id="版本号实现的乐观锁"><a href="#版本号实现的乐观锁" class="headerlink" title="版本号实现的乐观锁"></a>版本号实现的乐观锁</h5><p>普通操作是：先查询是否有修改标记，在可执行时修改资源和修改标记，完成；</p>
+<p>但是查询修改标记和修改之间可能被其他线程 修改A-&gt;B,并释放了资源B-&gt;A。这就是 ABA问题。</p>
+<p>加一个版本号后，第一次查询标记时查询到当前版本号，在进行操作时，除了核对修改标记还要进行版本号的核对；同事修改资源值，并将版本号增加1。</p>
+<p>但是：</p>
+<p>效率低下，多次连接数据库；</p>
+<p>多个资源保证数据一致性时需要给每个资源一张资源表。</p>
+<h4 id="基于Redis"><a href="#基于Redis" class="headerlink" title="基于Redis"></a>基于Redis</h4><p><strong>Redis中有API : setnx+getset</strong></p>
+<p>将key设置为value，并返回1；如果给定key已经存在，则不做任何动作并返回 0。</p>
+<p>死锁问题：</p>
+<p>如果有线程获得锁后没有释放，变死锁了。</p>
+<p>粗暴的解决方案是超时立刻删除锁并重新设置，但是获取到重新设置之间可能有其他线程机内并修改。</p>
+<p>所以需要设置一个超时时间。</p>
+<p>线程    当前    设置值            获取值&lt;当前        结果</p>
+<p>a–&gt;      100       100+15 = 115        get  80&lt;100          ok </p>
+<p>b–&gt;     116      116+15=131        get 115&lt;116        ok</p>
+<p>c–&gt;        117        117+15=161        get     161&lt;117        ×</p>
+<p><strong>其他方式</strong></p>
+<p>加锁 jedis.set(“”,””,””,””,””);</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);</span><br></pre></td></tr></table></figure>
+<p>释放锁 lua脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String script = &quot;if redis.call(&apos;get&apos;, KEYS[1]) == ARGV[1] then return redis.call(&apos;del&apos;, KEYS[1]) else return 0 end&quot;;</span><br><span class="line">Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));</span><br><span class="line">if (RELEASE_SUCCESS.equals(result)) &#123;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line">return false;</span><br></pre></td></tr></table></figure>
+<p>错误的释放的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 判断加锁与解锁是不是同一个客户端</span><br><span class="line">    if (requestId.equals(jedis.get(lockKey))) &#123;</span><br><span class="line">        // 若在此时，这把锁突然不是这个客户端的，则会误解锁</span><br><span class="line">        jedis.del(lockKey);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>redisson框架</strong></p>
+<p>暂时没用过！</p>
+<p><strong>REDLOCK</strong> </p>
+<p>获取锁：</p>
+<p>1、获取当前系统时间；</p>
+<p>2、获取N个节点（设置较短的超时时间）；</p>
+<p>3、计算获取锁花费时间 = 当前时间-步骤1的时间，获取客户端个数超过一半+1,并且获取锁的时间小于锁的超时时间，才能获得锁；</p>
+<p>4、客户端获取锁的时间需要重新计算，应该为为设置锁的超时时间减去步骤3计算出获取锁花费的时间；</p>
+<p>5、客户端获取失败删除所有客户端的锁。</p>
+<p>释放锁：向所有redis节点发起释放锁的操作。</p>
+<p>存在的问题：</p>
+<p>1、锁会自动失效，如果客户端长期阻塞导致锁过期，那么它接下来访问共享资源就不安全了（没有了锁的保护）；</p>
+<p>2、第4步成功获取了锁之后，如果由于获取锁的过程消耗了较长时间，重新计算出来的剩余的锁有效时间很短了，那么我们还来得及去完成共享资源访问吗？如果我们认为太短，是不是应该立即进行锁的释放操作？那到底多短才算呢？又是一个选择难题；</p>
+<p>3、系统时间可能会有较大的跳跃，那么锁会快速过期</p>
+<h4 id="基于Zookeeper"><a href="#基于Zookeeper" class="headerlink" title="基于Zookeeper"></a>基于Zookeeper</h4><p>Zookeeper的节点主要有四种：</p>
+<p>持久节点；</p>
+<p>持久节点顺序节点；</p>
+<p>临时节点；</p>
+<p>临时节点顺序节点；</p>
+<p>加锁时，在zookeeper上的与该方法对应的指定节点的目录下，生成一个唯一的瞬时有序节点。判断是否获取锁的方式很简单，只需要判断有序节点中序号最小的一个是否为第一个。当释放锁的时候，只需将这个瞬时节点删除即可。同时，其可以避免服务宕机导致的锁无法释放，而产生的死锁问题。</p>
+<p>使用zookeeper的主要代码框架自动解决！但是性能可能不及redis。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>分布式锁的关键是每一个获取锁，释放锁的操作是不是原子的，会不会在获取和释放的判断过程中被其他线程修改。实际上分布式锁的选择也要根据业务特点进行选择。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tongdaxia.github.io/2019/05/23/分布式锁/" data-id="cjw0etnxf0000048z5v8kowc0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/22/JVM内存模型学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">&#39;JVM内存模型学习&#39;</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 10px;">底层</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/23/分布式锁/">分布式锁的学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/连接池技术/">连接池思想</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/分布式事务/">分布式事务的解决</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
