@@ -8,7 +8,7 @@
   <title>JVM内存模型学习 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。  除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法">
-<meta name="keywords" content="java 开发">
+<meta name="keywords" content="java,底层">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM内存模型学习">
 <meta property="og:url" content="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/index.html">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/JVM运行时内存结构.png">
 <meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/java中的对象存储模型.jpeg">
-<meta property="og:updated_time" content="2019-05-28T01:15:50.269Z">
+<meta property="og:updated_time" content="2019-05-28T07:10:23.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存模型学习">
 <meta name="twitter:description" content="JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。  除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法">
@@ -109,28 +109,38 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/" data-id="cjw7djabd0003eg8zzue5h40y" class="article-share-link">Share</a>
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/底层/">底层</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2019/05/22/JVM调优/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/23/分布式锁/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          JVM调优
+          分布式锁的学习
         
       </div>
     </a>
   
   
-    <a href="/2019/05/22/连接池技术/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/22/JVM调优/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">连接池思想</div>
+      <div class="article-nav-title">JVM调优</div>
     </a>
   
 </nav>
@@ -159,7 +169,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 10px;">底层</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 16.67px;">分布式</a> <a href="/tags/底层/" style="font-size: 13.33px;">底层</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -197,7 +207,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/22/JVM调优/">JVM调优</a>
+            <a href="/2019/05/22/JVM内存模型学习/">JVM内存模型学习</a>
           </li>
         
       </ul>
