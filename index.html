@@ -92,7 +92,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分布式限流方案"><a href="#分布式限流方案" class="headerlink" title="分布式限流方案"></a>分布式限流方案</h1>
+        <p>1、使用<a href="http://lib.csdn.net/base/javase" target="_blank" rel="noopener">Java</a>自带delayqueue的延迟队列实现</p>
+<p>2、使用<a href="http://lib.csdn.net/base/redis" target="_blank" rel="noopener">Redis</a>实现，存储两个key，一个用于计时，一个用于计数。请求每调用一次，计数器增加1，若在计时器时间内计数器未超过阈值，则可以处理任务</p>
+<p>3、使用guava提供工具库里的RateLimiter类(内部采用令牌捅算法实现)进行限流</p>
         
           <p class="article-more-link">
             <a href="/2019/05/28/分布式限流方案/#more">Read More</a>
@@ -101,7 +103,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/28/分布式限流方案/" data-id="cjw733sjw00058c8zf573ira9" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/28/分布式限流方案/" data-id="cjw7djabh0007eg8z1ot0bic4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -135,7 +137,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="HashMap学习笔记"><a href="#HashMap学习笔记" class="headerlink" title="HashMap学习笔记"></a>HashMap学习笔记</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
+        <h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
         
           <p class="article-more-link">
             <a href="/2019/05/27/HashMap学习笔记/#more">Read More</a>
@@ -144,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/" data-id="cjw733sjr00018c8zajpm7zfn" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/" data-id="cjw7djaaf0000eg8z998b3s1a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -178,7 +180,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="工厂模式的学习"><a href="#工厂模式的学习" class="headerlink" title="工厂模式的学习"></a>工厂模式的学习</h1><p>工厂模式的基本含义就是抽象化创建类实例的过程，将对象和创建和使用进行解耦。又称创建型模式，Creational Pattern。所以工厂模式的主要作用就是帮组进行实例化对象的。</p>
+        <p>工厂模式的基本含义就是抽象化创建类实例的过程，将对象和创建和使用进行解耦。又称创建型模式，Creational Pattern。所以工厂模式的主要作用就是帮组进行实例化对象的。</p>
         
           <p class="article-more-link">
             <a href="/2019/05/27/工厂模式的学习/#more">Read More</a>
@@ -187,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/27/工厂模式的学习/" data-id="cjw733skc000m8c8zlbvih13v" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/27/工厂模式的学习/" data-id="cjw7djabi0008eg8zeyt6mgw4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
@@ -221,7 +223,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分布式锁的学习"><a href="#分布式锁的学习" class="headerlink" title="分布式锁的学习"></a>分布式锁的学习</h1><h2 id="锁是什么"><a href="#锁是什么" class="headerlink" title="锁是什么"></a>锁是什么</h2><p>锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。</p>
+        <h2 id="锁是什么"><a href="#锁是什么" class="headerlink" title="锁是什么"></a>锁是什么</h2><p>锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。</p>
 <p>比如多个人买票，同一个座位只能卖给同一个人。</p>
 <p>实现锁的基本原理是设置一个所有人都能及时查看、修改的标记，然后所有人在操作资源之前查看修改该标记。</p>
         
@@ -232,47 +234,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/23/分布式锁/" data-id="cjw733skd000n8c8zpr8puw0f" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/23/分布式锁/" data-id="cjw7djabg0005eg8z11sp2hsy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JVM内存模型学习" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/22/JVM内存模型学习/" class="article-date">
-  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/" data-id="cjw733sjn00008c8zwqpawtwb" class="article-share-link">Share</a>
-      
-      
     </footer>
   </div>
   
@@ -302,7 +268,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h1><p>​    Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
+        <p>​    Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
 <h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>基本类型和引用类型</p>
         
           <p class="article-more-link">
@@ -312,11 +278,58 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM调优/" data-id="cjw733sjx00068c8z36jgcfjh" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM调优/" data-id="cjw7djaba0001eg8zwv792brp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/底层/">底层</a></li></ul>
 
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-JVM内存模型学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/22/JVM内存模型学习/" class="article-date">
+  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/22/JVM内存模型学习/">JVM内存模型学习</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="JVM内存结构"><a href="#JVM内存结构" class="headerlink" title="JVM内存结构"></a>JVM内存结构</h3><p>Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\JVM运行时内存结构.png" alt="JVM运行时内存结构"></p>
+<p>除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法库直接在堆外申请的内存区域。</p>
+<p>JVM内存结构，由Java虚拟机规范定义。描述的是Java程序执行过程中，由JVM管理的不同数据区域。各个区域有其特定的功能。</p>
+<h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>Java堆和方法区的区域是多个线程共享的数据区域。也就是说，多个线程可能可以操作保存在堆或者方法区中的同一个数据。这也就是我们常说的“Java的线程间通过共享内存进行通信”。</p>
+<p>Java内存模型  Java Memory Model（JMM）描述了一组规则或规范，这个规范定义了一个线程对共享变量的写入时对另一个线程是可见的。JMM定义了一些语法集，这些语法集映射到Java语言中就是volatile、synchronized等关键字。</p>
+<p>《Java并发编程的艺术》。</p>
+<h3 id="Java对象模型"><a href="#Java对象模型" class="headerlink" title="Java对象模型"></a>Java对象模型</h3><p>HotSpot虚拟机中，设计了一个OOP-Klass Model。OOP（Ordinary Object Pointer）指的是普通对象指针，而Klass用来描述对象实例的具体类型。</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\java中的对象存储模型.jpeg" alt="java中的对象存储模型"></p>
+<p>这就是一个简单的Java对象的OOP-Klass模型，即Java对象模型。</p>
+<p>参考：<a href="https://www.hollischuang.com/archives/2509" target="_blank" rel="noopener">JVM内存结构 VS Java内存模型 VS Java对象模型</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/" data-id="cjw7djabd0003eg8zzue5h40y" class="article-share-link">Share</a>
+      
+      
     </footer>
   </div>
   
@@ -346,9 +359,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="连接池思想"><a href="#连接池思想" class="headerlink" title="连接池思想"></a>连接池思想</h1><p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
+        <p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
 <p>在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库厂家实现的管理标准接口：连接缓冲(connection pooling)。引入了连接池( Connection Pool )的概念 ，也就是以缓冲池的机制管理数据库的资源。</p>
-<h6 id="ConnectionPool-主要作用："><a href="#ConnectionPool-主要作用：" class="headerlink" title="ConnectionPool 主要作用："></a>ConnectionPool 主要作用：</h6><p>在一定数量上限范围内，控制管理Connection，Statement和ResultSet。</p>
         
           <p class="article-more-link">
             <a href="/2019/05/22/连接池技术/#more">Read More</a>
@@ -357,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/连接池技术/" data-id="cjw733skf000p8c8ztfaxlskf" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/22/连接池技术/" data-id="cjw7djabw000qeg8zf09uqx9o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -391,7 +403,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分布式事务的解决"><a href="#分布式事务的解决" class="headerlink" title="分布式事务的解决"></a>分布式事务的解决</h1><p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
+        <p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
 <h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><ul>
 <li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li>
 <li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li>
@@ -412,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/03/22/分布式事务/" data-id="cjw733sjv00048c8z12iqmgy9" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/03/22/分布式事务/" data-id="cjw7djabx000reg8ze95a49z6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -457,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2018/08/22/hello-world/" data-id="cjw733sjt00028c8z0sbudywt" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2018/08/22/hello-world/" data-id="cjw7djabe0004eg8zmvakpyki" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/其他/">其他</a></li></ul>
@@ -530,7 +542,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
           </li>
         
       </ul>

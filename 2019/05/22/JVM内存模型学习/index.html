@@ -5,20 +5,23 @@
   
 
   
-  <title>&#39;JVM内存模型学习&#39; | 铜色记忆</title>
+  <title>JVM内存模型学习 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术的世界也可以精彩而有趣">
+  <meta name="description" content="JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。  除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法">
 <meta name="keywords" content="java 开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&#39;JVM内存模型学习&#39;">
+<meta property="og:title" content="JVM内存模型学习">
 <meta property="og:url" content="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/index.html">
 <meta property="og:site_name" content="铜色记忆">
-<meta property="og:description" content="技术的世界也可以精彩而有趣">
+<meta property="og:description" content="JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。  除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-22T03:21:41.309Z">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/JVM运行时内存结构.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/java中的对象存储模型.jpeg">
+<meta property="og:updated_time" content="2019-05-28T01:15:50.269Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&#39;JVM内存模型学习&#39;">
-<meta name="twitter:description" content="技术的世界也可以精彩而有趣">
+<meta name="twitter:title" content="JVM内存模型学习">
+<meta name="twitter:description" content="JVM内存结构Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。  除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法">
+<meta name="twitter:image" content="e:/tyg/study/blog/source/_posts/img/JVM运行时内存结构.png">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
   
@@ -83,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      &#39;JVM内存模型学习&#39;
+      JVM内存模型学习
     </h1>
   
 
@@ -91,11 +94,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="JVM内存结构"><a href="#JVM内存结构" class="headerlink" title="JVM内存结构"></a>JVM内存结构</h3><p>Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\JVM运行时内存结构.png" alt="JVM运行时内存结构"></p>
+<p>除了以上介绍的JVM运行时内存外，还有一块内存区域可供使用，那就是直接内存。Java虚拟机规范并没有定义这块内存区域，所以他并不由JVM管理，是利用本地方法库直接在堆外申请的内存区域。</p>
+<p>JVM内存结构，由Java虚拟机规范定义。描述的是Java程序执行过程中，由JVM管理的不同数据区域。各个区域有其特定的功能。</p>
+<h3 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h3><p>Java堆和方法区的区域是多个线程共享的数据区域。也就是说，多个线程可能可以操作保存在堆或者方法区中的同一个数据。这也就是我们常说的“Java的线程间通过共享内存进行通信”。</p>
+<p>Java内存模型  Java Memory Model（JMM）描述了一组规则或规范，这个规范定义了一个线程对共享变量的写入时对另一个线程是可见的。JMM定义了一些语法集，这些语法集映射到Java语言中就是volatile、synchronized等关键字。</p>
+<p>《Java并发编程的艺术》。</p>
+<h3 id="Java对象模型"><a href="#Java对象模型" class="headerlink" title="Java对象模型"></a>Java对象模型</h3><p>HotSpot虚拟机中，设计了一个OOP-Klass Model。OOP（Ordinary Object Pointer）指的是普通对象指针，而Klass用来描述对象实例的具体类型。</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\java中的对象存储模型.jpeg" alt="java中的对象存储模型"></p>
+<p>这就是一个简单的Java对象的OOP-Klass模型，即Java对象模型。</p>
+<p>参考：<a href="https://www.hollischuang.com/archives/2509" target="_blank" rel="noopener">JVM内存结构 VS Java内存模型 VS Java对象模型</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/" data-id="cjw733sjn00008c8zwqpawtwb" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM内存模型学习/" data-id="cjw7djabd0003eg8zzue5h40y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -104,19 +118,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/23/分布式锁/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/22/JVM调优/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          分布式锁的学习
+          JVM调优
         
       </div>
     </a>
   
   
-    <a href="/2019/05/22/JVM调优/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/22/连接池技术/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JVM调优</div>
+      <div class="article-nav-title">连接池思想</div>
     </a>
   
 </nav>
@@ -183,7 +197,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
           </li>
         
       </ul>

@@ -15,31 +15,31 @@
 <meta property="og:site_name" content="铜色记忆">
 <meta property="og:description" content="JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning002.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning003.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning004.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning005.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning006.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning007.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning008.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning009.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning010.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning011.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning012.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning013.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning014.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning015.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning016.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning017.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning018.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning019.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning020.png">
-<meta property="og:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning021.png">
-<meta property="og:updated_time" content="2019-05-22T03:15:09.147Z">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/GC01.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning003.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning004.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning005.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning006.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning007.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning008.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning009.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning010.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning011.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning012.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning013.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning014.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning015.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning016.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning017.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning018.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning019.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning020.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/o_Jvm_Tuning021.png">
+<meta property="og:updated_time" content="2019-05-28T03:07:18.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM调优">
 <meta name="twitter:description" content="JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。">
-<meta name="twitter:image" content="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning002.png">
+<meta name="twitter:image" content="e:/tyg/study/blog/source/_posts/img/GC01.png">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
   
@@ -112,7 +112,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h1><p>​    Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
+        <p>​    Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
 <h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>基本类型和引用类型</p>
 <a id="more"></a>
 <h2 id="堆与栈"><a href="#堆与栈" class="headerlink" title="堆与栈"></a>堆与栈</h2><p>​    栈是<strong>运行时的单位</strong>，而堆是<strong>存储的单位</strong>。</p>
@@ -141,11 +141,11 @@
 <h6 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用:"></a>弱引用:</h6><p>弱引用与软引用类似，都是作为缓存来使用。但与软引用不同，弱引用在进行垃圾回收时，是一定会被回收掉的，因此其生命周期只存在于一个垃圾回收周期内。</p>
 <p>强引用不用说，我们系统一般在使用时都是用的强引用。而“软引用”和“弱引用”比较少见。他们一般被作为缓存使用，而且一般是在内存大小比较受限的情况下做为缓存。因为如果内存足够大的话，可以直接使用强引用作为缓存即可，同时可控性更高。因而，他们常见的是被使用在桌面应用系统的缓存。</p>
 <h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="按照基本回收策略"><a href="#按照基本回收策略" class="headerlink" title="按照基本回收策略"></a>按照基本回收策略</h3><h4 id="引用计数（Reference-Counting）"><a href="#引用计数（Reference-Counting）" class="headerlink" title="引用计数（Reference Counting）:"></a>引用计数（Reference Counting）:</h4><p>比较古老的回收算法。原理是此对象有一个引用，即增加一个计数，删除一个引用则减少一个计数。垃圾回收时，只用收集计数为0的对象。此算法最致命的是无法处理循环引用的问题。</p>
-<h4 id="标记-清除（Mark-Sweep）"><a href="#标记-清除（Mark-Sweep）" class="headerlink" title="标记-清除（Mark-Sweep）:"></a>标记-清除（Mark-Sweep）:</h4><p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning002.png" alt="JVM Tuning 002"></p>
+<h4 id="标记-清除（Mark-Sweep）"><a href="#标记-清除（Mark-Sweep）" class="headerlink" title="标记-清除（Mark-Sweep）:"></a>标记-清除（Mark-Sweep）:</h4><p><img src="E:\tyg\study\blog\source\_posts\img\GC01.png" alt="JVM Tuning 002"></p>
 <p>​    此算法执行分两阶段。第一阶段从引用根节点开始标记所有被引用的对象，第二阶段遍历整个堆，把未标记的对象清除。此算法需要暂停整个应用，同时，会产生内存碎片。</p>
-<h4 id="复制（Copying）"><a href="#复制（Copying）" class="headerlink" title="复制（Copying）:"></a>复制（Copying）:</h4><p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning003.png" alt="JVM Tuning 003"></p>
+<h4 id="复制（Copying）"><a href="#复制（Copying）" class="headerlink" title="复制（Copying）:"></a>复制（Copying）:</h4><p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning003.png" alt="JVM Tuning 003"></p>
 <p>​    此算法把内存空间划为两个相等的区域，每次只使用其中一个区域。垃圾回收时，遍历当前使用区域，把正在使用中的对象复制到另外一个区域中。次算法每次只处理正在使用中的对象，因此复制成本比较小，同时复制过去以后还能进行相应的内存整理，不会出现“碎片”问题。当然，此算法的缺点也是很明显的，就是需要两倍内存空间。</p>
-<h4 id="标记-整理（Mark-Compact）"><a href="#标记-整理（Mark-Compact）" class="headerlink" title="标记-整理（Mark-Compact）:"></a>标记-整理（Mark-Compact）:</h4><p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning004.png" alt="JVM Tuning 004"></p>
+<h4 id="标记-整理（Mark-Compact）"><a href="#标记-整理（Mark-Compact）" class="headerlink" title="标记-整理（Mark-Compact）:"></a>标记-整理（Mark-Compact）:</h4><p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning004.png" alt="JVM Tuning 004"></p>
 <p>此算法结合了“标记-清除”和“复制”两个算法的优点。也是分两阶段，第一阶段从根节点开始标记所有被引用对象，第二阶段遍历整个堆，把清除未标记对象并且把存活对象“压缩”到堆的其中一块，按顺序排放。此算法避免了“标记-清除”的碎片问题，同时也避免了“复制”算法的空间问题。</p>
 <h3 id="按分区对待的方式分"><a href="#按分区对待的方式分" class="headerlink" title="按分区对待的方式分"></a>按分区对待的方式分</h3><h4 id="增量收集（Incremental-Collecting）"><a href="#增量收集（Incremental-Collecting）" class="headerlink" title="增量收集（Incremental Collecting）"></a>增量收集（Incremental Collecting）</h4><p>实时垃圾回收算法，即：在应用进行的同时进行垃圾回收。不知道什么原因JDK5.0中的收集器没有使用这种算法的。</p>
 <h4 id="分代收集（Generational-Collecting）"><a href="#分代收集（Generational-Collecting）" class="headerlink" title="分代收集（Generational Collecting）"></a>分代收集（Generational Collecting）</h4><p>基于对对象生命周期分析后得出的垃圾回收算法。把对象分为年青代、年老代、持久代，对不同生命周期的对象使用不同的算法（上述方式中的一个）进行回收。现在的垃圾回收器（从J2SE1.2开始）都是使用此算法的。</p>
@@ -156,7 +156,7 @@
 <p>并发收集</p>
 <p>相对于串行收集和并行收集而言，前面两个在进行垃圾回收工作时，需要暂停整个运行环境，而只有垃圾回收程序在运行，因此，系统在垃圾回收时会有明显的暂停，而且暂停时间会因为堆越大而越长。</p>
 <h2 id="区分垃圾"><a href="#区分垃圾" class="headerlink" title="区分垃圾"></a>区分垃圾</h2><p>上面说到的“引用计数”法，通过统计控制生成对象和删除对象时的引用数来判断。垃圾回收程序收集计数为0的对象即可。但是这种方法无法解决循环引用。所以，后来实现的垃圾判断算法中，都是从程序运行的根节点出发，遍历整个对象引用，查找存活的对象。那么在这种方式的实现中，垃圾回收从哪儿开始的呢？即，从哪儿开始查找哪些对象是正在被当前系统使用的。上面分析的堆和栈的区别，其中栈是真正进行程序执行地方，所以要获取哪些对象正在被使用，则需要从Java栈开始。同时，一个栈是与一个线程对应的，因此，如果有多个线程的话，则必须对这些线程对应的所有的栈进行检查。</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning005.png" alt="JVM Tuning 005"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning005.png" alt="JVM Tuning 005"></p>
 <p>同时，除了栈外，还有系统运行时的寄存器等，也是存储程序运行数据的。这样，以栈或寄存器中的引用为起点，我们可以找到堆中的对象，又从这些对象找到对堆中其他对象的引用，这种引用逐步扩展，最终以null引用或者基本类型结束，这样就形成了一颗以Java栈中引用所对应的对象为根节点的一颗对象树，如果栈中有多个引用，则最终会形成多颗对象树。在这些对象树上的对象，都是当前系统运行所需要的对象，不能被垃圾回收。而其他剩余对象，则可以视为无法被引用到的对象，可以被当做垃圾进行回收。</p>
 <p>因此，垃圾回收的起点是一些根对象（java栈, 静态变量, 寄存器…）。而最简单的Java栈就是Java程序执行的main函数。这种回收方式，也是上面提到的“标记-清除”的回收方式</p>
 <h2 id="处理碎片"><a href="#处理碎片" class="headerlink" title="处理碎片"></a>处理碎片</h2><p>​    由于不同Java对象存活时间是不一定的，因此，在程序运行一段时间以后，如果不进行内存整理，就会出现零散的内存碎片。碎片最直接的问题就是会导致无法分配大块的内存空间，以及程序运行效率降低。所以，在上面提到的基本垃圾回收算法中，“复制”方式和“标记-整理”方式，都可以解决碎片的问题。</p>
@@ -165,7 +165,8 @@
 <h2 id="为什么要分代"><a href="#为什么要分代" class="headerlink" title="为什么要分代"></a>为什么要分代</h2><p>分代的垃圾回收策略，是基于这样一个事实：不同的对象的生命周期是不一样的。因此，不同生命周期的对象可以采取不同的收集方式，以便提高回收效率。</p>
 <p>在Java程序运行的过程中，会产生大量的对象，其中有些对象是与业务信息相关，比如Http请求中的Session对象、线程、Socket连接，这类对象跟业务直接挂钩，因此生命周期比较长。但是还有一些对象，主要是程序运行过程中生成的临时变量，这些对象生命周期会比较短，比如：String对象，由于其不变类的特性，系统会产生大量的这些对象，有些对象甚至只用一次即可回收。</p>
 <p>试想，在不进行对象存活时间区分的情况下，每次垃圾回收都是对整个堆空间进行回收，花费时间相对会长，同时，因为每次回收都需要遍历所有存活对象，但实际上，对于生命周期长的对象而言，这种遍历是没有效果的，因为可能进行了很多次遍历，但是他们依旧存在。因此，分代垃圾回收采用分治的思想，进行代的划分，把不同生命周期的对象放在不同代上，不同代上采用最适合它的垃圾回收方式进行回收。</p>
-<h2 id="如何分代"><a href="#如何分代" class="headerlink" title="如何分代"></a>如何分代<img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning006.png" alt="JVM Tuning 006"></h2><p>如图所示：</p>
+<h2 id="如何分代"><a href="#如何分代" class="headerlink" title="如何分代"></a>如何分代</h2><p>如图所示：</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning006.png" alt="JVM Tuning 006"></p>
 <p>虚拟机中的共划分为三个代：年轻代（Young Generation）、年老点（Old Generation）和持久代（Permanent Generation）。其中持久代主要存放的是Java类的类信息，与垃圾收集要收集的Java对象关系不大。年轻代和年老代的划分是对垃圾收集影响比较大的。</p>
 <p>年轻代:</p>
 <p>所有新生成的对象首先都是放在年轻代的。年轻代的目标就是尽可能快速的收集掉那些生命周期短的对象。年轻代分三个区。一个Eden区，两个Survivor区(一般而言)。大部分对象在Eden区中生成。当Eden区满时，还存活的对象将被复制到Survivor区（两个中的一个），当这个Survivor区满时，此区的存活对象将被复制到另外一个Survivor区，当这个Survivor去也满了的时候，从第一个Survivor区复制过来的并且此时还存活的对象，将被复制“年老区(Tenured)”。需要注意，Survivor的两个区是对称的，没先后关系，所以同一个区中可能同时存在从Eden复制过来 对象，和从前一个Survivor复制过来的对象，而复制到年老区的只有从第一个Survivor去过来的对象。而且，Survivor区总有一个是空的。同时，根据程序需要，Survivor区是可以配置为多个的（多于两个），这样可以增加对象在年轻代中的存在时间，减少被放到年老代的可能。</p>
@@ -179,13 +180,13 @@
 <p>Full GC</p>
 <p>对整个堆进行整理，包括Young、Tenured和Perm。Full GC因为需要对整个对进行回收，所以比Scavenge GC要慢，因此应该尽可能减少Full GC的次数。在对JVM调优的过程中，很大一部分工作就是对于FullGC的调节。有如下原因可能导致Full GC：</p>
 <p>· 年老代（Tenured）被写满<br>· 持久代（Perm）被写满<br>· System.gc()被显示调用<br>·上一次GC之后Heap的各域分配策略动态变化</p>
-<h2 id="分代垃圾回收流程示意"><a href="#分代垃圾回收流程示意" class="headerlink" title="分代垃圾回收流程示意"></a>分代垃圾回收流程示意</h2><p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning007.png" alt="JVM Tuning 007"></p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning008.png" alt="JVM Tuning 008"></p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning009.png" alt="JVM Tuning 009"></p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning010.png" alt="JVM Tuning 010"></p>
-<h2 id="选择合适的垃圾收集算法"><a href="#选择合适的垃圾收集算法" class="headerlink" title="选择合适的垃圾收集算法"></a>选择合适的垃圾收集算法</h2><p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning011.png" alt="JVM Tuning 011"></p>
+<h2 id="分代垃圾回收流程示意"><a href="#分代垃圾回收流程示意" class="headerlink" title="分代垃圾回收流程示意"></a>分代垃圾回收流程示意</h2><p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning007.png" alt="JVM Tuning 007"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning008.png" alt="JVM Tuning 008"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning009.png" alt="JVM Tuning 009"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning010.png" alt="JVM Tuning 010"></p>
+<h2 id="选择合适的垃圾收集算法"><a href="#选择合适的垃圾收集算法" class="headerlink" title="选择合适的垃圾收集算法"></a>选择合适的垃圾收集算法</h2><p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning011.png" alt="JVM Tuning 011"></p>
 <p>用单线程处理所有垃圾回收工作，因为无需多线程交互，所以效率比较高。但是，也无法使用多处理器的优势，所以此收集器适合单处理器机器。当然，此收集器也可以用在小数据量（100M左右）情况下的多处理器机器上。可以使用-XX:+UseSerialGC打开。</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning012.png" alt="JVM Tuning 012"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning012.png" alt="JVM Tuning 012"></p>
 <p>对年轻代进行并行垃圾回收，因此可以减少垃圾回收时间。一般在多线程多处理器机器上使用。使用-XX:+UseParallelGC.打开。并行收集器在J2SE5.0第六6更新上引入，在Java SE6.0中进行了增强–可以对年老代进行并行收集。如果年老代不使用并发收集的话，默认是使用单线程进行垃圾回收，因此会制约扩展能力。使用-XX:+UseParallelOldGC打开。</p>
 <p>使用-XX:ParallelGCThreads=设置并行垃圾回收的线程数。此值可以设置与机器处理器数量相等。</p>
 <p>此收集器可以进行如下配置：</p>
@@ -195,7 +196,7 @@
 </blockquote>
 <p>并发收集器</p>
 <p>可以保证大部分工作都并发进行（应用不停止），垃圾回收只暂停很少的时间，此收集器适合对响应时间要求比较高的中、大规模应用。使用-XX:+UseConcMarkSweepGC打开。</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning013.png" alt="JVM Tuning 013"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning013.png" alt="JVM Tuning 013"></p>
 <p>并发收集器主要减少年老代的暂停时间，他在应用不停止的情况下使用独立的垃圾回收线程，跟踪可达对象。在每个年老代垃圾回收周期中，在收集初期并发收集器 会对整个应用进行简短的暂停，在收集中还会再暂停一次。第二次暂停会比第一次稍长，在此过程中多个线程同时进行垃圾回收工作。</p>
 <p>并发收集器使用处理器换来短暂的停顿时间。在一个N个处理器的系统上，并发收集部分使用K/N个可用处理器进行回收，一般情况下1&lt;=K&lt;=N/4。</p>
 <p>在只有一个处理器的主机上使用并发收集器，设置为incremental mode模式也可获得较短的停顿时间。</p>
@@ -232,7 +233,7 @@
 <h4 id="典型配置：-1"><a href="#典型配置：-1" class="headerlink" title="典型配置："></a>典型配置：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:ParallelGCThreads=20 -XX:+UseConcMarkSweepGC -XX:+UseParNewGC</span><br><span class="line"></span><br><span class="line">-XX:+UseConcMarkSweepGC：设置年老代为并发收集。测试中配置这个以后，-XX:NewRatio=4的配置失效了，原因不明。所以，此时年轻代大小最好用-Xmn设置。</span><br><span class="line"></span><br><span class="line">-XX:+UseParNewGC: 设置年轻代为并行收集。可与CMS收集同时使用。JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此值。</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx3550m -Xms3550m -Xmn2g -Xss128k -XX:+UseConcMarkSweepGC -XX:CMSFullGCsBeforeCompaction=<span class="number">5</span> -XX:+UseCMSCompactAtFullCollection</span><br><span class="line"></span><br><span class="line">-XX:CMSFullGCsBeforeCompaction：由于并发收集器不对内存空间进行压缩、整理，所以运行一段时间以后会产生“碎片”，使得运行效率降低。此值设置运行多少次GC以后对内存空间进行压缩、整理。</span><br><span class="line"></span><br><span class="line">-XX:+UseCMSCompactAtFullCollection：打开对年老代的压缩。可能会影响性能，但是可以消除碎片</span><br></pre></td></tr></table></figure>
 <h2 id="辅助信息"><a href="#辅助信息" class="headerlink" title="辅助信息"></a>辅助信息</h2><p>JVM提供了大量命令行参数，打印信息，供调试使用。主要有以下一些：</p>
-<p>-XX:+PrintGC：输出形式：[GC 118250K-&gt;113543K(130112K), 0.0094143 secs] [Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]</p>
+<p>-XX:+PrintGC：输出形式：[GC 118250K-&gt;113543K(130112K), 0.0094143 secs][Full GC 121376K-&gt;10414K(130112K), 0.0650971 secs]</p>
 <p>-XX:+PrintGCDetails：输出形式：[GC [DefNew: 8614K-&gt;781K(9088K), 0.0123035 secs] 118250K-&gt;113543K(130112K), 0.0124633 secs] [GC [DefNew: 8614K-&gt;8614K(9088K), 0.0000665 secs][Tenured: 112761K-&gt;10414K(121024K), 0.0433488 secs] 121376K-&gt;10414K(130112K), 0.0436268 secs]</p>
 <p>-XX:+PrintGCTimeStamps -XX:+PrintGC：PrintGCTimeStamps可与上面两个混合使用<br>输出形式：11.851: [GC 98328K-&gt;93620K(130112K), 0.0082960 secs]</p>
 <p>-XX:+PrintGCApplicationConcurrentTime：打印每次垃圾回收前，程序未中断的执行时间。可与上面混合使用。输出形式：Application time: 0.5291524 seconds</p>
@@ -274,7 +275,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">支持很大的堆</span><br><span class="line">高吞吐量</span><br><span class="line">  --支持多CPU和垃圾回收线程</span><br><span class="line">  --在主线程暂停的情况下，使用并行收集</span><br><span class="line">  --在主线程运行的情况下，使用并发收集</span><br><span class="line">实时目标：可配置在N毫秒内最多只占用M毫秒的时间进行垃圾回收</span><br></pre></td></tr></table></figure>
 <p>当然G1要达到实时性的要求，相对传统的分代回收算法，在性能上会有一些损失。</p>
 <p>算法详解</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning014.png" alt="JVM Tuning 014"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning014.png" alt="JVM Tuning 014"></p>
 <p>G1可谓博采众家之长，力求到达一种完美。他吸取了增量收集优点，把整个堆划分为一个一个等大小的区域（region）。内存的回收和划分都以region为单位；同时，他也吸取了CMS的特点，把这个垃圾回收过程分为几个阶段，分散一个垃圾回收过程；而且，G1也认同分代垃圾回收的思想，认为不同对象的生命周期不同，可以采取不同收集方式，因此，它也支持分代的垃圾回收。为了达到对回收时间的可预计性，G1在扫描了region以后，对其中的活跃对象的大小进行排序，首先会收集那些活跃对象小的region，以便快速回收空间（要复制的活跃对象少了），因为活跃对象小，里面可以认为多数都是垃圾，所以这种方式被称为Garbage First（G1）的垃圾回收算法，即：垃圾优先的回收。</p>
 <h4 id="回收步骤："><a href="#回收步骤：" class="headerlink" title="回收步骤："></a>回收步骤：</h4><h4 id="初始标记（Initial-Marking）"><a href="#初始标记（Initial-Marking）" class="headerlink" title="初始标记（Initial Marking）"></a>初始标记（Initial Marking）</h4><p>G1对于每个region都保存了两个标识用的bitmap，一个为previous marking bitmap，一个为next marking bitmap，bitmap中包含了一个bit的地址信息来指向对象的起始点。</p>
 <p>开始Initial Marking之前，首先并发的清空next marking bitmap，然后停止所有应用线程，并扫描标识出每个region中root可直接访问到的对象，将region中top的值放入next top at mark start（TAMS）中，之后恢复所有应用线程。</p>
@@ -291,11 +292,11 @@
 <p>VisualVM：JDK自带，功能强大，与JProfiler类似。推荐。</p>
 <h2 id="如何调优"><a href="#如何调优" class="headerlink" title="如何调优"></a>如何调优</h2><p>观察内存释放情况、集合类检查、对象树</p>
 <p>上面这些调优工具都提供了强大的功能，但是总的来说一般分为以下几类功能</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning015.png" alt="JVM Tuning 015"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning015.png" alt="JVM Tuning 015"></p>
 <p>可查看堆空间大小分配（年轻代、年老代、持久代分配）<br>提供即时的垃圾回收功能<br>垃圾监控（长时间监控回收情况）</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning016.png" alt="JVM Tuning 016"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning016.png" alt="JVM Tuning 016"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看堆内类、对象信息查看：数量、类型等</span><br></pre></td></tr></table></figure>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning017.png" alt="JVM Tuning 017"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning017.png" alt="JVM Tuning 017"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对象引用情况查看</span><br></pre></td></tr></table></figure>
 <p>有了堆信息查看方面的功能，我们一般可以顺利解决以下问题：</p>
 <ul>
@@ -303,12 +304,12 @@
 <li>内存泄漏</li>
 <li>垃圾回收算法设置是否合理</li>
 </ul>
-<h2 id="线程监控"><a href="#线程监控" class="headerlink" title="线程监控"></a>线程监控</h2><p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning018.png" alt="JVM Tuning 018"></p>
+<h2 id="线程监控"><a href="#线程监控" class="headerlink" title="线程监控"></a>线程监控</h2><p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning018.png" alt="JVM Tuning 018"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">线程信息监控：系统线程数量。</span><br><span class="line">线程状态监控：各个线程都处在什么样的状态下</span><br></pre></td></tr></table></figure>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning019.png" alt="JVM Tuning 019"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning019.png" alt="JVM Tuning 019"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dump线程详细信息：查看线程内部运行情况</span><br><span class="line">死锁检查</span><br></pre></td></tr></table></figure>
 <p>热点分析</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning020.png" alt="JVM Tuning 020"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning020.png" alt="JVM Tuning 020"></p>
 <p>CPU热点：检查系统哪些方法占用的大量CPU时间</p>
 <p>内存热点：检查哪些对象在系统中数量最大（一定时间内存活对象和销毁对象一起统计）</p>
 <p>这两个东西对于系统优化很有帮助。我们可以根据找到的热点，有针对性的进行系统的瓶颈查找和进行系统优化，而不是漫无目的的进行所有代码的优化。</p>
@@ -320,7 +321,7 @@
 <p>需要区别一下，内存泄漏和系统超负荷两者是有区别的，虽然可能导致的最终结果是一样的。内存泄漏是用完的资源没有回收引起错误，而系统超负荷则是系统确实没有那么多资源可以分配了（其他的资源都在使用）。</p>
 <p>年老代堆空间被占满</p>
 <h4 id="异常：-java-lang-OutOfMemoryError-Java-heap-space"><a href="#异常：-java-lang-OutOfMemoryError-Java-heap-space" class="headerlink" title="异常： java.lang.OutOfMemoryError: Java heap space"></a>异常： java.lang.OutOfMemoryError: Java heap space</h4><p>说明：</p>
-<p><img src="https://images.cnblogs.com/cnblogs_com/andy-zhou/806435/o_Jvm_Tuning021.png" alt="JVM Tuning 021"></p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\o_Jvm_Tuning021.png" alt="JVM Tuning 021"></p>
 <p>这是最典型的内存泄漏方式，简单说就是所有堆空间都被无法回收的垃圾对象占满，虚拟机无法再在分配新空间。<br>如上图所示，这是非常典型的内存泄漏的垃圾回收情况图。所有峰值部分都是一次垃圾回收点，所有谷底部分表示是一次垃圾回收后剩余的内存。连接所有谷底的点，可以发现一条由底到高的线，这说明，随时间的推移，系统的堆空间被不断占满，最终会占满整个堆空间。因此可以初步认为系统内部可能有内存泄漏。（上面的图仅供示例，在实际情况下收集数据的时间需要更长，比如几个小时或者几天）</p>
 <p>解决：</p>
 <p>这种方式解决起来也比较容易，一般就是根据垃圾回收前后情况对比，同时根据对象引用情况（常见的集合对象引用）分析，基本都可以找到泄漏点。</p>
@@ -374,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM调优/" data-id="cjw733sjx00068c8z36jgcfjh" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/22/JVM调优/" data-id="cjw7djaba0001eg8zwv792brp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/底层/">底层</a></li></ul>
@@ -385,19 +386,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/22/JVM内存模型学习/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/23/分布式锁/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          &#39;JVM内存模型学习&#39;
+          分布式锁的学习
         
       </div>
     </a>
   
   
-    <a href="/2019/05/22/连接池技术/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/22/JVM内存模型学习/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">连接池思想</div>
+      <div class="article-nav-title">JVM内存模型学习</div>
     </a>
   
 </nav>
@@ -464,7 +465,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
           </li>
         
       </ul>

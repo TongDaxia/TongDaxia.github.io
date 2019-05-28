@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016141237443-2074834323.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016203840240-13953078.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/250417/201710/250417-20171016220040115-805407978.png">
-<meta property="og:updated_time" content="2019-05-22T03:17:06.299Z">
+<meta property="og:updated_time" content="2019-05-28T05:43:34.995Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式事务的解决">
 <meta name="twitter:description" content="分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等...">
@@ -96,7 +96,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分布式事务的解决"><a href="#分布式事务的解决" class="headerlink" title="分布式事务的解决"></a>分布式事务的解决</h1><p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
+        <p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
 <h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><ul>
 <li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li>
 <li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li>
@@ -153,7 +153,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SagaBuilder saga = SagaBuilder.newSaga(&quot;trip&quot;)</span><br><span class="line">        .activity(&quot;Reserve car&quot;, ReserveCarAdapter.class) </span><br><span class="line">        .compensationActivity(&quot;Cancel car&quot;, CancelCarAdapter.class) </span><br><span class="line">        .activity(&quot;Book hotel&quot;, BookHotelAdapter.class) </span><br><span class="line">        .compensationActivity(&quot;Cancel hotel&quot;, CancelHotelAdapter.class) </span><br><span class="line">        .activity(&quot;Book flight&quot;, BookFlightAdapter.class) </span><br><span class="line">        .compensationActivity(&quot;Cancel flight&quot;, CancelFlightAdapter.class) </span><br><span class="line">        .end()</span><br><span class="line">        .triggerCompensationOnAnyError();</span><br><span class="line"></span><br><span class="line">camunda.getRepositoryService().createDeployment() </span><br><span class="line">        .addModelInstance(saga.getModel()) </span><br><span class="line">        .deploy();</span><br></pre></td></tr></table></figure>
 <p><a href="https://github.com/flowing/flowing-trip-booking-saga-c-sharp" target="_blank" rel="noopener">这里</a>有一个 C# 相关示例，有兴趣的同学可以看一下。</p>
 <p>优缺点这里我们就不说了，因为这个理论比较新，目前市面上还没有什么解决方案，即使是 Java 领域，我也没有搜索的太多有用的信息。</p>
-<h3 id="分布式事务解决方案：CAP"><a href="#分布式事务解决方案：CAP" class="headerlink" title="分布式事务解决方案：CAP"></a>分布式事务解决方案：CAP</h3><p>上面介绍的那些分布式事务的处理方案你在其他地方或许也可以看到，但是并没有相关的实际代码或者是开源代码，所以算不上什么干货，下面就放干货了。</p>
+<h3 id="分布式事务解决方案"><a href="#分布式事务解决方案" class="headerlink" title="分布式事务解决方案"></a>分布式事务解决方案</h3><p>上面介绍的那些分布式事务的处理方案你在其他地方或许也可以看到，但是并没有相关的实际代码或者是开源代码，所以算不上什么干货，下面就放干货了。</p>
 <p>在 .NET 领域，似乎没有什么现成的关于分布式事务的解决方案，或者说是有但未开源。具笔者了解，有一些公司内部其实是有这种解决方案的，但是也是作为公司的一个核心产品之一，并未开源…</p>
 <p>鉴于以上原因，所以博主就打算自己写一个并且开源出来，所以从17年初就开始做这个事情，然后花了大半年的时间在一直不断完善，就是下面这个 CAP。</p>
 <p>Github <a href="https://github.com/dotnetcore/CAP" target="_blank" rel="noopener">CAP</a>：这里的 CAP 就不是 CAP 理论了，而是一个 .NET 分布式事务解决方案的名字。</p>
@@ -182,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/03/22/分布式事务/" data-id="cjw733sjv00048c8z12iqmgy9" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/03/22/分布式事务/" data-id="cjw7djabx000reg8ze95a49z6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
@@ -272,7 +272,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
           </li>
         
       </ul>

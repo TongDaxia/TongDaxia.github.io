@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="铜色记忆">
 <meta property="og:description" content="在程序连接DB的过程中，最耗费资源的是connection对象，所以提高性能优先考虑的就是高效利用connection对象。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-22T03:21:30.202Z">
+<meta property="og:updated_time" content="2019-05-28T05:44:24.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="连接池思想">
 <meta name="twitter:description" content="在程序连接DB的过程中，最耗费资源的是connection对象，所以提高性能优先考虑的就是高效利用connection对象。">
@@ -91,10 +91,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="连接池思想"><a href="#连接池思想" class="headerlink" title="连接池思想"></a>连接池思想</h1><p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
+        <p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
 <p>在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库厂家实现的管理标准接口：连接缓冲(connection pooling)。引入了连接池( Connection Pool )的概念 ，也就是以缓冲池的机制管理数据库的资源。</p>
-<h6 id="ConnectionPool-主要作用："><a href="#ConnectionPool-主要作用：" class="headerlink" title="ConnectionPool 主要作用："></a>ConnectionPool 主要作用：</h6><p>在一定数量上限范围内，控制管理Connection，Statement和ResultSet。</p>
 <a id="more"></a>
+<h6 id="ConnectionPool-主要作用："><a href="#ConnectionPool-主要作用：" class="headerlink" title="ConnectionPool 主要作用："></a>ConnectionPool 主要作用：</h6><p>在一定数量上限范围内，控制管理Connection，Statement和ResultSet。</p>
 <p>数据资源往往是瓶颈资源，不同的应用都会访问同一数据源。其中某个应用耗尽了数据库资源后，意味其他的应用也无法正常运行。因此，ConnectionPool的第一个任务是<strong>限制每个应用或系统可以拥有的最大资源</strong>。也就是确定连接池的大小(PoolSize)。</p>
 <p>在连接池的大小(PoolSize)范围内，<strong>最大限度地使用资源</strong>，缩短数据库访问的使用周期。许多数据库中，连接（Connection）并不是资源的最小单元，控制Statement资源比Connection更重要。</p>
 <p>以Oracle为例：<br>每申请一个连接（Connection）会在物理网络（如 TCP/IP网络）上建立一个用于通讯的连接，在此连接上还可以申请一定数量的Statement。同一连接可提供的活跃Statement数量可以达到几百。在节约网络资源的同时，缩短了每次会话周期（物理连接的建立是个费时的操作）。让几十、几百个Statement只占用同一个物理连接， 发挥数据库原有的优点。</p>
@@ -106,7 +106,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/22/连接池技术/" data-id="cjw733skf000p8c8ztfaxlskf" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/22/连接池技术/" data-id="cjw7djabw000qeg8zf09uqx9o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -117,11 +117,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/22/JVM调优/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/22/JVM内存模型学习/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          JVM调优
+          JVM内存模型学习
         
       </div>
     </a>
@@ -196,7 +196,7 @@
           </li>
         
           <li>
-            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+            <a href="/2019/05/22/JVM调优/">JVM调优</a>
           </li>
         
       </ul>
