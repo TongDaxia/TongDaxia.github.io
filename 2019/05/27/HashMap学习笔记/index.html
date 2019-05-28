@@ -5,20 +5,20 @@
   
 
   
-  <title>&#39;HashMap学习笔记&#39; | 铜色记忆</title>
+  <title>HashMap学习笔记 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。  直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。 数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。 除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。 分段叠加法：按照哈希">
+  <meta name="description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。">
 <meta name="keywords" content="java,源码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&#39;HashMap学习笔记&#39;">
+<meta property="og:title" content="HashMap学习笔记">
 <meta property="og:url" content="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/index.html">
 <meta property="og:site_name" content="铜色记忆">
-<meta property="og:description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。  直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。 数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。 除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。 分段叠加法：按照哈希">
+<meta property="og:description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-27T08:15:48.450Z">
+<meta property="og:updated_time" content="2019-05-28T00:48:38.179Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&#39;HashMap学习笔记&#39;">
-<meta name="twitter:description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。  直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。 数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。 除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。 分段叠加法：按照哈希">
+<meta name="twitter:title" content="HashMap学习笔记">
+<meta name="twitter:description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
   
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      &#39;HashMap学习笔记&#39;
+      HashMap学习笔记
     </h1>
   
 
@@ -92,6 +92,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="HashMap学习笔记"><a href="#HashMap学习笔记" class="headerlink" title="HashMap学习笔记"></a>HashMap学习笔记</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
+<a id="more"></a>
 <blockquote>
 <p>直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。</p>
 <p>数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。</p>
@@ -142,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/" data-id="cjw72r35e0000yc8zcop86r8d" class="article-share-link">Share</a>
+      <a data-url="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/" data-id="cjw733sjr00018c8zajpm7zfn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -153,10 +154,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2019/05/28/分布式限流方案/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          分布式限流方案
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/05/27/工厂模式的学习/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">连接池思想</div>
+      <div class="article-nav-title">工厂模式的学习</div>
     </a>
   
 </nav>
@@ -207,15 +217,15 @@
       <ul>
         
           <li>
-            <a href="/2019/05/27/HashMap学习笔记/">&#39;HashMap学习笔记&#39;</a>
+            <a href="/2019/05/28/分布式限流方案/">分布式限流方案</a>
           </li>
         
           <li>
-            <a href="/2019/05/27/工厂模式的学习/">连接池思想</a>
+            <a href="/2019/05/27/HashMap学习笔记/">HashMap学习笔记</a>
           </li>
         
           <li>
-            <a href="/2019/05/24/分布式限流方案/">(no title)</a>
+            <a href="/2019/05/27/工厂模式的学习/">工厂模式的学习</a>
           </li>
         
           <li>
