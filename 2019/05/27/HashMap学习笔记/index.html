@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>&#39;HashMap学习笔记&#39; | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。  直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。 数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。 除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。 分段叠加法：按照哈希">
+<meta name="keywords" content="java,源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&#39;HashMap学习笔记&#39;">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。  直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。 数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。 除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。 分段叠加法：按照哈希">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-27T08:15:48.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&#39;HashMap学习笔记&#39;">
+<meta name="twitter:description" content="HashMap学习笔记基本介绍Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。  直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。 数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。 除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。 分段叠加法：按照哈希">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HashMap学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/27/HashMap学习笔记/" class="article-date">
+  <time datetime="2019-05-27T08:11:00.000Z" itemprop="datePublished">2019-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      &#39;HashMap学习笔记&#39;
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HashMap学习笔记"><a href="#HashMap学习笔记" class="headerlink" title="HashMap学习笔记"></a>HashMap学习笔记</h1><h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
+<blockquote>
+<p>直接定址法：直接以关键字k或者k加上某个常数（k+c）作为哈希地址。</p>
+<p>数字分析法：提取关键字中取值比较均匀的数字作为哈希地址。</p>
+<p>除留余数法：用关键字k除以某个不大于哈希表长度m的数p，将所得余数作为哈希表地址。</p>
+<p>分段叠加法：按照哈希表地址位数将关键字分成位数相等的几部分，其中最后一部分可以比较短。然后将这几部分相加，舍弃最高进位后的结果就是该关键字的哈希地址。</p>
+<p>平方取中法：如果关键字各个部分分布都不均匀的话，可以先求出它的平方值，然后按照需求取中间的几位作为哈希地址。</p>
+<p>伪随机数法：采用一个伪随机数当作哈希函数。</p>
+</blockquote>
+<p>解决碰撞的方法：</p>
+<blockquote>
+<ul>
+<li>开放定址法：开放定址法就是一旦发生了冲突，就去寻找下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，并将记录存入。</li>
+<li>链地址法：将哈希表的每个单元作为链表的头结点，所有哈希地址为i的元素构成一个同义词链表。即发生冲突时就把该关键字链在以该单元为头结点的链表的尾部。</li>
+<li>再哈希法：当哈希地址发生冲突用其他的函数计算另一个哈希函数地址，直到冲突不再产生为止。</li>
+<li>建立公共溢出区：将哈希表分为基本表和溢出表两部分，发生冲突的元素都放入溢出表中。</li>
+</ul>
+</blockquote>
+<p>HashMap是使用一个数组和链表组合存储数据的。</p>
+<h2 id="hash方法"><a href="#hash方法" class="headerlink" title="hash方法"></a>hash方法</h2><p>其中有一个 hash方法：输入应该是个Object类型的Key，输出应该是个int类型的数组下标。</p>
+<p>理论上：只要调用Object对象的hashCode()方法，该方法会返回一个整数，然后用这个数对HashMap或者Hashtable的容量进行取模就行了。</p>
+<p>实际上：由两个方法<code>int hash(Object k)</code>和<code>int indexFor(int h, int length)</code>来实现。</p>
+<blockquote>
+<p>hash ：该方法主要是将Object转换成一个整型。</p>
+<p>indexFor ：该方法主要是将hash生成的整型转换成链表数组中的下标。</p>
+</blockquote>
+<h2 id="实例解析（源码解读）"><a href="#实例解析（源码解读）" class="headerlink" title="实例解析（源码解读）"></a>实例解析（源码解读）</h2><p>HashMap java7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">final int hash(Object k) &#123;</span><br><span class="line">    int h = hashSeed;</span><br><span class="line">    if (0 != h &amp;&amp; k instanceof String) &#123;</span><br><span class="line">        return sun.misc.Hashing.stringHash32((String) k);</span><br><span class="line">    &#125;</span><br><span class="line">	//进行扰动计算，使得高位的数据差异对结果也有影响</span><br><span class="line">    h ^= k.hashCode();</span><br><span class="line">    h ^= (h &gt;&gt;&gt; 20) ^ (h &gt;&gt;&gt; 12);</span><br><span class="line">    return h ^ (h &gt;&gt;&gt; 7) ^ (h &gt;&gt;&gt; 4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static int indexFor(int h, int length) &#123;</span><br><span class="line">    return h &amp; (length-1);//位运算的与，相当于对 length取模</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Hashtable java7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">private int hash(Object k) &#123;</span><br><span class="line">    // hashSeed will be zero if alternative hashing is disabled.</span><br><span class="line">    return hashSeed ^ k.hashCode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>HashTable默认的初始大小为11，之后每次扩充为原来的2n+1。</p>
+<p>也就是说，HashTable的链表数组的默认大小是一个素数、奇数。之后的每次扩充结果也都是奇数。</p>
+<p>由于HashTable会尽量使用素数、奇数作为容量的大小。当哈希表的大小为素数时，简单的取模哈希的结果会更加均匀。（这个是可以证明出来的，由于不是本文重点，暂不详细介绍，可参考：<a href="http://zhaox.github.io/algorithm/2015/06/29/hash）" target="_blank" rel="noopener">http://zhaox.github.io/algorithm/2015/06/29/hash）</a></p>
+</blockquote>
+<p>ConcurrentHashMap In Java 7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">private int hash(Object k) &#123;</span><br><span class="line">    int h = hashSeed;</span><br><span class="line"></span><br><span class="line">    if ((0 != h) &amp;&amp; (k instanceof String)) &#123;</span><br><span class="line">        return sun.misc.Hashing.stringHash32((String) k);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    h ^= k.hashCode();</span><br><span class="line"></span><br><span class="line">    // Spread bits to regularize both segment and index locations,</span><br><span class="line">    // using variant of single-word Wang/Jenkins hash.</span><br><span class="line">    h += (h &lt;&lt;  15) ^ 0xffffcd7d;</span><br><span class="line">    h ^= (h &gt;&gt;&gt; 10);</span><br><span class="line">    h += (h &lt;&lt;   3);</span><br><span class="line">    h ^= (h &gt;&gt;&gt;  6);</span><br><span class="line">    h += (h &lt;&lt;   2) + (h &lt;&lt; 14);</span><br><span class="line">    return h ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int j = (hash &gt;&gt;&gt; segmentShift) &amp; segmentMask;</span><br></pre></td></tr></table></figure>
+<p>通过位运算代替取模，然后再对hashcode进行扰动。区别在于，ConcurrentHashMap 使用了一种变种的Wang/Jenkins 哈希算法，其主要目的也是为了把高位和低位组合在一起，避免发生冲突。</p>
+<hr>
+<p>在Java 8 之前，HashMap和其他基于map的类都是通过链地址法解决冲突，它们使用单向链表来存储相同索引值的元素。在最坏的情况下，这种方式会将HashMap的get方法的性能从<code>O(1)</code>降低到<code>O(n)</code>。为了解决在频繁冲突时hashmap性能降低的问题，Java 8中使用<strong>平衡树</strong>来替代链表存储冲突的元素。这意味着我们可以将最坏情况下的性能从<code>O(n)</code>提高到<code>O(logn)</code>。</p>
+<p>如果恶意程序知道我们用的是Hash算法，则在纯链表情况下，它能够发送大量请求导致哈希碰撞，然后不停访问这些key导致HashMap忙于进行线性查找，最终陷入瘫痪，即形成了拒绝服务攻击（DoS）。</p>
+<p>HashMap Java8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">    int h;</span><br><span class="line">    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ConcurrentHashMap In Java 8</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static final int spread(int h) &#123;</span><br><span class="line">    return (h ^ (h &gt;&gt;&gt; 16)) &amp; HASH_BITS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java 8的ConcurrentHashMap同样是通过Key的哈希值与数组长度取模确定该Key在数组中的索引。同样为了避免不太好的Key的hashCode设计，它通过如下方法计算得到Key的最终哈希值。不同的是，Java 8的ConcurrentHashMap作者认为引入红黑树后，即使哈希冲突比较严重，寻址效率也足够高，所以作者并未在哈希值的计算上做过多设计，只是将Key的hashCode值与其高16位作异或并保证最高位为0（从而保证最终结果为正整数）。</p>
+<p>参考：<a href="https://www.hollischuang.com/archives/2091" target="_blank" rel="noopener">全网把Map中的hash()分析的最透彻的文章，别无二家。</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tongdaxia.github.io/2019/05/27/HashMap学习笔记/" data-id="cjw72r35e0000yc8zcop86r8d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/27/工厂模式的学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">连接池思想</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 10px;">底层</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/27/HashMap学习笔记/">&#39;HashMap学习笔记&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/27/工厂模式的学习/">连接池思想</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/分布式限流方案/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/23/分布式锁/">分布式锁的学习</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/22/JVM内存模型学习/">&#39;JVM内存模型学习&#39;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
