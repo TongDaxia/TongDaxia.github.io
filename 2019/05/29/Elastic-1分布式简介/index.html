@@ -5,19 +5,20 @@
   
 
   
-  <title>归档: 2018/8 | 铜色记忆</title>
+  <title>Elastic-1分布式简介 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="技术的世界也可以精彩而有趣">
-<meta name="keywords" content="java 开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="铜色记忆">
-<meta property="og:url" content="https://tongdaxia.github.io/archives/2018/08/index.html">
+  <meta name="description" content="Elastic集群分布式特性  分配文档到不同的容器 或 分片 中，文档可以储存在一个或多个节点中 按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡 复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失 将集群中任一节点的请求路由到存有相关数据的节点 集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复  集群扩容 故障转移 分布式文档存储 分布式检索 分片内部原理 参考：">
+<meta name="keywords" content="java,分布式,Elastic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elastic-1分布式简介">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/29/Elastic-1分布式简介/index.html">
 <meta property="og:site_name" content="铜色记忆">
-<meta property="og:description" content="技术的世界也可以精彩而有趣">
+<meta property="og:description" content="Elastic集群分布式特性  分配文档到不同的容器 或 分片 中，文档可以储存在一个或多个节点中 按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡 复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失 将集群中任一节点的请求路由到存有相关数据的节点 集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复  集群扩容 故障转移 分布式文档存储 分布式检索 分片内部原理 参考：">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-29T07:49:59.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="铜色记忆">
-<meta name="twitter:description" content="技术的世界也可以精彩而有趣">
+<meta name="twitter:title" content="Elastic-1分布式简介">
+<meta name="twitter:description" content="Elastic集群分布式特性  分配文档到不同的容器 或 分片 中，文档可以储存在一个或多个节点中 按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡 复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失 将集群中任一节点的请求路由到存有相关数据的节点 集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复  集群扩容 故障转移 分布式文档存储 分布式检索 分片内部原理 参考：">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
   
@@ -68,40 +69,75 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/08/22/hello-world/" class="archive-article-date">
-  <time datetime="2018-08-22T03:04:56.000Z" itemprop="datePublished">8月 22</time>
+        <section id="main"><article id="post-Elastic-1分布式简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/29/Elastic-1分布式简介/" class="article-date">
+  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/22/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      Elastic-1分布式简介
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Elastic集群分布式特性</p>
+<ul>
+<li>分配文档到不同的容器 或 <em>分片</em> 中，文档可以储存在一个或多个节点中</li>
+<li>按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡</li>
+<li>复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失</li>
+<li>将集群中任一节点的请求路由到存有相关数据的节点</li>
+<li>集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复</li>
+</ul>
+<p>集群扩容</p>
+<p>故障转移</p>
+<p>分布式文档存储</p>
+<p>分布式检索</p>
+<p>分片内部原理</p>
+<p>参考：</p>
 
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/29/Elastic-3数据输入和输出/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Elastic-3数据的输入和输出</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

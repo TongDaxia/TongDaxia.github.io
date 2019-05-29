@@ -5,20 +5,23 @@
   
 
   
-  <title>连接池思想 | 铜色记忆</title>
+  <title>网络传输基础二 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在程序连接DB的过程中，最耗费资源的是connection对象，所以提高性能优先考虑的就是高效利用connection对象。">
-<meta name="keywords" content="java">
+  <meta name="description" content="HTTP，TCP， socket，RPC，gRPC">
+<meta name="keywords" content="java,网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="连接池思想">
-<meta property="og:url" content="https://tongdaxia.github.io/2019/05/22/连接池技术/index.html">
+<meta property="og:title" content="网络传输基础二">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/29/网络传输基础二/index.html">
 <meta property="og:site_name" content="铜色记忆">
-<meta property="og:description" content="在程序连接DB的过程中，最耗费资源的是connection对象，所以提高性能优先考虑的就是高效利用connection对象。">
+<meta property="og:description" content="HTTP，TCP， socket，RPC，gRPC">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-28T05:44:24.656Z">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/DHCP数据包结构.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/HTTP协议结构.png">
+<meta property="og:updated_time" content="2019-05-29T05:14:38.573Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="连接池思想">
-<meta name="twitter:description" content="在程序连接DB的过程中，最耗费资源的是connection对象，所以提高性能优先考虑的就是高效利用connection对象。">
+<meta name="twitter:title" content="网络传输基础二">
+<meta name="twitter:description" content="HTTP，TCP， socket，RPC，gRPC">
+<meta name="twitter:image" content="e:/tyg/study/blog/source/_posts/img/DHCP数据包结构.png">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
   
@@ -69,10 +72,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-连接池技术" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-网络传输基础二" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/22/连接池技术/" class="article-date">
-  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
+    <a href="/2019/05/29/网络传输基础二/" class="article-date">
+  <time datetime="2019-05-29T02:24:56.000Z" itemprop="datePublished">2019-05-29</time>
 </a>
     
   </div>
@@ -83,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      连接池思想
+      网络传输基础二
     </h1>
   
 
@@ -91,17 +94,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
-<p>在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库厂家实现的管理标准接口：连接缓冲(connection pooling)。引入了连接池( Connection Pool )的概念 ，也就是以缓冲池的机制管理数据库的资源。</p>
-<a id="more"></a>
-<h6 id="ConnectionPool-主要作用："><a href="#ConnectionPool-主要作用：" class="headerlink" title="ConnectionPool 主要作用："></a>ConnectionPool 主要作用：</h6><p>在一定数量上限范围内，控制管理Connection，Statement和ResultSet。</p>
-<p>数据资源往往是瓶颈资源，不同的应用都会访问同一数据源。其中某个应用耗尽了数据库资源后，意味其他的应用也无法正常运行。因此，ConnectionPool的第一个任务是<strong>限制每个应用或系统可以拥有的最大资源</strong>。也就是确定连接池的大小(PoolSize)。</p>
-<p>在连接池的大小(PoolSize)范围内，<strong>最大限度地使用资源</strong>，缩短数据库访问的使用周期。许多数据库中，连接（Connection）并不是资源的最小单元，控制Statement资源比Connection更重要。</p>
-<p>以Oracle为例：<br>每申请一个连接（Connection）会在物理网络（如 TCP/IP网络）上建立一个用于通讯的连接，在此连接上还可以申请一定数量的Statement。同一连接可提供的活跃Statement数量可以达到几百。在节约网络资源的同时，缩短了每次会话周期（物理连接的建立是个费时的操作）。让几十、几百个Statement只占用同一个物理连接， 发挥数据库原有的优点。</p>
-<h6 id="连接池管理逻辑"><a href="#连接池管理逻辑" class="headerlink" title="连接池管理逻辑"></a>连接池管理逻辑</h6><p>当客户请求数据库连接时，首先查看连接池中是否有空闲连接（指当前没有分配出去的连接）。如果存在空闲连接，则把连接分配给客户并作相应处理（即标记该连接为正在使用，<a href="https://baike.baidu.com/item/%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0" target="_blank" rel="noopener">引用计数</a>加1）。如果没有空闲连接，则查看当前所开的连接数是不是已经达到maxConn（<a href="https://baike.baidu.com/item/%E6%9C%80%E5%A4%A7%E8%BF%9E%E6%8E%A5%E6%95%B0" target="_blank" rel="noopener">最大连接数</a>），如果没达到就重新创建一个连接给请求的客户；如果达到就按设定的maxWaitTime（最大等待时间）进行等待，如果等待maxWaitTime后仍没有空闲连接，就抛出无空闲连接的异常给用户。</p>
-<p>当客户释放数据库连接时，先判断该连接的引用次数是否超过了规定值，如果超过就删除该连接，并判断当前连接池内总的连接数是否小于minConn（最小连接数），若小于就将连接池充满；如果没超过就将该连接标记为开放状态，可供再次复用。可以看出正是这套策略保证了数据库连接的有效复用，避免频繁地建立、释放连接所带来的系统资源开销。</p>
-<h6 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h6><p>Connection本身具有提供了对于事务的支持，可以通过设置Connection的AutoCommit属性为false，显式的调用 commit或rollback方法来实现。但是要安全、高效的进行连接复用，就必须提供相应的事务支持机制。方法是：采用显式的事务支撑方法，每一个事务独占一个连接。这种方法可以大大降低对于事务处理的复杂性，并且又不会妨碍连接的复用。</p>
-<p>连接管理服务提供了显式的事务]开始、结束（commit 或rollback）声明，以及一个事务 注册表 ，用于登记事务发起者和事务使用的连接的对应关系，通过该表，使用事务的部分和连接管理部分就隔离开，因为该表是在运行时根据实际的调用情况动态生成的。事务使用的连接在该事务运行中不能被复用。在实现中,用户标识 是通过使用者所在的线程来标识的。后面的所有对于数据库的访问都是通过查找该注册表，使用已经分配的连接来完成的。当事务结束时，从注册表中删除相应表项。</p>
+        <h6 id="接入网络需要设置的必选项"><a href="#接入网络需要设置的必选项" class="headerlink" title="接入网络需要设置的必选项"></a>接入网络需要设置的必选项</h6><ul>
+<li>本机的IP地址</li>
+<li>子网掩码</li>
+<li>网关的IP地址</li>
+<li>DNS的IP地址</li>
+</ul>
+<p>如果是使用动态IP地址上网，就是使用了<a href="http://zh.wikipedia.org/zh/DHCP" target="_blank" rel="noopener">DHCP协议</a>。</p>
+<p>这个协议规定，每一个子网络中，有一台计算机负责管理本网络的所有IP地址，它叫做”DHCP服务器”。新的计算机加入网络，必须向”DHCP服务器”发送一个”DHCP请求”数据包，申请IP地址和相关的网络参数。</p>
+<p> <strong>DHCP协议</strong>：</p>
+<p>是建立在UDP协议基础上的。</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\DHCP数据包结构.png" alt="DHCP数据包结构"></p>
+<blockquote>
+<p>（1）最前面的”以太网标头”，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。</p>
+<p>（2）后面的”IP标头”，设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方的IP地址设为255.255.255.255。</p>
+<p>（3）最后的”UDP标头”，设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。</p>
+</blockquote>
+<blockquote>
+<p>这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的IP地址，才能确定是不是发给自己的。当看到发出方IP地址是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器知道”这个包是发给我的”，而其他计算机就可以丢弃这个包。</p>
+<p>接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送回去一个”DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出方）和255.255.255.255（接收方），UDP标头的端口是67（发出方）和68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</p>
+<p>新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。</p>
+</blockquote>
+<h6 id="上网访问一个网页的实例"><a href="#上网访问一个网页的实例" class="headerlink" title="上网访问一个网页的实例"></a>上网访问一个网页的实例</h6><blockquote>
+<p><strong>DNS协议</strong>：</p>
+</blockquote>
+<p>为了将网址转换成IP地址。已知DNS服务器为8.8.8.8，于是我们向这个地址发送一个DNS数据包（53端口）。</p>
+<p>接下来利用子网掩码确定是不是同一个子网络；如果不是一个子网络，必须通过网关进行转发，此事接收方的地址是网关的MAC地址。</p>
+<h6 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h6><p>Http协议的数据包构造：</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\HTTP协议结构.png" alt="HTTP协议结构"></p>
+<p>以太网数据包的数据部分最大长度为1500字节，如果IP数据包的长度太大，就会分割成多个包。</p>
+<p>服务器拿到http请求数据包后会将多个TCP数据包取出来拼起来，整合成完整的TCP数据包独处里面的“HTTP”请求，并做相应的HTTP响应，通过TCP协议发回来。</p>
 
       
     </div>
@@ -117,7 +139,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
 
     </footer>
   </div>
@@ -125,19 +147,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/22/JVM调优/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/29/Elastic-2/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          JVM调优
+          Elastic-1集群内的原理
         
       </div>
     </a>
   
   
-    <a href="/2019/03/22/分布式事务/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/29/网络传输基础一/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">分布式事务的解决</div>
+      <div class="article-nav-title">网络传输基础一</div>
     </a>
   
 </nav>
