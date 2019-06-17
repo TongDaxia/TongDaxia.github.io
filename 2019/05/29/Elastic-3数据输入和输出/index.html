@@ -7,18 +7,18 @@
   
   <title>Elastic-3数据的输入和输出 | 铜色记忆</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 事物 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。 尽管在现实世界中，不是所有的类型相同的实体看起来都是一样的。 一个人可能有一个家庭电话号码，而另一个人只有一个手机号码，再一个人可能两者兼有。">
+  <meta name="description" content="无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 事物 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。">
 <meta name="keywords" content="java,分布式,Elastic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Elastic-3数据的输入和输出">
 <meta property="og:url" content="https://tongdaxia.github.io/2019/05/29/Elastic-3数据输入和输出/index.html">
 <meta property="og:site_name" content="铜色记忆">
-<meta property="og:description" content="无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 事物 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。 尽管在现实世界中，不是所有的类型相同的实体看起来都是一样的。 一个人可能有一个家庭电话号码，而另一个人只有一个手机号码，再一个人可能两者兼有。">
+<meta property="og:description" content="无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 事物 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-29T09:55:03.907Z">
+<meta property="og:updated_time" content="2019-06-17T08:27:12.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Elastic-3数据的输入和输出">
-<meta name="twitter:description" content="无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 事物 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。 尽管在现实世界中，不是所有的类型相同的实体看起来都是一样的。 一个人可能有一个家庭电话号码，而另一个人只有一个手机号码，再一个人可能两者兼有。">
+<meta name="twitter:description" content="无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 事物 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。">
   
     <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
   
@@ -92,6 +92,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 <em>事物</em> 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。</p>
+<a id="more"></a>
 <p>尽管在现实世界中，不是所有的类型相同的实体看起来都是一样的。 一个人可能有一个家庭电话号码，而另一个人只有一个手机号码，再一个人可能两者兼有。 一个人可能有三个电子邮件地址，而另一个人却一个都没有。一位西班牙人可能有两个姓，而讲英语的人可能只有一个姓。</p>
 <p>面向对象编程语言如此流行的原因之一是对象帮我们表示和处理现实世界具有潜在的复杂的数据结构的实体，到目前为止，一切都很完美！</p>
 <p>但是当我们需要存储这些实体时问题来了，传统上，我们以行和列的形式存储数据到关系型数据库中，相当于使用电子表格。 正因为我们使用了这种不灵活的存储媒介导致所有我们使用对象的灵活性都丢失了。</p>
@@ -153,19 +154,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/05/29/Elastic-1分布式简介/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/05/29/Elastic-2简介/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Elastic-1分布式简介
+          Elastic-1集群内的原理
         
       </div>
     </a>
   
   
-    <a href="/2019/05/29/Elastic-2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/29/网络传输基础二/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Elastic-1集群内的原理</div>
+      <div class="article-nav-title">网络传输基础二</div>
     </a>
   
 </nav>
@@ -184,7 +185,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
   </div>
 
@@ -194,7 +195,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Elastic/" style="font-size: 15px;">Elastic</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 17.5px;">分布式</a> <a href="/tags/底层/" style="font-size: 12.5px;">底层</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 15px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 17.5px;">分布式</a> <a href="/tags/底层/" style="font-size: 12.5px;">底层</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
     </div>
   </div>
 
@@ -203,7 +204,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
     </div>
   </div>
 
@@ -216,23 +217,23 @@
       <ul>
         
           <li>
-            <a href="/2019/05/29/Elastic-1分布式简介/">Elastic-1分布式简介</a>
+            <a href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/05/29/Elastic-3数据输入和输出/">Elastic-3数据的输入和输出</a>
+            <a href="/2019/06/12/Thrift应用实例/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2019/05/29/Elastic-2/">Elastic-1集群内的原理</a>
+            <a href="/2019/06/12/Elastic-6实例/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2019/05/29/网络传输基础二/">网络传输基础二</a>
+            <a href="/2019/06/12/使用webmagic报错：timed out Exception/">(no title)</a>
           </li>
         
           <li>
-            <a href="/2019/05/29/网络传输基础一/">网络传输基础一</a>
+            <a href="/2019/06/11/Redis中zset类型数据的应用/">(no title)</a>
           </li>
         
       </ul>

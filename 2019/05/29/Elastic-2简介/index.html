@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Elastic-1集群内的原理 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="集群基础一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。">
+<meta name="keywords" content="java,分布式,Elastic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elastic-1集群内的原理">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/29/Elastic-2简介/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="集群基础一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/elas_0202.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/elas_0203.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/elas_0204.png">
+<meta property="og:image" content="e:/tyg/study/blog/source/_posts/img/elas_0205.png">
+<meta property="og:updated_time" content="2019-06-17T08:27:18.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elastic-1集群内的原理">
+<meta name="twitter:description" content="集群基础一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 cluster.name 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。">
+<meta name="twitter:image" content="e:/tyg/study/blog/source/_posts/img/elas_0202.png">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Elastic-2简介" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/29/Elastic-2简介/" class="article-date">
+  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Elastic-1集群内的原理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="集群基础"><a href="#集群基础" class="headerlink" title="集群基础"></a>集群基础</h5><p>一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 <code>cluster.name</code> 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。</p>
+<a id="more"></a>
+<p>当一个节点被选举成为 <em>主</em> 节点时， 它将负责管理集群范围内的所有变更，例如增加、删除索引，或者增加、删除节点等。 而主节点并不需要涉及到文档级别的变更和搜索等操作，所以当集群只拥有一个主节点的情况下，即使流量的增加它也不会成为瓶颈。 任何节点都可以成为主节点。我们的示例集群就只有一个节点，所以它同时也成为了主节点。</p>
+<p>作为用户，我们可以将请求发送到 <em>集群中的任何节点</em> ，包括主节点。 每个节点都知道任意文档所处的位置，并且能够将我们的请求直接转发到存储我们所需文档的节点。 无论我们将请求发送到哪个节点，它都能负责从各个包含我们所需文档的节点收集回数据，并将最终结果返回給客户端。 Elasticsearch 对这一切的管理都是透明的。</p>
+<h5 id="集群健康"><a href="#集群健康" class="headerlink" title="集群健康"></a>集群健康</h5><p>Elasticsearch 的集群监控信息中包含了许多的统计数据，其中最为重要的一项就是 <em>集群健康</em> ， 它在 <code>status</code> 字段中展示为 <code>green</code> 、 <code>yellow</code> 或者 <code>red</code> 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /_cluster/health</span><br></pre></td></tr></table></figure>
+<p>在一个不包含任何索引的空集群中，它将会有一个类似于如下所示的返回内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">"cluster_name"</span>:          <span class="string">"elasticsearch"</span>,</span><br><span class="line">   <span class="string">"status"</span>:                <span class="string">"green"</span>, </span><br><span class="line">   <span class="string">"timed_out"</span>:             <span class="literal">false</span>,</span><br><span class="line">   <span class="string">"number_of_nodes"</span>:       <span class="number">1</span>,</span><br><span class="line">   <span class="string">"number_of_data_nodes"</span>:  <span class="number">1</span>,</span><br><span class="line">   <span class="string">"active_primary_shards"</span>: <span class="number">0</span>,</span><br><span class="line">   <span class="string">"active_shards"</span>:         <span class="number">0</span>,</span><br><span class="line">   <span class="string">"relocating_shards"</span>:     <span class="number">0</span>,</span><br><span class="line">   <span class="string">"initializing_shards"</span>:   <span class="number">0</span>,</span><br><span class="line">   <span class="string">"unassigned_shards"</span>:     <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>status</code> 字段是我们最关心的。</p>
+<p><code>status</code> 字段指示着当前集群在总体上是否工作正常。它的三种颜色含义如下：</p>
+<ul>
+<li><p><code>green</code></p>
+<p>所有的主分片和副本分片都正常运行。</p>
+</li>
+<li><p><code>yellow</code></p>
+<p>所有的主分片都正常运行，但不是所有的副本分片都正常运行。</p>
+</li>
+<li><p><code>red</code></p>
+<p>有主分片没能正常运行。</p>
+</li>
+</ul>
+<h5 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h5><p>我们往 Elasticsearch 添加数据时需要用到 <em>索引</em> —— 保存相关数据的地方。 索引实际上是指向一个或者多个物理 <em>分片</em> 的 <em>逻辑命名空间</em> 。</p>
+<p>一个 <strong>分片</strong> 是一个底层的 <strong>工作单元</strong> ，它仅保存了 全部数据中的一部分。 在<a href="https://elasticsearch.cn/book/elasticsearch_definitive_guide_2.x/inside-a-shard.html" target="_blank" rel="noopener"><code>分片内部机制</code></a>中，我们将详细介绍分片是如何工作的，而现在我们只需知道一个分片是<strong>一个 Lucene 的实例</strong>，以及它本身就是<strong>一个完整的搜索引擎</strong>。 我们的文档被存储和索引到分片内，但是应用程序是直接与索引而不是与分片进行交互。</p>
+<p>Elasticsearch 是利用分片将数据分发到集群内各处的。分片是<strong>数据的容器</strong>，<strong>文档保存在分片内</strong>，分片又被分配到集群内的各个节点里。 当你的集群规模扩大或者缩小时， Elasticsearch 会自动的在各节点中迁移分片，使得数据仍然均匀分布在集群里。</p>
+<p>一个分片可以是 <em>主</em> 分片或者 <em>副本</em> 分片。 索引内任意一个文档都归属于一个主分片，所以主分片的数目决定着索引能够保存的最大数据量。</p>
+<blockquote>
+<p>技术上来说，一个主分片最大能够存储 Integer.MAX_VALUE - 128 个文档，但是实际最大值还需要参考你的使用场景：包括你使用的硬件， 文档的大小和复杂程度，索引和查询文档的方式以及你期望的响应时长。</p>
+</blockquote>
+<p>一个副本分片只是一个主分片的拷贝。 副本分片作为硬件故障时保护数据不丢失的冗余备份，并为搜索和返回文档等读操作提供服务。</p>
+<p>在索引建立的时候就已经确定了主分片数，但是副本分片数可以随时修改。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PUT /blogs</span><br><span class="line">&#123;</span><br><span class="line">   <span class="string">"settings"</span> : &#123;</span><br><span class="line">      <span class="string">"number_of_shards"</span> : <span class="number">3</span>,</span><br><span class="line">      <span class="string">"number_of_replicas"</span> : <span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="E:\tyg\study\blog\source\_posts\img\elas_0202.png" alt="elas_0202"></p>
+<p>由于只有一个主节点，备份的分片无处可在，此时的健康情况：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"cluster_name"</span>: <span class="string">"elasticsearch"</span>,</span><br><span class="line">  <span class="string">"status"</span>: <span class="string">"yellow"</span>, </span><br><span class="line">  <span class="string">"timed_out"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"number_of_nodes"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="string">"number_of_data_nodes"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="string">"active_primary_shards"</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="string">"active_shards"</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="string">"relocating_shards"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"initializing_shards"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"unassigned_shards"</span>: <span class="number">3</span>, </span><br><span class="line">  <span class="string">"delayed_unassigned_shards"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"number_of_pending_tasks"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"number_of_in_flight_fetch"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"task_max_waiting_in_queue_millis"</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="string">"active_shards_percent_as_number"</span>: <span class="number">50</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="添加故障转移"><a href="#添加故障转移" class="headerlink" title="添加故障转移"></a>添加故障转移</h5><p><strong>启动第二个节点</strong></p>
+<p>为了测试第二个节点启动后的情况，你可以在同一个目录内，完全依照启动第一个节点的方式来启动一个新节点（参考<a href="https://elasticsearch.cn/book/elasticsearch_definitive_guide_2.x/running-elasticsearch.html" target="_blank" rel="noopener">安装并运行 Elasticsearch</a>）。多个节点可以共享同一个目录。</p>
+<p>当你在同一台机器上启动了第二个节点时，只要它和第一个节点有同样的 <code>cluster.name</code> 配置，它就会自动发现集群并加入到其中。 但是在不同机器上启动节点的时候，为了加入到同一集群，你需要配置一个可连接到的单播主机列表。 详细信息请查看<a href="https://elasticsearch.cn/book/elasticsearch_definitive_guide_2.x/important-configuration-changes.html#unicast" target="_blank" rel="noopener">最好使用单播代替组播</a></p>
+<p>有两个节点后的储存情况：</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\elas_0203.png" alt="elas_0203"></p>
+<p>再增加一个节点：</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\elas_0204.png" alt="elas_0204"></p>
+<p>这样丢失一个节点还可以正常服务。如果此时把备份数提高到2：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PUT /blogs/_settings</span><br><span class="line">&#123;</span><br><span class="line">   <span class="string">"number_of_replicas"</span> : <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>变成了以下情况：</p>
+<p><img src="E:\tyg\study\blog\source\_posts\img\elas_0205.png" alt="elas_0204"></p>
+<p>此时丢失任意两个节点都还能正常服务。</p>
+<blockquote>
+<p>当然，如果只是在相同节点数目的集群上增加更多的副本分片并不能提高性能，因为每个分片从节点上获得的资源会变少。 你需要增加更多的硬件资源来提升吞吐量。</p>
+<p>但是更多的副本分片数提高了数据冗余量。</p>
+</blockquote>
+<p>参考：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/29/Elastic-1分布式简介/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Elastic-1分布式简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/29/Elastic-3数据输入和输出/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Elastic-3数据的输入和输出</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 15px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 17.5px;">分布式</a> <a href="/tags/底层/" style="font-size: 12.5px;">底层</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/12/Thrift应用实例/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/12/Elastic-6实例/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/12/使用webmagic报错：timed out Exception/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/11/Redis中zset类型数据的应用/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
