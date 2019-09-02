@@ -70,10 +70,88 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-分布式锁" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Redis中zset类型数据的应用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/23/分布式锁/" class="article-date">
-  <time datetime="2019-05-23T03:04:56.000Z" itemprop="datePublished">2019-05-23</time>
+    <a href="/2019/06/11/Redis中zset类型数据的应用/" class="article-date">
+  <time datetime="2019-06-11T02:57:48.668Z" itemprop="datePublished">2019-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ConcurrentHashMap 如何做到高并发的" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/11/ConcurrentHashMap 如何做到高并发的/" class="article-date">
+  <time datetime="2019-06-11T01:19:17.322Z" itemprop="datePublished">2019-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用场景</p>
+<p>使用webmagic爬取百度榜单的时候，出现超时错误</p>
+<p>报错内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">09:15:23.811 [pool-1-thread-1] DEBUG org.apache.http.impl.conn.PoolingHttpClientConnectionManager - Connection released: [id: 0][route: &#123;&#125;-&gt;http://top.baidu.com:80][total kept alive: 0; route allocated: 0 of 100; total allocated: 0 of 5]</span><br><span class="line">09:15:23.814 [pool-1-thread-1] WARN us.codecraft.webmagic.downloader.HttpClientDownloader - download page http://top.baidu.com/category?c=513&amp;fr=topbuzz error</span><br><span class="line">java.net.SocketTimeoutException: Read timed out</span><br><span class="line">	at java.net.SocketInputStream.socketRead0(Native Method)</span><br><span class="line">	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)</span><br><span class="line">	at java.net.SocketInputStream.read(SocketInputStream.java:171)</span><br><span class="line">	at java.net.SocketInputStream.read(SocketInputStream.java:141)</span><br></pre></td></tr></table></figure>
+<p>问题分析</p>
+<p>因为爬虫框架使用了SocketInputStream 读取网页内容，但是下载的网速很慢，使得超时，设置超时时间如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Site site = Site.me().setRetryTimes(<span class="number">3</span>).setSleepTime(<span class="number">100</span>).</span><br><span class="line">    setUserAgent(<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0"</span>).setTimeOut(<span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
+<p>并没有什么作用。</p>
+<p>实际原因：</p>
+<p>网速太差，网速好的时候再运行就OK了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Tomcat日志的理解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/11/Tomcat日志的理解/" class="article-date">
+  <time datetime="2019-06-10T16:00:00.000Z" itemprop="datePublished">2019-06-11</time>
 </a>
     
   </div>
@@ -84,7 +162,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/分布式锁/">分布式锁的学习</a>
+      <a class="article-title" href="/2019/06/11/Tomcat日志的理解/">Tomcat日志的理解</a>
     </h1>
   
 
@@ -92,12 +170,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="锁是什么"><a href="#锁是什么" class="headerlink" title="锁是什么"></a>锁是什么</h2><p>锁的意义在于多个线程（单点）或者进程（分布式）对于共享的资源进行修改操作时，要保证一个先后顺序。</p>
-<p>比如多个人买票，同一个座位只能卖给同一个人。</p>
-<p>实现锁的基本原理是设置一个所有人都能及时查看、修改的标记，然后所有人在操作资源之前查看修改该标记。</p>
+        <h5 id="几种log"><a href="#几种log" class="headerlink" title="几种log"></a>几种log</h5><p>Tomcat默认使用JULI日志系统</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1560220401868.png" alt="1560220401868"></p>
+<p>Server、Tomcat Localhost Log 和Tomcat Catalina Log:</p>
+<ol>
+<li>catalina.out 是tomcat的标准输出(stdout)和标准出错(stderr).是在tomcat的启动脚本里指定的；一般包括控制台输出。</li>
+<li>Localhost log 对应 CATALINA_BASE指向目录的localhost.{yyyy-MM-dd}.log 文件。记录的是应用初始化(listener, filter, servlet)未处理的异常最后被tomcat捕获而输出的日志。</li>
+<li>Catalina log 对应 CATALINA_BASE指向目录的localhost.{yyyy-MM-dd}.log 文件。 是tomcat自己运行的一些日志。应用向console输出的日志不会输出到catalina.{yyyy-MM-dd}.log。</li>
+<li>Tomcat 默认manager应用日志，文件名manager.日期.log，如果配置了其他的项目应用，如下配置了Demo ，会出现demo.{yyyy-MM-dd}.log日志。</li>
+</ol>
         
           <p class="article-more-link">
-            <a href="/2019/05/23/分布式锁/#more">阅读全文</a>
+            <a href="/2019/06/11/Tomcat日志的理解/#more">阅读全文</a>
           </p>
         
       
@@ -114,7 +198,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
 
     </footer>
   </div>
@@ -123,10 +207,61 @@
 
 
   
-    <article id="post-Elastic-bug" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-github无法更新的问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/23/Elastic-bug/" class="article-date">
-  <time datetime="2019-05-22T16:00:00.000Z" itemprop="datePublished">2019-05-23</time>
+    <a href="/2019/06/10/github无法更新的问题/" class="article-date">
+  <time datetime="2019-06-10T06:46:43.722Z" itemprop="datePublished">2019-06-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用github 无法正常更新：</p>
+<p>更新选项：</p>
+<p>Update Type:</p>
+<p>​    Merge  </p>
+<p>​    Rebase </p>
+<p>√    Branch Default </p>
+<p>Clean working tree before update</p>
+<p>√    Using Stash  </p>
+<p>​    Using Shelve</p>
+<p>注意：</p>
+<p>Merge 是合并</p>
+<p><em>rebase</em>操作可以把本地未push的分叉提交历史整理成直线; <em>rebase</em>的目的是使得我们在查看历史提交的变化时更容易,因为分叉的提交需要三方对比。</p>
+<p>git <em>stash</em> 可用来暂存当前正在进行的工作, 比如想pull 最新代码, 又不想加新commit</p>
+<p>git  Shelve 暂存</p>
+<p>提示：</p>
+<p>Can’t Update</p>
+<p>No tracked branch configured for branch master or the branch doesn’t exist. To make your branch track a remote branch call, for example, git branch –set-upstream-to origin/master master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Elastic-5分布式文档存储" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/31/Elastic-5分布式文档存储/" class="article-date">
+  <time datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished">2019-05-31</time>
 </a>
     
   </div>
@@ -137,7 +272,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/Elastic-bug/">Elastic 启动出现bug</a>
+      <a class="article-title" href="/2019/05/31/Elastic-5分布式文档存储/">Elastic-5分布式文档存储</a>
     </h1>
   
 
@@ -145,14 +280,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>创建多个Elastic节点的时候，需要拷贝多份，注意端口号不需要配置，会自动占用新的端口号。</p>
-<p>但是如果拷贝时携带了  <code>data</code>文件夹，就会有冲突，报错如下：</p>
-<blockquote>
-<p>with the same id but is a different node instance</p>
-</blockquote>
-<p>解决办法：</p>
-<p>删除 data 文件夹即可。</p>
-
+        <h5 id="分片位置的确定"><a href="#分片位置的确定" class="headerlink" title="分片位置的确定"></a>分片位置的确定</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shard = hash(routing) % number_of_primary_shards</span><br></pre></td></tr></table></figure>
+<p><code>routing</code> 通过 hash 函数生成一个数字，然后这个数字再除以 <code>number_of_primary_shards</code> （主分片的数量）后得到 <strong>余数</strong> 。</p>
+<p>这就解释了为什么我们要在创建索引的时候就确定好主分片的数量 并且永远不会改变这个数量：因为如果数量变化了，那么所有之前路由的值都会无效，文档也再也找不到了。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/31/Elastic-5分布式文档存储/#more">阅读全文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -176,10 +311,10 @@
 
 
   
-    <article id="post-JVM内存模型学习" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Elastic-4版本控制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/22/JVM内存模型学习/" class="article-date">
-  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
+    <a href="/2019/05/31/Elastic-4版本控制/" class="article-date">
+  <time datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished">2019-05-31</time>
 </a>
     
   </div>
@@ -190,7 +325,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/JVM内存模型学习/">JVM内存模型学习</a>
+      <a class="article-title" href="/2019/05/31/Elastic-4版本控制/">Elastic 版本控制</a>
     </h1>
   
 
@@ -198,10 +333,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="JVM内存结构"><a href="#JVM内存结构" class="headerlink" title="JVM内存结构"></a>JVM内存结构</h3><p>Java代码是要运行在虚拟机上的，而虚拟机在执行Java程序的过程中会把所管理的内存划分为若干个不同的数据区域，这些区域都有各自的用途。其中有些区域随着虚拟机进程的启动而存在，而有些区域则依赖用户线程的启动和结束而建立和销毁。</p>
+        <h5 id="悲观并发控制"><a href="#悲观并发控制" class="headerlink" title="悲观并发控制"></a>悲观并发控制</h5><p>这种方法被关系型数据库广泛使用，它假定有变更冲突可能发生，因此阻塞访问资源以防止冲突。 一个典型的例子是读取一行数据之前先将其锁住，确保只有放置锁的线程能够对这行数据进行修改。</p>
+<h5 id="乐观并发控制"><a href="#乐观并发控制" class="headerlink" title="乐观并发控制"></a>乐观并发控制</h5><p>Elasticsearch 中使用的这种方法假定冲突是不可能发生的，并且不会阻塞正在尝试的操作。 然而，如果源数据在读写当中被修改，更新将会失败。应用程序接下来将决定该如何解决冲突。 例如，可以重试更新、使用新的数据、或者将相关情况报告给用户。</p>
         
           <p class="article-more-link">
-            <a href="/2019/05/22/JVM内存模型学习/#more">阅读全文</a>
+            <a href="/2019/05/31/Elastic-4版本控制/#more">阅读全文</a>
           </p>
         
       
@@ -218,7 +354,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/底层/">底层</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
     </footer>
   </div>
@@ -227,10 +363,10 @@
 
 
   
-    <article id="post-连接池技术" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-webMagic超时错误" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/22/连接池技术/" class="article-date">
-  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
+    <a href="/2019/05/31/webMagic超时错误/" class="article-date">
+  <time datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished">2019-05-31</time>
 </a>
     
   </div>
@@ -241,7 +377,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/连接池技术/">连接池思想</a>
+      <a class="article-title" href="/2019/05/31/webMagic超时错误/">分布式锁的学习</a>
     </h1>
   
 
@@ -249,11 +385,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JDBC是一个规范，遵循JDBC接口规范，各个数据库厂家各自实现自己的驱动程序(Driver)。</p>
-<p>在标准JDBC对应用的接口中，并没有提供资源的管理方法。所以，缺省的资源管理由应用自己负责。虽然在JDBC规范中，多次提及资源的关闭/回收及其他的合理运用。但最稳妥的方式，还是为应用提供有效的管理手段。所以，JDBC为第三方应用服务器（Application Server）提供了一个由数据库厂家实现的管理标准接口：连接缓冲(connection pooling)。引入了连接池( Connection Pool )的概念 ，也就是以缓冲池的机制管理数据库的资源。</p>
+        <p>使用场景</p>
+<p>使用webmagic爬取百度榜单的时候，出现超时错误</p>
         
           <p class="article-more-link">
-            <a href="/2019/05/22/连接池技术/#more">阅读全文</a>
+            <a href="/2019/05/31/webMagic超时错误/#more">阅读全文</a>
           </p>
         
       
@@ -270,7 +406,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li></ul>
 
     </footer>
   </div>
@@ -279,10 +415,10 @@
 
 
   
-    <article id="post-JVM调优" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Elastic-3数据输入和输出" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/22/JVM调优/" class="article-date">
-  <time datetime="2019-05-22T03:04:56.000Z" itemprop="datePublished">2019-05-22</time>
+    <a href="/2019/05/29/Elastic-3数据输入和输出/" class="article-date">
+  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
 </a>
     
   </div>
@@ -293,7 +429,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/JVM调优/">JVM调优</a>
+      <a class="article-title" href="/2019/05/29/Elastic-3数据输入和输出/">Elastic-3数据的输入和输出</a>
     </h1>
   
 
@@ -301,11 +437,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>​    Java语言的一个非常重要的特点就是与平台的无关性。而使用Java虚拟机是实现这一特点的关键。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。而引入Java语言虚拟机后，Java语言在不同平台上运行时不需要重新编译。Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>基本类型和引用类型</p>
+        <p>无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 <em>事物</em> 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。</p>
         
           <p class="article-more-link">
-            <a href="/2019/05/22/JVM调优/#more">阅读全文</a>
+            <a href="/2019/05/29/Elastic-3数据输入和输出/#more">阅读全文</a>
           </p>
         
       
@@ -322,7 +457,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/底层/">底层</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
     </footer>
   </div>
@@ -331,10 +466,10 @@
 
 
   
-    <article id="post-分布式事务" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Elastic-1分布式简介" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/22/分布式事务/" class="article-date">
-  <time datetime="2019-03-22T10:04:56.000Z" itemprop="datePublished">2019-03-22</time>
+    <a href="/2019/05/29/Elastic-1分布式简介/" class="article-date">
+  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
 </a>
     
   </div>
@@ -345,7 +480,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/22/分布式事务/">分布式事务的解决</a>
+      <a class="article-title" href="/2019/05/29/Elastic-1分布式简介/">Elastic-1分布式简介</a>
     </h1>
   
 
@@ -353,22 +488,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
-<h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><ul>
-<li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li>
-<li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li>
-<li>分区容错性(Partition tolerance) ： 即使出现单个组件无法可用,操作依然可以完成</li>
-</ul>
-<h4 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h4><p>在分布式系统中，我们往往追求的是可用性，它的重要程序比一致性要高，那么如何实现高可用性呢？ 前人已经给我们提出来了另外一个理论，就是BASE理论，它是用来对CAP定理进行进一步扩充的。BASE理论指的是：</p>
+        <p>Elastic集群分布式特性</p>
 <ul>
-<li>Basically Available（基本可用）</li>
-<li>Soft state（软状态）</li>
-<li>Eventually consistent（最终一致性）</li>
+<li>分配文档到不同的容器 或 <em>分片</em> 中，文档可以储存在一个或多个节点中</li>
+<li>按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡</li>
+<li>复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失</li>
+<li>将集群中任一节点的请求路由到存有相关数据的节点</li>
+<li>集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复</li>
 </ul>
-<p><strong>我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性</strong>（Eventual consistency）。</p>
         
           <p class="article-more-link">
-            <a href="/2019/03/22/分布式事务/#more">阅读全文</a>
+            <a href="/2019/05/29/Elastic-1分布式简介/#more">阅读全文</a>
           </p>
         
       
@@ -385,7 +515,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
     </footer>
   </div>
@@ -394,10 +524,10 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Elastic-2简介" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/08/22/hello-world/" class="article-date">
-  <time datetime="2018-08-22T03:04:56.000Z" itemprop="datePublished">2018-08-22</time>
+    <a href="/2019/05/29/Elastic-2简介/" class="article-date">
+  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
 </a>
     
   </div>
@@ -408,7 +538,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/22/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/05/29/Elastic-2简介/">Elastic-1集群内的原理</a>
     </h1>
   
 
@@ -416,12 +546,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+        <h5 id="集群基础"><a href="#集群基础" class="headerlink" title="集群基础"></a>集群基础</h5><p>一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 <code>cluster.name</code> 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。</p>
         
           <p class="article-more-link">
-            <a href="/2018/08/22/hello-world/#more">阅读全文</a>
+            <a href="/2019/05/29/Elastic-2简介/#more">阅读全文</a>
           </p>
         
       
@@ -438,7 +566,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/其他/">其他</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
     </footer>
   </div>
@@ -451,7 +579,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -465,7 +593,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
     </div>
   </div>
 
@@ -475,7 +603,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 15px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 17.5px;">分布式</a> <a href="/tags/底层/" style="font-size: 12.5px;">底层</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Bug/" style="font-size: 18.33px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 16.67px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 18.33px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 18.33px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 13.33px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
     </div>
   </div>
 
@@ -484,7 +612,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
     </div>
   </div>
 
@@ -497,23 +625,23 @@
       <ul>
         
           <li>
-            <a href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+            <a href="/2019/09/02/数据结构-排序/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/12/Thrift应用实例/">(no title)</a>
+            <a href="/2019/09/02/数据结构--红黑树/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/12/Elastic-6实例/">(no title)</a>
+            <a href="/2019/09/02/数据结构--深度优先搜索算法和广度优先算法/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/12/使用webmagic报错：timed out Exception/">(no title)</a>
+            <a href="/2019/09/02/数据结构--散列表/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/11/Redis中zset类型数据的应用/">(no title)</a>
+            <a href="/2019/09/02/数据结构--常见的算法：贪心算法，分治算法，回溯算法 - 副本/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
       </ul>

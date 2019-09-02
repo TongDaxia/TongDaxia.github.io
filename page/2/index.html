@@ -70,10 +70,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Elastic-4版本控制" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-数据结构2--链表" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/31/Elastic-4版本控制/" class="article-date">
-  <time datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished">2019-05-31</time>
+    <a href="/2019/07/18/数据结构2--链表/" class="article-date">
+  <time datetime="2019-07-17T16:00:00.000Z" itemprop="datePublished">2019-07-18</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/31/Elastic-4版本控制/">Elastic 版本控制</a>
+      <a class="article-title" href="/2019/07/18/数据结构2--链表/">数据结构-2-链表</a>
     </h1>
   
 
@@ -92,248 +92,66 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="悲观并发控制"><a href="#悲观并发控制" class="headerlink" title="悲观并发控制"></a>悲观并发控制</h5><p>这种方法被关系型数据库广泛使用，它假定有变更冲突可能发生，因此阻塞访问资源以防止冲突。 一个典型的例子是读取一行数据之前先将其锁住，确保只有放置锁的线程能够对这行数据进行修改。</p>
-<h5 id="乐观并发控制"><a href="#乐观并发控制" class="headerlink" title="乐观并发控制"></a>乐观并发控制</h5><p>Elasticsearch 中使用的这种方法假定冲突是不可能发生的，并且不会阻塞正在尝试的操作。 然而，如果源数据在读写当中被修改，更新将会失败。应用程序接下来将决定该如何解决冲突。 例如，可以重试更新、使用新的数据、或者将相关情况报告给用户。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/31/Elastic-4版本控制/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Elastic-1分布式简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/29/Elastic-1分布式简介/" class="article-date">
-  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/Elastic-1分布式简介/">Elastic-1分布式简介</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Elastic集群分布式特性</p>
+        <h1 id="链表简介"><a href="#链表简介" class="headerlink" title="链表简介"></a>链表简介</h1><p>首先，链表不需要连续的你内存空间，它通过“指针”将一组零散的内存块串联起来使用；每一个内存块实际上被称作“节点”，每个节点除了数据还有一个记录下一个节点位置的指针，比如指向后记节点叫做<code>next</code> 指向前一个节点地址称作<code>prev</code>；如果是链表的尾部，next 指向的是一个null。</p>
+<p>常见的链表有单向链表和双向链表。</p>
+<p>单向链表只有数据和指向下一个节点的指针，双向链表包括数据和指向上一个节点和下一个节点的两个指针。</p>
+<h1 id="操作复杂度分析"><a href="#操作复杂度分析" class="headerlink" title="操作复杂度分析"></a>操作复杂度分析</h1><p>单链表的插入、删除操作的时间复杂度都是 O(1)：比如新增节点，只需要把上一个节点的指针指向加入的数据，并将新节点的指针指向下一个节点即可（删除同理）；</p>
+<p>双向链表因为有了前驱指针，在特定情况下性能会更加高效，体现在：</p>
+<p>删除：</p>
 <ul>
-<li>分配文档到不同的容器 或 <em>分片</em> 中，文档可以储存在一个或多个节点中</li>
-<li>按集群节点来均衡分配这些分片，从而对索引和搜索过程进行负载均衡</li>
-<li>复制每个分片以支持数据冗余，从而防止硬件故障导致的数据丢失</li>
-<li>将集群中任一节点的请求路由到存有相关数据的节点</li>
-<li>集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复</li>
+<li>删除指定值的节点</li>
 </ul>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/29/Elastic-1分布式简介/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Elastic-2简介" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/29/Elastic-2简介/" class="article-date">
-  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/Elastic-2简介/">Elastic-1集群内的原理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="集群基础"><a href="#集群基础" class="headerlink" title="集群基础"></a>集群基础</h5><p>一个运行中的 Elasticsearch 实例称为一个 节点，而集群是由一个或者多个拥有相同 <code>cluster.name</code> 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/29/Elastic-2简介/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Elastic-3数据输入和输出" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/29/Elastic-3数据输入和输出/" class="article-date">
-  <time datetime="2019-05-29T07:42:00.000Z" itemprop="datePublished">2019-05-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/Elastic-3数据输入和输出/">Elastic-3数据的输入和输出</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>无论我们写什么样的程序，目的都是一样的：以某种方式组织数据服务我们的目的。 但是数据不仅仅由随机位和字节组成。我们建立数据元素之间的关系以便于表示实体，或者现实世界中存在的 <em>事物</em> 。 如果我们知道一个名字和电子邮件地址属于同一个人，那么它们将会更有意义。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/29/Elastic-3数据输入和输出/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-网络传输基础二" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/29/网络传输基础二/" class="article-date">
-  <time datetime="2019-05-29T02:24:56.000Z" itemprop="datePublished">2019-05-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/网络传输基础二/">网络传输基础二</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h6 id="接入网络需要设置的必选项"><a href="#接入网络需要设置的必选项" class="headerlink" title="接入网络需要设置的必选项"></a>接入网络需要设置的必选项</h6><ul>
-<li>本机的IP地址</li>
-<li>子网掩码</li>
-<li>网关的IP地址</li>
-<li>DNS的IP地址</li>
+<p>无论是单向链表还是双向链表，都需要将整个链表遍历一遍，复杂度相等，为 O(n)。</p>
+<ul>
+<li>删除指定指针指向的节点</li>
 </ul>
-<p>如果是使用动态IP地址上网，就是使用了<a href="http://zh.wikipedia.org/zh/DHCP" target="_blank" rel="noopener">DHCP协议</a>。</p>
-<p>这个协议规定，每一个子网络中，有一台计算机负责管理本网络的所有IP地址，它叫做”DHCP服务器”。新的计算机加入网络，必须向”DHCP服务器”发送一个”DHCP请求”数据包，申请IP地址和相关的网络参数。</p>
-<p> <strong>DHCP协议</strong>：</p>
-<p>是建立在UDP协议基础上的。</p>
-<p><img src="E:\tyg\study\blog\source\_posts\img\DHCP数据包结构.png" alt="DHCP数据包结构"></p>
-<blockquote>
-<p>（1）最前面的”以太网标头”，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。</p>
-<p>（2）后面的”IP标头”，设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方的IP地址设为255.255.255.255。</p>
-<p>（3）最后的”UDP标头”，设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。</p>
+<p>对于单向链表，需要将需要被删除的节点的上一个节点的 next 指针指向被删除的节点的下一个节点，所以需要从头开始遍历，如果某节点的 next 指向需要被删除的那个节点，则将它进行修改，所以复杂度是O(n);</p>
+<p>对于双向链表，由于被山粗的节点有前驱指针，可以直接通过前驱指针找到上一个节点，修改其 next 指针，所以复杂度是O(1)；性能有提升了。</p>
+<h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><h2 id="数组和链表-复杂度对比"><a href="#数组和链表-复杂度对比" class="headerlink" title="数组和链表 复杂度对比"></a>数组和链表 复杂度对比</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">时间复杂度</th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">随机访问</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td style="text-align:center">插入，删除</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="时间换空间"><a href="#时间换空间" class="headerlink" title="时间换空间"></a>时间换空间</h2><p>当内存空间充足的时候，如果我们更加追求代码的执行速度，我们就可以<br>选择空间复杂度相对较高、但时间复杂度相对很低的算法或者数据结构。相反，如果内存比较紧缺，比如代码跑在手机或者单片机上，这个时候，就要反过来用时间换空间的设计思路。</p>
+<p>比如在JAVA中，我经常使用 LinkedHashMap ，其实是一个双向链表实现的，虽然他会比较费内存，但是能够保证顺序。</p>
+<h2 id="用链表实现了一个-LRU-缓存"><a href="#用链表实现了一个-LRU-缓存" class="headerlink" title="用链表实现了一个 LRU 缓存"></a>用链表实现了一个 LRU 缓存</h2><p>常用的缓存清除策略包括：</p>
+<ul>
+<li><p>先进先出策略 FIFO （ First In ， First Out ）</p>
+</li>
+<li><p>最少使用策略 LFU （ Least Frequently Used ）</p>
+</li>
+<li><p>最近最少使用策略 LRU （ Least Recently Used ）</p>
+</li>
+</ul>
+<p>使用链表实现一个LRU缓存淘汰算法：</p>
+<p>维护一个有序单向链表，链表内最靠尾部的数据是最早访问的（即将被淘汰的），每当有一个新的数据被访问时，可以从头遍历链表：</p>
+<ul>
+<li>如果查找到对应数据，将此数据提取（删除并新增）到链表的头部；</li>
+<li>如果没有查找到该数据，则检查此时缓存量是否达到阈值：<ul>
+<li>如果未满直接插入该数据到链表头部；</li>
+<li>如果已经满了就山粗链表尾部节点的数据，将新数据插入到链表头部；</li>
+</ul>
+</li>
+</ul>
+<h2 id="利用-CPU-的缓存机制"><a href="#利用-CPU-的缓存机制" class="headerlink" title="利用 CPU  的缓存机制"></a>利用 CPU  的缓存机制</h2><blockquote>
+<p>CPU 在从内存读取数据的时候，会先把读取到的数据加载到 CPU 的缓存中。而 CPU 每次从内存读取数据并不是只读取那个特定要访问的地址，而是读取一个<br>数据块 ( 这个大小我不太确定。。 ) 并保存到 CPU 缓存中，然后下次访问内存数据的时候就会先从 CPU 缓存开始查找，如果找到就不需要再从内存中取。这样<br>就实现了比内存访问速度更快的机制，也就是 CPU 缓存存在的意义 : 为了弥补内存访问速度过慢与 CPU 执行速度快之间的差异而引入。<br>对于数组来说，存储空间是连续的，所以在加载某个下标的时候可以把以后的几个下标元素也加载到 CPU 缓存这样执行速度会快于存储空间不连续的链表存<br>储。</p>
 </blockquote>
-<blockquote>
-<p>这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的IP地址，才能确定是不是发给自己的。当看到发出方IP地址是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器知道”这个包是发给我的”，而其他计算机就可以丢弃这个包。</p>
-<p>接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送回去一个”DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出方）和255.255.255.255（接收方），UDP标头的端口是67（发出方）和68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</p>
-<p>新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数。</p>
-</blockquote>
-<h6 id="上网访问一个网页的实例"><a href="#上网访问一个网页的实例" class="headerlink" title="上网访问一个网页的实例"></a>上网访问一个网页的实例</h6><blockquote>
-<p><strong>DNS协议</strong>：</p>
-</blockquote>
-<p>为了将网址转换成IP地址。已知DNS服务器为8.8.8.8，于是我们向这个地址发送一个DNS数据包（53端口）。</p>
-<p>接下来利用子网掩码确定是不是同一个子网络；如果不是一个子网络，必须通过网关进行转发，此事接收方的地址是网关的MAC地址。</p>
-<h6 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h6><p>Http协议的数据包构造：</p>
-<p><img src="E:\tyg\study\blog\source\_posts\img\HTTP协议结构.png" alt="HTTP协议结构"></p>
-<p>以太网数据包的数据部分最大长度为1500字节，如果IP数据包的长度太大，就会分割成多个包。</p>
-<p>服务器拿到http请求数据包后会将多个TCP数据包取出来拼起来，整合成完整的TCP数据包独处里面的“HTTP”请求，并做相应的HTTP响应，通过TCP协议发回来。</p>
 
       
     </div>
@@ -349,7 +167,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li></ul>
 
     </footer>
   </div>
@@ -358,10 +176,10 @@
 
 
   
-    <article id="post-网络传输基础一" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-数据结构1--数组" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/29/网络传输基础一/" class="article-date">
-  <time datetime="2019-05-29T01:24:56.000Z" itemprop="datePublished">2019-05-29</time>
+    <a href="/2019/07/17/数据结构1--数组/" class="article-date">
+  <time datetime="2019-07-16T16:00:00.000Z" itemprop="datePublished">2019-07-17</time>
 </a>
     
   </div>
@@ -372,7 +190,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/网络传输基础一/">网络传输基础一</a>
+      <a class="article-title" href="/2019/07/17/数据结构1--数组/">数据结构-1-数组</a>
     </h1>
   
 
@@ -380,100 +198,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>计算机网络的七层协议：</p>
-<p>物理层        传输介质，光纤，电缆。Rj45,802.3</p>
-<p>数据链层        单个链路如何传输数据。ATM,FDDI</p>
-<blockquote>
-<p><strong>以太网协议</strong>：Ethernet，一组电信号构成一个数据包，叫做”帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）。<strong>“标头”</strong>包含数据包的一些说明项，比如发送者、接受者、数据类型等等；”数据”则是数据包的具体内容。”标头”的长度，固定为18字节。<strong>“数据”</strong>的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</p>
-</blockquote>
-<blockquote>
-<p><strong>MAC地址</strong>：以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。</p>
-</blockquote>
-<p>广播：broadcasting， <strong>以太网采用了一种很”原始”的方式，它不是把数据包准确送到接收方，而是向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。</strong></p>
-<p>网络层        对端到端的包传输进行定义，定义逻辑地址，路由的实现，将包分解。IP,FDDI</p>
-<blockquote>
-<p>依照上面的方法，不同局域网的电脑无法相互传输信息。”网络层”出现以后，每台计算机有了两种地址，一种是MAC地址，另一种是网络地址。两种地址之间没有任何联系，MAC地址是绑定在网卡上的，网络地址则是管理员分配的，它们只是随机组合在一起。</p>
-<p>判断两台计算机是否属于同一个子网络呢？这就要用到另一个参数”子网掩码”（subnet mask）。</p>
-<p>知道”子网掩码”，我们就能判断，任意两个IP地址是否处在同一个子网络。方法是将两个IP地址与子网掩码分别进行AND运算（两个数位都为1，运算结果为1，否则为0），然后比较结果是否相同，如果是的话，就表明它们在同一个子网络中，否则就不是。</p>
-<p>IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。</p>
-</blockquote>
-<blockquote>
-<p> <strong>IP数据包</strong>： IP协议发送的数据，就叫做IP数据包。不难想象，其中必定包括IP地址信息。</p>
-<p>IP数据包也分为”标头”和”数据”两个部分：”标头”部分主要包括版本、长度、IP地址等信息，20到60字节，”数据”部分则是IP数据包的具体内容。Ip数据包组成了以太网数据包的数据部分。由于整个IP数据包的最大长度为65535字节，IP数据包的数据部分最长65515字节。如果IP数据包数据超过1500字节，就需要分割成多个以太网数据包分开发送。</p>
-</blockquote>
-<blockquote>
-<p>因为IP数据包是放在以太网数据包里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的（），但是我们不知道它的MAC地址。</p>
-<p>第一种情况，如果两台主机不在同一个子网络，那么事实上没有办法得到对方的MAC地址，只能把数据包传送到两个子网络连接处的”网关”（gateway），让网关去处理。</p>
-<p>第二种情况，如果两台主机在同一个子网络，那么我们可以用ARP协议，得到对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询主机的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。</p>
-</blockquote>
-<p>传输层        是否选择差错恢复协议，对收到的数据包进行排序。TCP,UDP，SPX</p>
-<p>在互联网上任意两台主机上建立通信时，多个程序之间使用端口区分（每一个使用网卡的程序的编号），不同程序取得各自的数据。</p>
-<blockquote>
-<p><strong>“传输层”的功能，就是建立”端口到端口”的通信。相比之下，”网络层”的功能是建立”主机到主机”的通信。只要确定主机和端口，我们就能实现程序之间的交流。</strong>因此，Unix系统就把主机+端口，叫做”套接字”（socket）。有了它，就可以进行网络应用程序开发了。</p>
-</blockquote>
-<blockquote>
-<p><strong>UDP协议</strong>：也是由”标头”和”数据”两部分组成。UDP数据包非常简单，”标头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</p>
-</blockquote>
-<blockquote>
-<p><strong>TCP协议</strong>：有确认机制的UDP协议，每发出一个数据包都要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包了。TCP数据包和UDP数据包一样，都是内嵌在IP数据包的”数据”部分。TCP数据包没有长度限制，理论上可以无限长，但是为了保证网络的效率，通常TCP数据包的长度不会超过IP数据包的长度，以确保单个TCP数据包不必再分割。</p>
-</blockquote>
-<p><img src="E:\tyg\study\blog\source\_posts\img\以太网数据包结构.png" alt="以太网数据包结构"></p>
-<p>会话层        如何开始、结束一个会话。RPC,SQL</p>
-<p>表示层        定义数据格式及加密</p>
-<p>应用层        “应用层”的作用，就是规定应用程序的数据格式。</p>
-<p>参考：<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门（一）</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-分布式限流方案" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/28/分布式限流方案/" class="article-date">
-  <time datetime="2019-05-27T16:00:00.000Z" itemprop="datePublished">2019-05-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/28/分布式限流方案/">分布式限流方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、使用<a href="http://lib.csdn.net/base/javase" target="_blank" rel="noopener">Java</a>自带delayqueue的延迟队列实现</p>
-<p>2、使用<a href="http://lib.csdn.net/base/redis" target="_blank" rel="noopener">Redis</a>实现，存储两个key，一个用于计时，一个用于计数。请求每调用一次，计数器增加1，若在计时器时间内计数器未超过阈值，则可以处理任务</p>
-<p>3、使用guava提供工具库里的RateLimiter类(内部采用令牌捅算法实现)进行限流</p>
+        <h1 id="学习闲话"><a href="#学习闲话" class="headerlink" title="学习闲话"></a>学习闲话</h1><p>一旦设计到框架的选择，技术选型，或者研究工具底层的时候，往往就需要一些通用的知识，比如数据结构和常用的算法，网络协议，操作系统等等知识，算是无论往哪个方向发展的必经之路了。所以这段时间根据极客时间课程<a href="https://time.geekbang.org/column/intro/126" target="_blank" rel="noopener">《数据结构与算法之美》</a> 的学习写了这一系列的笔记。后期计划再系统学习网络协议，操作系统等系列课程。</p>
+<h1 id="进入主题"><a href="#进入主题" class="headerlink" title="进入主题"></a>进入主题</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>数据就是在内存中使用连续的内存空间，用于存储一系列相似数据的线性表数据结构。</p>
         
           <p class="article-more-link">
-            <a href="/2019/05/28/分布式限流方案/#more">阅读全文</a>
+            <a href="/2019/07/17/数据结构1--数组/#more">阅读全文</a>
           </p>
         
       
@@ -490,7 +219,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li></ul>
 
     </footer>
   </div>
@@ -499,10 +228,56 @@
 
 
   
-    <article id="post-String源码漫步" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-数据结构0--复杂度分析-递归-其他疑难杂症" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/27/String源码漫步/" class="article-date">
-  <time datetime="2019-05-27T08:13:31.323Z" itemprop="datePublished">2019-05-27</time>
+    <a href="/2019/07/17/数据结构0--复杂度分析-递归-其他疑难杂症/" class="article-date">
+  <time datetime="2019-07-16T16:00:00.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/17/数据结构0--复杂度分析-递归-其他疑难杂症/">数据结构-0-疑难杂症</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><h1 id="递归怎么理解"><a href="#递归怎么理解" class="headerlink" title="递归怎么理解"></a>递归怎么理解</h1><h1 id="其他疑难杂症"><a href="#其他疑难杂症" class="headerlink" title="其他疑难杂症"></a>其他疑难杂症</h1>
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-git学习" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/08/git学习/" class="article-date">
+  <time datetime="2019-07-08T08:45:45.129Z" itemprop="datePublished">2019-07-08</time>
 </a>
     
   </div>
@@ -511,7 +286,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email &quot;email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir learngit</span><br><span class="line">$ cd learngit</span><br><span class="line">$ pwd</span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add readme.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git diff readme.txt </span><br><span class="line">git add readme.txt</span><br><span class="line">git commit -m &quot;add distributed&quot;</span><br><span class="line">git status</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">git reset --hard HEAD^</span><br><span class="line">git reset --hard 1094a</span><br><span class="line">git reflog  #显示每一次的提交</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
@@ -533,10 +313,99 @@
 
 
   
-    <article id="post-HashMap学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-elastic-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/27/HashMap学习笔记/" class="article-date">
-  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
+    <a href="/2019/06/26/elastic-1/" class="article-date">
+  <time datetime="2019-06-26T07:11:33.345Z" itemprop="datePublished">2019-06-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>安装插件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">elasticsearch-plugin install analysis-icu</span><br></pre></td></tr></table></figure>
+<p>开启多个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/elasticsearch -E node.name=node1 -E cluster.name=demo -E path.data=node1_data -d</span><br><span class="line">bin/elasticsearch -E node.name=node2 -E cluster.name=demo -E path.data=node2_data -d</span><br><span class="line">bin/elasticsearch -E node.name=node3 -E cluster.name=demo -E path.data=node3_data -d</span><br></pre></td></tr></table></figure>
+<p>删除进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps | grep elasticsearch</span><br><span class="line">kill pid</span><br></pre></td></tr></table></figure>
+<p>安装Kibana </p>
+<p>直接下载安装。运行时报错——必须使用和Elastic同一个版本才能正常启动运行。</p>
+<p><a href="https://www.elastic.co/cn/downloads/logstash" target="_blank" rel="noopener">https://www.elastic.co/cn/downloads/logstash</a></p>
+<p>使用logstash导入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">E:\tyg\elastic\movielens\logstash.conf</span><br><span class="line"></span><br><span class="line">logstash -f E:\tyg\elastic\movielens\logstash.conf   ##不行，失败了</span><br><span class="line"></span><br><span class="line">logstash.bat -f  logstash.conf  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">logstash.bat -e &apos;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&apos;</span><br><span class="line">logstash -e &apos;input &#123; stdin &#123; &#125; &#125; output &#123; stdout &#123;&#125; &#125;&apos;</span><br></pre></td></tr></table></figure>
+<p>一些查询命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//查看索引相关信息</span><br><span class="line">GET kibana_sample_data_ecommerce</span><br><span class="line"></span><br><span class="line">//查看索引的文档总数</span><br><span class="line">GET kibana_sample_data_ecommerce/_count</span><br><span class="line"></span><br><span class="line">//查看前10条文档，了解文档格式</span><br><span class="line">POST kibana_sample_data_ecommerce/_search</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//_cat indices API</span><br><span class="line">//查看indices</span><br><span class="line">GET /_cat/indices/kibana*?v&amp;s=index</span><br><span class="line"></span><br><span class="line">//查看状态为绿的索引</span><br><span class="line">GET /_cat/indices?v&amp;health=green</span><br><span class="line"></span><br><span class="line">//按照文档个数排序</span><br><span class="line">GET /_cat/indices?v&amp;s=docs.count:desc</span><br><span class="line"></span><br><span class="line">//查看具体的字段</span><br><span class="line">GET /_cat/indices/kibana*?pri&amp;v&amp;h=health,index,pri,rep,docs.count,mt</span><br><span class="line"></span><br><span class="line">//How much memory is used per index?</span><br><span class="line">GET /_cat/indices?v&amp;h=i,tm&amp;s=tm:desc</span><br></pre></td></tr></table></figure>
+<p>Docker 安装docker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line"></span><br><span class="line">docker search elastic</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-新建一个前端项目vue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/20/新建一个前端项目vue/" class="article-date">
+  <time datetime="2019-06-20T05:37:34.842Z" itemprop="datePublished">2019-06-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>新建一个 Static Web 项目；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">npm i -g cnpm --registry=https://registry.npm.taobao.org </span><br><span class="line"></span><br><span class="line">npm i -g vue-cli</span><br><span class="line"></span><br><span class="line">vue -V</span><br><span class="line"></span><br><span class="line">cnpm install -g webpack</span><br><span class="line"></span><br><span class="line">vue init webpack demo</span><br></pre></td></tr></table></figure>
+<p>到这里，描写项目描述时，出错，卡顿没有反应。</p>
+<p>解决：npm 8.11 降级为 npm 8.0.</p>
+<p>不对。应该是没安装 webpack，安装一下！</p>
+<p><code>npm install -g webpack</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-bug-SpringCloud+mybatis Mapper注入失败" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/" class="article-date">
+  <time datetime="2019-06-13T06:00:55.091Z" itemprop="datePublished">2019-06-13</time>
 </a>
     
   </div>
@@ -547,7 +416,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/HashMap学习笔记/">HashMap学习笔记</a>
+      <a class="article-title" href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
     </h1>
   
 
@@ -555,10 +424,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
+        <h5 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h5><p>Springcloud+mybatis+webMagic 获取百度热搜榜、搜狗热搜榜等热搜数据并存储到数据库中。</p>
+<p>使用Mybatis Generator自动生成Mapper后放置在Mapper文件夹，并添加了对应的注解支持，service无法自动注入Mapper对象。</p>
+<h5 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h5>
         
           <p class="article-more-link">
-            <a href="/2019/05/27/HashMap学习笔记/#more">阅读全文</a>
+            <a href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/#more">阅读全文</a>
           </p>
         
       
@@ -575,7 +446,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bug/">Bug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 
     </footer>
   </div>
@@ -584,32 +455,24 @@
 
 
   
-    <article id="post-工厂模式的学习" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Thrift应用实例" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/27/工厂模式的学习/" class="article-date">
-  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
+    <a href="/2019/06/12/Thrift应用实例/" class="article-date">
+  <time datetime="2019-06-12T06:35:56.820Z" itemprop="datePublished">2019-06-12</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/工厂模式的学习/">工厂模式的学习</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>工厂模式的基本含义就是抽象化创建类实例的过程，将对象和创建和使用进行解耦。又称创建型模式，Creational Pattern。所以工厂模式的主要作用就是帮组进行实例化对象的。</p>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: Thrift应用实例</span><br><span class="line">date: 2019-06-12</span><br><span class="line">tags: [java,分布式]</span><br></pre></td></tr></table></figure>
+<p><strong>待完善</strong></p>
+<p>Thrift是一个跨语言的服务器部署框架，有自己的跨机器通信框架，也是一个代码生成器，可以生成多种语言的通信过程代码。</p>
         
           <p class="article-more-link">
-            <a href="/2019/05/27/工厂模式的学习/#more">阅读全文</a>
+            <a href="/2019/06/12/Thrift应用实例/#more">阅读全文</a>
           </p>
         
       
@@ -626,8 +489,81 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </footer>
+  </div>
+  
+</article>
 
+
+  
+    <article id="post-Elastic-6实例" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/12/Elastic-6实例/" class="article-date">
+  <time datetime="2019-06-12T02:36:18.449Z" itemprop="datePublished">2019-06-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>索引：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fund_collective_financing_announcement_a</span><br></pre></td></tr></table></figure>
+<p>3个分片</p>
+<p>1082个文档</p>
+<p>类型 type:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NewsDoc</span><br><span class="line"></span><br><span class="line">doc</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用webmagic报错：timed out Exception" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/12/使用webmagic报错：timed out Exception/" class="article-date">
+  <time datetime="2019-06-12T00:55:50.897Z" itemprop="datePublished">2019-06-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
     </footer>
   </div>
   
@@ -639,7 +575,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -653,7 +589,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
     </div>
   </div>
 
@@ -663,7 +599,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 15px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 17.5px;">分布式</a> <a href="/tags/底层/" style="font-size: 12.5px;">底层</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/网络/" style="font-size: 12.5px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+      <a href="/tags/Bug/" style="font-size: 18.33px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 16.67px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 18.33px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 18.33px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 13.33px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
     </div>
   </div>
 
@@ -672,7 +608,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
     </div>
   </div>
 
@@ -685,23 +621,23 @@
       <ul>
         
           <li>
-            <a href="/2019/06/13/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+            <a href="/2019/09/02/数据结构-排序/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/12/Thrift应用实例/">(no title)</a>
+            <a href="/2019/09/02/数据结构--红黑树/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/12/Elastic-6实例/">(no title)</a>
+            <a href="/2019/09/02/数据结构--深度优先搜索算法和广度优先算法/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/12/使用webmagic报错：timed out Exception/">(no title)</a>
+            <a href="/2019/09/02/数据结构--散列表/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
           <li>
-            <a href="/2019/06/11/Redis中zset类型数据的应用/">(no title)</a>
+            <a href="/2019/09/02/数据结构--常见的算法：贪心算法，分治算法，回溯算法 - 副本/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
           </li>
         
       </ul>

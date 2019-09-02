@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>SpringCloud+mybatis+webmagic Mapper注入报错 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="项目背景Springcloud+mybatis+webMagic 获取百度热搜榜、搜狗热搜榜等热搜数据并存储到数据库中。 使用Mybatis Generator自动生成Mapper后放置在Mapper文件夹，并添加了对应的注解支持，service无法自动注入Mapper对象。 相关配置">
+<meta name="keywords" content="java,Spring,Bug">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringCloud+mybatis+webmagic Mapper注入报错">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/09/02/数据结构--图/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="项目背景Springcloud+mybatis+webMagic 获取百度热搜榜、搜狗热搜榜等热搜数据并存储到数据库中。 使用Mybatis Generator自动生成Mapper后放置在Mapper文件夹，并添加了对应的注解支持，service无法自动注入Mapper对象。 相关配置">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-02T00:39:07.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringCloud+mybatis+webmagic Mapper注入报错">
+<meta name="twitter:description" content="项目背景Springcloud+mybatis+webMagic 获取百度热搜榜、搜狗热搜榜等热搜数据并存储到数据库中。 使用Mybatis Generator自动生成Mapper后放置在Mapper文件夹，并添加了对应的注解支持，service无法自动注入Mapper对象。 相关配置">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据结构--图" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/02/数据结构--图/" class="article-date">
+  <time datetime="2019-09-02T00:39:07.972Z" itemprop="datePublished">2019-09-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringCloud+mybatis+webmagic Mapper注入报错
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h5><p>Springcloud+mybatis+webMagic 获取百度热搜榜、搜狗热搜榜等热搜数据并存储到数据库中。</p>
+<p>使用Mybatis Generator自动生成Mapper后放置在Mapper文件夹，并添加了对应的注解支持，service无法自动注入Mapper对象。</p>
+<h5 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h5><a id="more"></a>
+<p>application.yml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mybatis:</span><br><span class="line">  config-location: classpath:mybatis/SqlMapConfig.xml # mybatis配置文件所在路径</span><br><span class="line">  type-aliases-package: com.tyg.pojo  # 所有Entity别名类所在包</span><br><span class="line">  mapper-locations:</span><br><span class="line">  - classpath:mybatis/mapper/*.xml  # mapper映射文件</span><br></pre></td></tr></table></figure>
+<h5 id="相关代码"><a href="#相关代码" class="headerlink" title="相关代码"></a>相关代码</h5><p>启动类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">package com.tyg;</span><br><span class="line"></span><br><span class="line">import org.mybatis.spring.annotation.MapperScan;</span><br><span class="line">import org.springframework.boot.SpringApplication;</span><br><span class="line">import org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line">import org.springframework.cloud.client.discovery.EnableDiscoveryClient;</span><br><span class="line">import org.springframework.cloud.netflix.eureka.EnableEurekaClient;</span><br><span class="line"></span><br><span class="line">@SpringBootApplication</span><br><span class="line">@EnableEurekaClient</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@MapperScan(&quot;com.tyg.mapper&quot;)</span><br><span class="line">public class DeptProviderApplication8002 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(DeptProviderApplication8002.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>service</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package com.tyg.service.impl;</span><br><span class="line"></span><br><span class="line">import com.tyg.mapper.BangMapper;</span><br><span class="line">import com.tyg.mapper.ContentMapper;</span><br><span class="line">import com.tyg.pojo.Bang;</span><br><span class="line">import com.tyg.pojo.Content;</span><br><span class="line">import com.tyg.service.BuzzBaiduSerivce;</span><br><span class="line">import com.tyg.util.IdWorker;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.scheduling.annotation.Scheduled;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import us.codecraft.webmagic.Page;</span><br><span class="line">import us.codecraft.webmagic.Site;</span><br><span class="line">import us.codecraft.webmagic.Spider;</span><br><span class="line">import us.codecraft.webmagic.processor.PageProcessor;</span><br><span class="line"></span><br><span class="line">import java.io.UnsupportedEncodingException;</span><br><span class="line">import java.net.URLEncoder;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class BuzzBaiduSerivceImpl implements PageProcessor, BuzzBaiduSerivce &#123;</span><br><span class="line"></span><br><span class="line">    private Site site = Site.me().setRetryTimes(3).setSleepTime(100)</span><br><span class="line">            .setUserAgent(&quot;Mozilla/5.0 (Windows NT 6.1; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0&quot;).setTimeOut(100000);</span><br><span class="line"></span><br><span class="line">    private static String REGEX_PAGE_URL = &quot;http://top.baidu.com/category?c=513&amp;fr=topbuzz&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private BangMapper bangMapper;</span><br><span class="line">    @Autowired</span><br><span class="line">    private ContentMapper contentMapper;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void process(Page page) &#123;</span><br><span class="line">       //TODO 在这里处理相关业务</span><br><span class="line">       //bangMapper.insert(bang);</span><br><span class="line">	   //contentMapper.insert(content);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public Site getSite() &#123;</span><br><span class="line">        return site;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //@Scheduled(cron = &quot;0 0/20 * * * ? &quot;)//每20分钟跑一次</span><br><span class="line">    @Override</span><br><span class="line">    public void insertBang() &#123;</span><br><span class="line">        long startTime, endTime;</span><br><span class="line">        System.out.println(&quot;开始爬取...&quot;);</span><br><span class="line">        startTime = System.currentTimeMillis();</span><br><span class="line">        Spider.create(new BuzzSougouServiceImpl()).addUrl(REGEX_PAGE_URL).thread(5).run();</span><br><span class="line">        endTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(&quot;爬取结束，耗时约&quot; + ((endTime - startTime) / 1000) + &quot;秒&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mapper</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package com.tyg.mapper;</span><br><span class="line"></span><br><span class="line">import com.tyg.pojo.Content;</span><br><span class="line">import com.tyg.pojo.ContentExample;</span><br><span class="line">import org.apache.ibatis.annotations.Mapper;</span><br><span class="line">import org.apache.ibatis.annotations.Param;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Mapper</span><br><span class="line">public interface ContentMapper &#123;</span><br><span class="line">    long countByExample(ContentExample example);</span><br><span class="line"></span><br><span class="line">    int deleteByExample(ContentExample example);</span><br><span class="line"></span><br><span class="line">    int deleteByPrimaryKey(Long id);</span><br><span class="line"></span><br><span class="line">    int insert(Content record);</span><br><span class="line"></span><br><span class="line">    int insertSelective(Content record);</span><br><span class="line"></span><br><span class="line">    List&lt;Content&gt; selectByExample(ContentExample example);</span><br><span class="line"></span><br><span class="line">    Content selectByPrimaryKey(Long id);</span><br><span class="line"></span><br><span class="line">    int updateByExampleSelective(@Param(&quot;record&quot;) Content record, @Param(&quot;example&quot;) ContentExample example);</span><br><span class="line"></span><br><span class="line">    int updateByExample(@Param(&quot;record&quot;) Content record, @Param(&quot;example&quot;) ContentExample example);</span><br><span class="line"></span><br><span class="line">    int updateByPrimaryKeySelective(Content record);</span><br><span class="line"></span><br><span class="line">    int updateByPrimaryKey(Content record);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="调试过程"><a href="#调试过程" class="headerlink" title="调试过程"></a>调试过程</h5><p><strong>怀疑是注解使用错了！！！</strong></p>
+<p>我是用的是@Mapper</p>
+<p>应该是@Component</p>
+<p>前者是Mybatis的注解，后者是Spring框架的注解。</p>
+<p>虽然更改过来不报错了，但是运行时还是会报NPE.</p>
+<p>现在怀疑是maven项目没有更新导致的；改用eclipse打开项目进行update操作看看是否有反应。</p>
+<p>结果是错误的。</p>
+<p><strong>终于找到原因</strong>：</p>
+<p>通过反复Debug发现，一开始进入到serviceImpl的时候是有mapper对象的，但是运行</p>
+<p>process（）的时候每次调用mapper都报空指针异常。</p>
+<p>所以，问题的关键是使用webMagic框架的时候， new了一个新对象，并使用新对象处理相关业务，但是新对象的并没有注入mapper bean。因为Spring 框架只在第一次启动将（service）对象生成并纳入容器内部时，生成了相关对象属性（mapper对象），在后续如果使用new的方式创建，获取不到相关属性对象，只能从bean中获取的时候才能得到属性对象。</p>
+<h5 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h5><p>  1.使用Spring框架提供的API获取Bean;</p>
+<p>  2.将代码中的  <code>new BuzzSougouServiceImpl()</code>更换为<code>this</code> 。</p>
+<p>本项目源码地址：<a href="https://github.com/TongDaxia/goodIDEA" target="_blank" rel="noopener">TongDaxia/goodIDEA</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bug/">Bug</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/02/数据结构--动态规划/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SpringCloud+mybatis+webmagic Mapper注入报错
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/20/数据结构4-递归【待完善】/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构-4-递归</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 18.33px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 16.67px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 18.33px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 18.33px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 13.33px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/数据结构-排序/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--红黑树/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--深度优先搜索算法和广度优先算法/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--散列表/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--常见的算法：贪心算法，分治算法，回溯算法 - 副本/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

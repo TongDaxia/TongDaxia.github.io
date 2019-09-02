@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构-1-数组 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学习闲话一旦设计到框架的选择，技术选型，或者研究工具底层的时候，往往就需要一些通用的知识，比如数据结构和常用的算法，网络协议，操作系统等等知识，算是无论往哪个方向发展的必经之路了。所以这段时间根据极客时间课程《数据结构与算法之美》 的学习写了这一系列的笔记。后期计划再系统学习网络协议，操作系统等系列课程。 进入主题基本概念数据就是在内存中使用连续的内存空间，用于存储一系列相似数据的线性表数据结构。">
+<meta name="keywords" content="编程基础功,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-1-数组">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/07/17/数据结构1--数组/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="学习闲话一旦设计到框架的选择，技术选型，或者研究工具底层的时候，往往就需要一些通用的知识，比如数据结构和常用的算法，网络协议，操作系统等等知识，算是无论往哪个方向发展的必经之路了。所以这段时间根据极客时间课程《数据结构与算法之美》 的学习写了这一系列的笔记。后期计划再系统学习网络协议，操作系统等系列课程。 进入主题基本概念数据就是在内存中使用连续的内存空间，用于存储一系列相似数据的线性表数据结构。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-02T00:39:07.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-1-数组">
+<meta name="twitter:description" content="学习闲话一旦设计到框架的选择，技术选型，或者研究工具底层的时候，往往就需要一些通用的知识，比如数据结构和常用的算法，网络协议，操作系统等等知识，算是无论往哪个方向发展的必经之路了。所以这段时间根据极客时间课程《数据结构与算法之美》 的学习写了这一系列的笔记。后期计划再系统学习网络协议，操作系统等系列课程。 进入主题基本概念数据就是在内存中使用连续的内存空间，用于存储一系列相似数据的线性表数据结构。">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据结构1--数组" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/17/数据结构1--数组/" class="article-date">
+  <time datetime="2019-07-16T16:00:00.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构-1-数组
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="学习闲话"><a href="#学习闲话" class="headerlink" title="学习闲话"></a>学习闲话</h1><p>一旦设计到框架的选择，技术选型，或者研究工具底层的时候，往往就需要一些通用的知识，比如数据结构和常用的算法，网络协议，操作系统等等知识，算是无论往哪个方向发展的必经之路了。所以这段时间根据极客时间课程<a href="https://time.geekbang.org/column/intro/126" target="_blank" rel="noopener">《数据结构与算法之美》</a> 的学习写了这一系列的笔记。后期计划再系统学习网络协议，操作系统等系列课程。</p>
+<h1 id="进入主题"><a href="#进入主题" class="headerlink" title="进入主题"></a>进入主题</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>数据就是在内存中使用连续的内存空间，用于存储一系列相似数据的线性表数据结构。</p>
+<a id="more"></a>
+<p>因为符合两个条件：</p>
+<p>1，内存连续；</p>
+<p>2，一组相似数据；</p>
+<p>所以，可以保证存储和查询的顺序：</p>
+<p>比如连续的存储顺序在内存的地址是从 001001(<code>base_address</code>) – 00101100  ；并且数组中每一个元素的大小是  5 个字节<code>data_type_size</code> ，就可以使用下面的公式计算出数组中每一个数据的内存位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a[i]_address = base_address + i * data_type_size</span><br></pre></td></tr></table></figure>
+<h2 id="操作的复杂度分析"><a href="#操作的复杂度分析" class="headerlink" title="操作的复杂度分析"></a>操作的复杂度分析</h2><p>首先，根据上面的分析，按照下表访问数组的时间复杂度是O(1)，这个很好理解。如果是查找数组中的特定对象（不知道下表），时间复杂度肯定不是O(n)。</p>
+<p>对于增删的操作，时间复杂度是比较大的，比如在i位置插入一个数据，需要把后面的数据一次往后挪一个位子，复杂度是O(i)，如果是对于长度为n  的数组，对于怎加一个元素的最好，最坏和平均时间复杂度分别是：O(1);O(n);O(n);</p>
+<p>正常的删除操作也是如此，但是有一个取巧的思路是标记删除，就是每一个删除不是真正删除，而是对需要删除的数据做一个删除标记（只适用于一些不追求数据连续性的场景），在存储空间不足的时候在做真正的删除（JVM标记清除垃圾回收算法的核心思想??）。</p>
+<h2 id="封装容器和数组的选择（基于JAVA）"><a href="#封装容器和数组的选择（基于JAVA）" class="headerlink" title="封装容器和数组的选择（基于JAVA）"></a>封装容器和数组的选择（基于JAVA）</h2><p>如果知道数据规模并且是比较基础的操作，能选择数组性能会有一些提升。</p>
+<p>数组一旦确定大小便固定了，如果事先不知道数据规模自己进行数组的扩容肯定比较麻烦；但是比如ArrayList自己实现了动态扩容，使用起来比较方便。</p>
+<p>然后封装的容器，比如ArrayList不支持基本数据类型，自动拆箱和自动装箱会有很小的性能损耗。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/18/数据结构2--链表/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构-2-链表
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/17/数据结构0--复杂度分析-递归-其他疑难杂症/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构-0-疑难杂症</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 18.33px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 16.67px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 18.33px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 18.33px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 13.33px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/数据结构-排序/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--红黑树/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--深度优先搜索算法和广度优先算法/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--散列表/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--常见的算法：贪心算法，分治算法，回溯算法 - 副本/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

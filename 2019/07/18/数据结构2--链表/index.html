@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构-2-链表 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="链表简介首先，链表不需要连续的你内存空间，它通过“指针”将一组零散的内存块串联起来使用；每一个内存块实际上被称作“节点”，每个节点除了数据还有一个记录下一个节点位置的指针，比如指向后记节点叫做next 指向前一个节点地址称作prev；如果是链表的尾部，next 指向的是一个null。 常见的链表有单向链表和双向链表。 单向链表只有数据和指向下一个节点的指针，双向链表包括数据和指向上一个节点和下一个">
+<meta name="keywords" content="编程基础功,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-2-链表">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/07/18/数据结构2--链表/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="链表简介首先，链表不需要连续的你内存空间，它通过“指针”将一组零散的内存块串联起来使用；每一个内存块实际上被称作“节点”，每个节点除了数据还有一个记录下一个节点位置的指针，比如指向后记节点叫做next 指向前一个节点地址称作prev；如果是链表的尾部，next 指向的是一个null。 常见的链表有单向链表和双向链表。 单向链表只有数据和指向下一个节点的指针，双向链表包括数据和指向上一个节点和下一个">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-02T00:39:07.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-2-链表">
+<meta name="twitter:description" content="链表简介首先，链表不需要连续的你内存空间，它通过“指针”将一组零散的内存块串联起来使用；每一个内存块实际上被称作“节点”，每个节点除了数据还有一个记录下一个节点位置的指针，比如指向后记节点叫做next 指向前一个节点地址称作prev；如果是链表的尾部，next 指向的是一个null。 常见的链表有单向链表和双向链表。 单向链表只有数据和指向下一个节点的指针，双向链表包括数据和指向上一个节点和下一个">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据结构2--链表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/18/数据结构2--链表/" class="article-date">
+  <time datetime="2019-07-17T16:00:00.000Z" itemprop="datePublished">2019-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构-2-链表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="链表简介"><a href="#链表简介" class="headerlink" title="链表简介"></a>链表简介</h1><p>首先，链表不需要连续的你内存空间，它通过“指针”将一组零散的内存块串联起来使用；每一个内存块实际上被称作“节点”，每个节点除了数据还有一个记录下一个节点位置的指针，比如指向后记节点叫做<code>next</code> 指向前一个节点地址称作<code>prev</code>；如果是链表的尾部，next 指向的是一个null。</p>
+<p>常见的链表有单向链表和双向链表。</p>
+<p>单向链表只有数据和指向下一个节点的指针，双向链表包括数据和指向上一个节点和下一个节点的两个指针。</p>
+<h1 id="操作复杂度分析"><a href="#操作复杂度分析" class="headerlink" title="操作复杂度分析"></a>操作复杂度分析</h1><p>单链表的插入、删除操作的时间复杂度都是 O(1)：比如新增节点，只需要把上一个节点的指针指向加入的数据，并将新节点的指针指向下一个节点即可（删除同理）；</p>
+<p>双向链表因为有了前驱指针，在特定情况下性能会更加高效，体现在：</p>
+<p>删除：</p>
+<ul>
+<li>删除指定值的节点</li>
+</ul>
+<p>无论是单向链表还是双向链表，都需要将整个链表遍历一遍，复杂度相等，为 O(n)。</p>
+<ul>
+<li>删除指定指针指向的节点</li>
+</ul>
+<p>对于单向链表，需要将需要被删除的节点的上一个节点的 next 指针指向被删除的节点的下一个节点，所以需要从头开始遍历，如果某节点的 next 指向需要被删除的那个节点，则将它进行修改，所以复杂度是O(n);</p>
+<p>对于双向链表，由于被山粗的节点有前驱指针，可以直接通过前驱指针找到上一个节点，修改其 next 指针，所以复杂度是O(1)；性能有提升了。</p>
+<h1 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h1><h2 id="数组和链表-复杂度对比"><a href="#数组和链表-复杂度对比" class="headerlink" title="数组和链表 复杂度对比"></a>数组和链表 复杂度对比</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">时间复杂度</th>
+<th>数组</th>
+<th>链表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">随机访问</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td style="text-align:center">插入，删除</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="时间换空间"><a href="#时间换空间" class="headerlink" title="时间换空间"></a>时间换空间</h2><p>当内存空间充足的时候，如果我们更加追求代码的执行速度，我们就可以<br>选择空间复杂度相对较高、但时间复杂度相对很低的算法或者数据结构。相反，如果内存比较紧缺，比如代码跑在手机或者单片机上，这个时候，就要反过来用时间换空间的设计思路。</p>
+<p>比如在JAVA中，我经常使用 LinkedHashMap ，其实是一个双向链表实现的，虽然他会比较费内存，但是能够保证顺序。</p>
+<h2 id="用链表实现了一个-LRU-缓存"><a href="#用链表实现了一个-LRU-缓存" class="headerlink" title="用链表实现了一个 LRU 缓存"></a>用链表实现了一个 LRU 缓存</h2><p>常用的缓存清除策略包括：</p>
+<ul>
+<li><p>先进先出策略 FIFO （ First In ， First Out ）</p>
+</li>
+<li><p>最少使用策略 LFU （ Least Frequently Used ）</p>
+</li>
+<li><p>最近最少使用策略 LRU （ Least Recently Used ）</p>
+</li>
+</ul>
+<p>使用链表实现一个LRU缓存淘汰算法：</p>
+<p>维护一个有序单向链表，链表内最靠尾部的数据是最早访问的（即将被淘汰的），每当有一个新的数据被访问时，可以从头遍历链表：</p>
+<ul>
+<li>如果查找到对应数据，将此数据提取（删除并新增）到链表的头部；</li>
+<li>如果没有查找到该数据，则检查此时缓存量是否达到阈值：<ul>
+<li>如果未满直接插入该数据到链表头部；</li>
+<li>如果已经满了就山粗链表尾部节点的数据，将新数据插入到链表头部；</li>
+</ul>
+</li>
+</ul>
+<h2 id="利用-CPU-的缓存机制"><a href="#利用-CPU-的缓存机制" class="headerlink" title="利用 CPU  的缓存机制"></a>利用 CPU  的缓存机制</h2><blockquote>
+<p>CPU 在从内存读取数据的时候，会先把读取到的数据加载到 CPU 的缓存中。而 CPU 每次从内存读取数据并不是只读取那个特定要访问的地址，而是读取一个<br>数据块 ( 这个大小我不太确定。。 ) 并保存到 CPU 缓存中，然后下次访问内存数据的时候就会先从 CPU 缓存开始查找，如果找到就不需要再从内存中取。这样<br>就实现了比内存访问速度更快的机制，也就是 CPU 缓存存在的意义 : 为了弥补内存访问速度过慢与 CPU 执行速度快之间的差异而引入。<br>对于数组来说，存储空间是连续的，所以在加载某个下标的时候可以把以后的几个下标元素也加载到 CPU 缓存这样执行速度会快于存储空间不连续的链表存<br>储。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/19/数据结构3--栈&队列/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构-3-栈&amp;队列
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/17/数据结构1--数组/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构-1-数组</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 18.33px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 16.67px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 18.33px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 18.33px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 15px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 13.33px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 10px;">转载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/02/数据结构-排序/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--红黑树/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--深度优先搜索算法和广度优先算法/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--散列表/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/02/数据结构--常见的算法：贪心算法，分治算法，回溯算法 - 副本/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
