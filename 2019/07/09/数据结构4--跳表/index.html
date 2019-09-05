@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构-4-跳表 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="跳表本质跳表就是对排序完成的链表进行加工，间隔向上提取其中的元素成为索引，使得其查找的效率得到大大的提高。跳表的每一层就是一级索引。  跳表的复杂度跳表的设计关键就是间隔几个元素向上抽取一个索引。如果每间隔一个元素就向上抽取，那么跳表使得单链表的查询复杂度由 O(n)提高到O(logn)；类似于基于链表实现了二分查找（非常的相似）。 跳表对内存的浪费也是显而易见的。如果是每两个节点抽取一个索引，那">
+<meta name="keywords" content="编程基础功,数据结构,转载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-4-跳表">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/07/09/数据结构4--跳表/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="跳表本质跳表就是对排序完成的链表进行加工，间隔向上提取其中的元素成为索引，使得其查找的效率得到大大的提高。跳表的每一层就是一级索引。  跳表的复杂度跳表的设计关键就是间隔几个元素向上抽取一个索引。如果每间隔一个元素就向上抽取，那么跳表使得单链表的查询复杂度由 O(n)提高到O(logn)；类似于基于链表实现了二分查找（非常的相似）。 跳表对内存的浪费也是显而易见的。如果是每两个节点抽取一个索引，那">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="g:/666/blog/source/_posts/img/1567431460390.png">
+<meta property="og:updated_time" content="2019-09-03T07:01:47.356Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-4-跳表">
+<meta name="twitter:description" content="跳表本质跳表就是对排序完成的链表进行加工，间隔向上提取其中的元素成为索引，使得其查找的效率得到大大的提高。跳表的每一层就是一级索引。  跳表的复杂度跳表的设计关键就是间隔几个元素向上抽取一个索引。如果每间隔一个元素就向上抽取，那么跳表使得单链表的查询复杂度由 O(n)提高到O(logn)；类似于基于链表实现了二分查找（非常的相似）。 跳表对内存的浪费也是显而易见的。如果是每两个节点抽取一个索引，那">
+<meta name="twitter:image" content="g:/666/blog/source/_posts/img/1567431460390.png">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据结构4--跳表" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/09/数据结构4--跳表/" class="article-date">
+  <time datetime="2019-07-08T16:00:00.000Z" itemprop="datePublished">2019-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构-4-跳表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="跳表本质"><a href="#跳表本质" class="headerlink" title="跳表本质"></a>跳表本质</h1><p>跳表就是对排序完成的链表进行加工，间隔向上提取其中的元素成为索引，使得其查找的效率得到大大的提高。跳表的每一层就是一级索引。</p>
+<p><img src="G:\666\blog\source\_posts\img\1567431460390.png" alt="1567431460390"></p>
+<h1 id="跳表的复杂度"><a href="#跳表的复杂度" class="headerlink" title="跳表的复杂度"></a>跳表的复杂度</h1><p>跳表的设计关键就是间隔几个元素向上抽取一个索引。如果每间隔一个元素就向上抽取，那么跳表使得单链表的查询复杂度由 O(n)提高到O(logn)；类似于基于链表实现了二分查找（非常的相似）。</p>
+<p>跳表对内存的浪费也是显而易见的。如果是每两个节点抽取一个索引，那么跳表的莪空间复杂度就是O(n)。其实多个节点抽取一个索引复杂度并没有变（只更改了系数而已）。</p>
+<h1 id="高效的动态插入和删除"><a href="#高效的动态插入和删除" class="headerlink" title="高效的动态插入和删除"></a>高效的动态插入和删除</h1><p>插入操作也是先查询（如果是单链表还要查询两次呢）在做插入，所以有单链表的时间复杂度O(n)提高到O(logn)。删除操作同理。</p>
+<p>但是如果在某两个索引节点之间插入的数据过多，会造成跳表的退化。</p>
+<p>作为一种动态数据结构，我们需要某种手段来维护索引与原始链表大小之间的平衡，也就是说，如果链表中结点多了，索引结点就相应地增加一些，避免复杂度退化，以及查找、插入、删除操作性能下降。</p>
+<h1 id="随机函数"><a href="#随机函数" class="headerlink" title="随机函数"></a>随机函数</h1><p>通过生成一个随机函数（随机函数应该是小于索引层数，索引层数越接近链表越小），就可以决定在把插入的数据插入到指定的索引层中去。</p>
+<p>【注意】：</p>
+<p>跳表实际上也是一种空间换时间。</p>
+<p>Redis 的有序集合使用跳表实现的（使用分数排序），准确的说是： 由一个双 hashmap 构成的字典和跳跃表实现的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/转载/">转载</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/10/数据结构5-排序【待完善】/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构-5-排序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/07/数据结构3--栈&队列/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构-3-栈&amp;队列</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/03/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/数据结构12--动态规划【待完善】/">数据结构-12-动态规划</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/30/数据结构11--常见的算法：贪心算法，分治算法，回溯算法【待完善】/">数据结构-10-常见的算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/数据结构10--深度优先搜索算法和广度优先算法【待完善】/">数据结构-10-搜索算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/数据结构9--图【待完善】/">数据结构-9-图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

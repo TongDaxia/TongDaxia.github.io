@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>数据结构-0-递归 | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="递归简介递归需要满足的三个条件：  一个问题可以被拆解成几个子问题 子问题与原问题的解题思路是相同的，只有数据规模不一样 需要有终止条件，当数据规模足够小，能够直接得出结果并返回  写递归代码最关键的是写出递推公式，找到终止条件，剩下将递推公式转化为代码就很简单了。 递归注意事项 递归代码写的不合理的时候会出现 堆栈溢出 的问题： ​    函数调用会使用栈来保存临时变量。每调用一个函数，都会将临">
+<meta name="keywords" content="数据结构,编程基本功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-0-递归">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/07/01/数据结构0-递归【待完善】/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="递归简介递归需要满足的三个条件：  一个问题可以被拆解成几个子问题 子问题与原问题的解题思路是相同的，只有数据规模不一样 需要有终止条件，当数据规模足够小，能够直接得出结果并返回  写递归代码最关键的是写出递推公式，找到终止条件，剩下将递推公式转化为代码就很简单了。 递归注意事项 递归代码写的不合理的时候会出现 堆栈溢出 的问题： ​    函数调用会使用栈来保存临时变量。每调用一个函数，都会将临">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-03T07:01:47.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-0-递归">
+<meta name="twitter:description" content="递归简介递归需要满足的三个条件：  一个问题可以被拆解成几个子问题 子问题与原问题的解题思路是相同的，只有数据规模不一样 需要有终止条件，当数据规模足够小，能够直接得出结果并返回  写递归代码最关键的是写出递推公式，找到终止条件，剩下将递推公式转化为代码就很简单了。 递归注意事项 递归代码写的不合理的时候会出现 堆栈溢出 的问题： ​    函数调用会使用栈来保存临时变量。每调用一个函数，都会将临">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-数据结构0-递归【待完善】" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/01/数据结构0-递归【待完善】/" class="article-date">
+  <time datetime="2019-06-30T16:00:00.000Z" itemprop="datePublished">2019-07-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构-0-递归
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="递归简介"><a href="#递归简介" class="headerlink" title="递归简介"></a>递归简介</h1><p>递归需要满足的三个条件：</p>
+<ul>
+<li>一个问题可以被拆解成几个子问题</li>
+<li>子问题与原问题的解题思路是相同的，只有数据规模不一样</li>
+<li>需要有终止条件，当数据规模足够小，能够直接得出结果并返回</li>
+</ul>
+<p>写递归代码最关键的是写出递推公式，找到终止条件，剩下将递推公式转化为代码就很简单了。</p>
+<h1 id="递归注意事项"><a href="#递归注意事项" class="headerlink" title="递归注意事项"></a>递归注意事项</h1><ul>
+<li><p>递归代码写的不合理的时候会出现 堆栈溢出 的问题：</p>
+<p>​    函数调用会使用栈来保存临时变量。每调用一个函数，都会将临时变量封装为栈帧压入内存栈，等函数执行完成返回时，才出栈。系统栈或者虚拟机栈空间一般都不大。如果递归求解的数据规模很大，调用层次很深，一直压入栈，就会有堆栈溢出的风险。避免出现上述问题的措施：</p>
+<p>​    限制递归调用的最大深度（超过指定调用深度就进行报错，需要使用局部变量，需要注意解决线程安全问题）；另外最大允许的递归深度跟当前线程剩余的栈空间大小有关，事先无法计算。</p>
+</li>
+<li><p>递归的方法层层嵌套，可能出现对于同样的调用做了多次计算。解决办法：</p>
+<p>​    通过一个数据结构（比如散列表）来保存已经求解过的 f(k) 。当递归调用到 f(k) 时，先看下是否已经求解过了。如果是，则直接从散列表中取值返回，不需要重复计算。</p>
+</li>
+<li><p>递归要注意是否会出现环的问题，一旦出现 <code>A-B-C-A</code>这种环的存在，就会发生死循环。解决办法：</p>
+<ol>
+<li><p>有人说可以使用散列表存储一个调用结果，如果存在重复调用就是存在环了。比如调用A的到C（保存到散列表，下同） ,调用C得到B ,抵用B得到A,此时的A已经得到过了，说明存在环。===数据规模大的时候占用空间也很大</p>
+</li>
+<li><p>有人说可以步长法判断 :  从起点开始分别以 2x,1x 速度出发两个指针 , 当遇到 null 停止 , 相遇点为 null 时说明没有环 。暂时还没太理解【后续继续补充】</p>
+</li>
+</ol>
+</li>
+<li><p>递归的调试是一个问题，像规模比较大、递归层次很深的递归代码，几乎无法使用这种调试方式。解决办法：</p>
+<ol>
+<li>打印日志发现，递归值。</li>
+<li>结合条件断点进行调试。</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基本功/">编程基本功</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/03/数据结构0--复杂度分析-递归-其他疑难杂症/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构-0-疑难杂症
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/20/新建一个前端项目vue/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/03/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/数据结构12--动态规划【待完善】/">数据结构-12-动态规划</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/30/数据结构11--常见的算法：贪心算法，分治算法，回溯算法【待完善】/">数据结构-10-常见的算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/数据结构10--深度优先搜索算法和广度优先算法【待完善】/">数据结构-10-搜索算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/数据结构9--图【待完善】/">数据结构-9-图</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
