@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Redis中zset类型数据的应用（实例+原理） | 铜色记忆</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="项目需求公司APP页面需要展示一个横轴为时间，纵轴为指定基金和沪深300指数(或者其他指数)的折线图。 折线图的范围是可选的（比如一个月内，三个月内，六个月内等等），并且由于每一支基金的净值公布节奏不同，同一个时间范围的实际首尾时间，以及具体哪些日期是有值也是不一样的。 还有一个特点是沪深300的值是相对固定的，每天只会更新一次。但是很多基金都会以沪深300作为比较基准，使得需要查询一个数据多次。">
+<meta name="keywords" content="java,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis中zset类型数据的应用（实例+原理）">
+<meta property="og:url" content="https://tongdaxia.github.io/2019/05/27/Redis中zset类型数据的应用/index.html">
+<meta property="og:site_name" content="铜色记忆">
+<meta property="og:description" content="项目需求公司APP页面需要展示一个横轴为时间，纵轴为指定基金和沪深300指数(或者其他指数)的折线图。 折线图的范围是可选的（比如一个月内，三个月内，六个月内等等），并且由于每一支基金的净值公布节奏不同，同一个时间范围的实际首尾时间，以及具体哪些日期是有值也是不一样的。 还有一个特点是沪深300的值是相对固定的，每天只会更新一次。但是很多基金都会以沪深300作为比较基准，使得需要查询一个数据多次。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-05T10:28:40.182Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis中zset类型数据的应用（实例+原理）">
+<meta name="twitter:description" content="项目需求公司APP页面需要展示一个横轴为时间，纵轴为指定基金和沪深300指数(或者其他指数)的折线图。 折线图的范围是可选的（比如一个月内，三个月内，六个月内等等），并且由于每一支基金的净值公布节奏不同，同一个时间范围的实际首尾时间，以及具体哪些日期是有值也是不一样的。 还有一个特点是沪深300的值是相对固定的，每天只会更新一次。但是很多基金都会以沪深300作为比较基准，使得需要查询一个数据多次。">
+  
+    <link rel="alternate" href="/atom.xml" title="铜色记忆" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">铜色记忆</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录有意思的事情</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://tongdaxia.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Redis中zset类型数据的应用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/27/Redis中zset类型数据的应用/" class="article-date">
+  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redis中zset类型数据的应用（实例+原理）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="项目需求"><a href="#项目需求" class="headerlink" title="项目需求"></a>项目需求</h1><p>公司APP页面需要展示一个横轴为时间，纵轴为指定基金和沪深300指数(或者其他指数)的折线图。</p>
+<p>折线图的范围是可选的（比如一个月内，三个月内，六个月内等等），并且由于每一支基金的净值公布节奏不同，同一个时间范围的实际首尾时间，以及具体哪些日期是有值也是不一样的。</p>
+<p>还有一个特点是沪深300的值是相对固定的，每天只会更新一次。但是很多基金都会以沪深300作为比较基准，使得需要查询一个数据多次。</p>
+<p>比如A基金（每天公布净值）的三个月范围需要查0201，0202，0203…… 0430这些日期对应的沪深300；但是B基金（每周公布净值）的三个月范围只需要查0202，0209，0216，0223……这些日期对应的沪深300。如果使用上面的步骤，势必会使得程序运行效率降低。</p>
+<h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><p>对于这种类似于静态数据，或者说修改一次查询很多次的数据，使用缓存是最好的选择了。下面以Redis来说明解决方案。</p>
+<p>Redis有五种数据存储格式，分别是String，List，Hash，Set，Zset。</p>
+<p>除了存储常用的数据，Redis还可以用Set数据类型来进行去重工作，（后面有了布隆过滤器）；还可以使用Redis 共享分布式系统中的session；使用Redis解决分布式锁的问题；Redis的List还能做消息队列和发布订阅模式，实现消息传递和进程间的通信。</p>
+<p>扯远了，具体到眼前的实例，实现起来非常简单，只需要使用带分数的集合类型就能行了。具体是使用沪深300的时间作为 <code>score</code> 分数，将每天的收盘价作为<code>value</code>，当确定时间范围之后取出对应时间范围的沪深300净值信息，即可拿到想要的数据。</p>
+<h1 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h1><p>主要步骤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Tuple&gt; tuplesCsi300Set = RedisUtils.zrevrangeByScoreWithScores(csi300Key, dateParamMax, dateParamMin, 0, 1000);</span><br><span class="line">    if (tuplesCsi300Set != null &amp;&amp; tuplesCsi300Set.size() &gt; 0) &#123;</span><br><span class="line">        compareGrowthList = getCompaFromRedis(param_csi300_arr, tuplesCsi300Set);</span><br><span class="line">        System.out.println(&quot;compareGrowthList:&quot; + compareGrowthList);</span><br><span class="line">    &#125; else &#123;//先查，再存</span><br><span class="line">        //查询数据库全部沪深300的数据存入Redis中</span><br><span class="line">        JSONArray apiDataCsiRedis = getData();</span><br><span class="line">        Map&lt;Double, String&gt; csi300Map = new HashMap&lt;&gt;();</span><br><span class="line">        for (int i = 0; i &lt; apiDataCsiRedis.size(); i++) &#123;</span><br><span class="line">            JSONObject objecti = (JSONObject) apiDataCsiRedis.get(i);</span><br><span class="line">            csi300Map.put(Double.valueOf(objecti.getString(&quot;tDate&quot;)), objecti.getString(&quot;tClose&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">        RedisUtils.addSortSetByScoreMap(csi300Key, csi300Map);</span><br><span class="line">        Set&lt;Tuple&gt; tuplesCsi300 = RedisUtils.zrevrangeByScoreWithScores(csi300Key, dateParamMax, dateParamMin, 0, 1000);</span><br><span class="line">        compareGrowthList = getCompaFromRedis(param_csi300_arr, tuplesCsi300);</span><br><span class="line">        System.out.println(&quot;compareGrowthList:&quot; + compareGrowthList);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>   取数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 处理从redis中获取到的set</span><br><span class="line">    *</span><br><span class="line">    * @param param_csi300_arr</span><br><span class="line">    * @param csi3003YMap</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   private LinkedList&lt;Object&gt; getCompaFromRedis(String[] param_csi300_arr, Set&lt;Tuple&gt; csi3003YMap) &#123;</span><br><span class="line"></span><br><span class="line">       LinkedList&lt;Object&gt; compareGrowthList = new LinkedList&lt;&gt;();</span><br><span class="line">       compareGrowthList.addFirst(0.00);</span><br><span class="line">       TreeMap&lt;String, String&gt; treeMap = new TreeMap&lt;&gt;();</span><br><span class="line">       for (Iterator&lt;Tuple&gt; iterator = csi3003YMap.iterator(); iterator.hasNext(); ) &#123;</span><br><span class="line">           Tuple next = iterator.next();</span><br><span class="line">           String score = Double.valueOf(next.getScore()).intValue() + &quot;&quot;;</span><br><span class="line">           treeMap.put(score, next.getElement());</span><br><span class="line">       &#125;</span><br><span class="line">       //最早时间的指数值 逻辑：(当前值/最早值) -1 *100</span><br><span class="line">       String s0 = treeMap.get(treeMap.firstKey());</span><br><span class="line">       for (int i = 1; i &lt;= param_csi300_arr.length - 1; i++) &#123;</span><br><span class="line">           //最早时间的指数值 逻辑：(当前值/最早值) -1 *100</span><br><span class="line">           if (treeMap.keySet().contains(param_csi300_arr[i])) &#123; //判断第i个时间参数对应的取值结果是否存在</span><br><span class="line">               Double num = (Double.parseDouble(treeMap.get(param_csi300_arr[i])) / Double.parseDouble(s0) - 1) * 100;</span><br><span class="line">               compareGrowthList.add(Double.parseDouble(df_No_comma.format(num)));</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               compareGrowthList.add(BLANKVALUE);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return compareGrowthList;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>主要代码逻辑还是比较简单的，拿到开始和结束时间后查询缓存，查到了就拿出区间内的数据进行后续处理，否则就从数据库（或者其他接口）查询并处理。</p>
+<h1 id="Redis有序集合实现原理"><a href="#Redis有序集合实现原理" class="headerlink" title="Redis有序集合实现原理"></a>Redis有序集合实现原理</h1><p>Redis的有序集合是使用跳表实现的。</p>
+<p>相比红黑树，跳表的代码实现还是比较简单的，并且他也是一种支持动态扩容的数据结构。跳表的介绍不做多展开，具体参见数据结构章节的文章。</p>
+<p>跳表这种结构实现类的类似二分查找的速度，查询的时间复杂度是O(logn)，很高效。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/28/分布式限流方案/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          分布式限流方案
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/27/HashMap学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HashMap学习笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/02/数据结构12--动态规划【待完善】/">数据结构-12-动态规划</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/30/数据结构11--常见的算法：贪心算法，分治算法，回溯算法【待完善】/">数据结构-10-常见的算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/25/数据结构10--深度优先搜索算法和广度优先算法【待完善】/">数据结构-10-搜索算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/21/数据结构9--图【待完善】/">数据结构-9-图</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/17/数据结构8--堆【待完善】/">数据结构-8-堆</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Dear TongDaxia<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

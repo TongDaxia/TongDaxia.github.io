@@ -70,169 +70,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Tomcat日志的理解" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/11/Tomcat日志的理解/" class="article-date">
-  <time datetime="2019-06-10T16:00:00.000Z" itemprop="datePublished">2019-06-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/11/Tomcat日志的理解/">Tomcat日志的理解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="几种log"><a href="#几种log" class="headerlink" title="几种log"></a>几种log</h5><p>Tomcat默认使用JULI日志系统</p>
-<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1560220401868.png" alt="1560220401868"></p>
-<p>Server、Tomcat Localhost Log 和Tomcat Catalina Log:</p>
-<ol>
-<li>catalina.out 是tomcat的标准输出(stdout)和标准出错(stderr).是在tomcat的启动脚本里指定的；一般包括控制台输出。</li>
-<li>Localhost log 对应 CATALINA_BASE指向目录的localhost.{yyyy-MM-dd}.log 文件。记录的是应用初始化(listener, filter, servlet)未处理的异常最后被tomcat捕获而输出的日志。</li>
-<li>Catalina log 对应 CATALINA_BASE指向目录的localhost.{yyyy-MM-dd}.log 文件。 是tomcat自己运行的一些日志。应用向console输出的日志不会输出到catalina.{yyyy-MM-dd}.log。</li>
-<li>Tomcat 默认manager应用日志，文件名manager.日期.log，如果配置了其他的项目应用，如下配置了Demo ，会出现demo.{yyyy-MM-dd}.log日志。</li>
-</ol>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/11/Tomcat日志的理解/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/日志/">日志</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-github无法更新的问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/10/github无法更新的问题/" class="article-date">
-  <time datetime="2019-06-10T06:46:43.722Z" itemprop="datePublished">2019-06-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用github 无法正常更新：</p>
-<p>更新选项：</p>
-<p>Update Type:</p>
-<p>​    Merge  </p>
-<p>​    Rebase </p>
-<p>√    Branch Default </p>
-<p>Clean working tree before update</p>
-<p>√    Using Stash  </p>
-<p>​    Using Shelve</p>
-<p>注意：</p>
-<p>Merge 是合并</p>
-<p><em>rebase</em>操作可以把本地未push的分叉提交历史整理成直线; <em>rebase</em>的目的是使得我们在查看历史提交的变化时更容易,因为分叉的提交需要三方对比。</p>
-<p>git <em>stash</em> 可用来暂存当前正在进行的工作, 比如想pull 最新代码, 又不想加新commit</p>
-<p>git  Shelve 暂存</p>
-<p>提示：</p>
-<p>Can’t Update</p>
-<p>No tracked branch configured for branch master or the branch doesn’t exist. To make your branch track a remote branch call, for example, git branch –set-upstream-to origin/master master</p>
-
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Elastic-6实例" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/04/Elastic-6实例/" class="article-date">
-  <time datetime="2019-06-03T16:00:00.000Z" itemprop="datePublished">2019-06-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/04/Elastic-6实例/">Elastic-6-实例</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>索引：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fund_collective_financing_announcement_a</span><br></pre></td></tr></table></figure>
-<p>3个分片</p>
-<p>1082个文档</p>
-<p>类型 type:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NewsDoc</span><br><span class="line"></span><br><span class="line">doc</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编程基础功/">编程基础功</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-Elastic-5分布式文档存储" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/31/Elastic-5分布式文档存储/" class="article-date">
@@ -278,58 +115,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webMagic超时错误" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/31/webMagic超时错误/" class="article-date">
-  <time datetime="2019-05-30T16:00:00.000Z" itemprop="datePublished">2019-05-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/31/webMagic超时错误/">分布式锁的学习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用场景</p>
-<p>使用webmagic爬取百度榜单的时候，出现超时错误</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/31/webMagic超时错误/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li></ul>
 
     </footer>
   </div>
@@ -626,6 +411,260 @@
 
 
   
+    <article id="post-网络传输基础一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/29/网络传输基础一/" class="article-date">
+  <time datetime="2019-05-29T01:24:56.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/29/网络传输基础一/">网络传输基础一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>计算机网络的七层协议：</p>
+<p>物理层        传输介质，光纤，电缆。Rj45,802.3</p>
+<p>数据链层        单个链路如何传输数据。ATM,FDDI</p>
+<blockquote>
+<p><strong>以太网协议</strong>：Ethernet，一组电信号构成一个数据包，叫做”帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）。<strong>“标头”</strong>包含数据包的一些说明项，比如发送者、接受者、数据类型等等；”数据”则是数据包的具体内容。”标头”的长度，固定为18字节。<strong>“数据”</strong>的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</p>
+</blockquote>
+<blockquote>
+<p><strong>MAC地址</strong>：以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。</p>
+</blockquote>
+<p>广播：broadcasting， <strong>以太网采用了一种很”原始”的方式，它不是把数据包准确送到接收方，而是向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。</strong></p>
+<p>网络层        对端到端的包传输进行定义，定义逻辑地址，路由的实现，将包分解。IP,FDDI</p>
+<blockquote>
+<p>依照上面的方法，不同局域网的电脑无法相互传输信息。”网络层”出现以后，每台计算机有了两种地址，一种是MAC地址，另一种是网络地址。两种地址之间没有任何联系，MAC地址是绑定在网卡上的，网络地址则是管理员分配的，它们只是随机组合在一起。</p>
+<p>判断两台计算机是否属于同一个子网络呢？这就要用到另一个参数”子网掩码”（subnet mask）。</p>
+<p>知道”子网掩码”，我们就能判断，任意两个IP地址是否处在同一个子网络。方法是将两个IP地址与子网掩码分别进行AND运算（两个数位都为1，运算结果为1，否则为0），然后比较结果是否相同，如果是的话，就表明它们在同一个子网络中，否则就不是。</p>
+<p>IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。</p>
+</blockquote>
+<blockquote>
+<p> <strong>IP数据包</strong>： IP协议发送的数据，就叫做IP数据包。不难想象，其中必定包括IP地址信息。</p>
+<p>IP数据包也分为”标头”和”数据”两个部分：”标头”部分主要包括版本、长度、IP地址等信息，20到60字节，”数据”部分则是IP数据包的具体内容。Ip数据包组成了以太网数据包的数据部分。由于整个IP数据包的最大长度为65535字节，IP数据包的数据部分最长65515字节。如果IP数据包数据超过1500字节，就需要分割成多个以太网数据包分开发送。</p>
+</blockquote>
+<blockquote>
+<p>因为IP数据包是放在以太网数据包里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的（），但是我们不知道它的MAC地址。</p>
+<p>第一种情况，如果两台主机不在同一个子网络，那么事实上没有办法得到对方的MAC地址，只能把数据包传送到两个子网络连接处的”网关”（gateway），让网关去处理。</p>
+<p>第二种情况，如果两台主机在同一个子网络，那么我们可以用ARP协议，得到对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询主机的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。</p>
+</blockquote>
+<p>传输层        是否选择差错恢复协议，对收到的数据包进行排序。TCP,UDP，SPX</p>
+<p>在互联网上任意两台主机上建立通信时，多个程序之间使用端口区分（每一个使用网卡的程序的编号），不同程序取得各自的数据。</p>
+<blockquote>
+<p><strong>“传输层”的功能，就是建立”端口到端口”的通信。相比之下，”网络层”的功能是建立”主机到主机”的通信。只要确定主机和端口，我们就能实现程序之间的交流。</strong>因此，Unix系统就把主机+端口，叫做”套接字”（socket）。有了它，就可以进行网络应用程序开发了。</p>
+</blockquote>
+<blockquote>
+<p><strong>UDP协议</strong>：也是由”标头”和”数据”两部分组成。UDP数据包非常简单，”标头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</p>
+</blockquote>
+<blockquote>
+<p><strong>TCP协议</strong>：有确认机制的UDP协议，每发出一个数据包都要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包了。TCP数据包和UDP数据包一样，都是内嵌在IP数据包的”数据”部分。TCP数据包没有长度限制，理论上可以无限长，但是为了保证网络的效率，通常TCP数据包的长度不会超过IP数据包的长度，以确保单个TCP数据包不必再分割。</p>
+</blockquote>
+<p><img src="E:\tyg\study\blog\source\_posts\img\以太网数据包结构.png" alt="以太网数据包结构"></p>
+<p>会话层        如何开始、结束一个会话。RPC,SQL</p>
+<p>表示层        定义数据格式及加密</p>
+<p>应用层        “应用层”的作用，就是规定应用程序的数据格式。</p>
+<p>参考：<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门（一）</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-分布式限流方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/28/分布式限流方案/" class="article-date">
+  <time datetime="2019-05-27T16:00:00.000Z" itemprop="datePublished">2019-05-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/28/分布式限流方案/">分布式限流方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1、使用<a href="http://lib.csdn.net/base/javase" target="_blank" rel="noopener">Java</a>自带delayqueue的延迟队列实现</p>
+<p>2、使用<a href="http://lib.csdn.net/base/redis" target="_blank" rel="noopener">Redis</a>实现，存储两个key，一个用于计时，一个用于计数。请求每调用一次，计数器增加1，若在计时器时间内计数器未超过阈值，则可以处理任务</p>
+<p>3、使用guava提供工具库里的RateLimiter类(内部采用令牌捅算法实现)进行限流</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/28/分布式限流方案/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Redis中zset类型数据的应用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/27/Redis中zset类型数据的应用/" class="article-date">
+  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/Redis中zset类型数据的应用/">Redis中zset类型数据的应用（实例+原理）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="项目需求"><a href="#项目需求" class="headerlink" title="项目需求"></a>项目需求</h1><p>公司APP页面需要展示一个横轴为时间，纵轴为指定基金和沪深300指数(或者其他指数)的折线图。</p>
+<p>折线图的范围是可选的（比如一个月内，三个月内，六个月内等等），并且由于每一支基金的净值公布节奏不同，同一个时间范围的实际首尾时间，以及具体哪些日期是有值也是不一样的。</p>
+<p>还有一个特点是沪深300的值是相对固定的，每天只会更新一次。但是很多基金都会以沪深300作为比较基准，使得需要查询一个数据多次。</p>
+<p>比如A基金（每天公布净值）的三个月范围需要查0201，0202，0203…… 0430这些日期对应的沪深300；但是B基金（每周公布净值）的三个月范围只需要查0202，0209，0216，0223……这些日期对应的沪深300。如果使用上面的步骤，势必会使得程序运行效率降低。</p>
+<h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><p>对于这种类似于静态数据，或者说修改一次查询很多次的数据，使用缓存是最好的选择了。下面以Redis来说明解决方案。</p>
+<p>Redis有五种数据存储格式，分别是String，List，Hash，Set，Zset。</p>
+<p>除了存储常用的数据，Redis还可以用Set数据类型来进行去重工作，（后面有了布隆过滤器）；还可以使用Redis 共享分布式系统中的session；使用Redis解决分布式锁的问题；Redis的List还能做消息队列和发布订阅模式，实现消息传递和进程间的通信。</p>
+<p>扯远了，具体到眼前的实例，实现起来非常简单，只需要使用带分数的集合类型就能行了。具体是使用沪深300的时间作为 <code>score</code> 分数，将每天的收盘价作为<code>value</code>，当确定时间范围之后取出对应时间范围的沪深300净值信息，即可拿到想要的数据。</p>
+<h1 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h1><p>主要步骤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Tuple&gt; tuplesCsi300Set = RedisUtils.zrevrangeByScoreWithScores(csi300Key, dateParamMax, dateParamMin, 0, 1000);</span><br><span class="line">    if (tuplesCsi300Set != null &amp;&amp; tuplesCsi300Set.size() &gt; 0) &#123;</span><br><span class="line">        compareGrowthList = getCompaFromRedis(param_csi300_arr, tuplesCsi300Set);</span><br><span class="line">        System.out.println(&quot;compareGrowthList:&quot; + compareGrowthList);</span><br><span class="line">    &#125; else &#123;//先查，再存</span><br><span class="line">        //查询数据库全部沪深300的数据存入Redis中</span><br><span class="line">        JSONArray apiDataCsiRedis = getData();</span><br><span class="line">        Map&lt;Double, String&gt; csi300Map = new HashMap&lt;&gt;();</span><br><span class="line">        for (int i = 0; i &lt; apiDataCsiRedis.size(); i++) &#123;</span><br><span class="line">            JSONObject objecti = (JSONObject) apiDataCsiRedis.get(i);</span><br><span class="line">            csi300Map.put(Double.valueOf(objecti.getString(&quot;tDate&quot;)), objecti.getString(&quot;tClose&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">        RedisUtils.addSortSetByScoreMap(csi300Key, csi300Map);</span><br><span class="line">        Set&lt;Tuple&gt; tuplesCsi300 = RedisUtils.zrevrangeByScoreWithScores(csi300Key, dateParamMax, dateParamMin, 0, 1000);</span><br><span class="line">        compareGrowthList = getCompaFromRedis(param_csi300_arr, tuplesCsi300);</span><br><span class="line">        System.out.println(&quot;compareGrowthList:&quot; + compareGrowthList);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>   取数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">    * 处理从redis中获取到的set</span><br><span class="line">    *</span><br><span class="line">    * @param param_csi300_arr</span><br><span class="line">    * @param csi3003YMap</span><br><span class="line">    * @return</span><br><span class="line">    */</span><br><span class="line">   private LinkedList&lt;Object&gt; getCompaFromRedis(String[] param_csi300_arr, Set&lt;Tuple&gt; csi3003YMap) &#123;</span><br><span class="line"></span><br><span class="line">       LinkedList&lt;Object&gt; compareGrowthList = new LinkedList&lt;&gt;();</span><br><span class="line">       compareGrowthList.addFirst(0.00);</span><br><span class="line">       TreeMap&lt;String, String&gt; treeMap = new TreeMap&lt;&gt;();</span><br><span class="line">       for (Iterator&lt;Tuple&gt; iterator = csi3003YMap.iterator(); iterator.hasNext(); ) &#123;</span><br><span class="line">           Tuple next = iterator.next();</span><br><span class="line">           String score = Double.valueOf(next.getScore()).intValue() + &quot;&quot;;</span><br><span class="line">           treeMap.put(score, next.getElement());</span><br><span class="line">       &#125;</span><br><span class="line">       //最早时间的指数值 逻辑：(当前值/最早值) -1 *100</span><br><span class="line">       String s0 = treeMap.get(treeMap.firstKey());</span><br><span class="line">       for (int i = 1; i &lt;= param_csi300_arr.length - 1; i++) &#123;</span><br><span class="line">           //最早时间的指数值 逻辑：(当前值/最早值) -1 *100</span><br><span class="line">           if (treeMap.keySet().contains(param_csi300_arr[i])) &#123; //判断第i个时间参数对应的取值结果是否存在</span><br><span class="line">               Double num = (Double.parseDouble(treeMap.get(param_csi300_arr[i])) / Double.parseDouble(s0) - 1) * 100;</span><br><span class="line">               compareGrowthList.add(Double.parseDouble(df_No_comma.format(num)));</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               compareGrowthList.add(BLANKVALUE);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return compareGrowthList;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>主要代码逻辑还是比较简单的，拿到开始和结束时间后查询缓存，查到了就拿出区间内的数据进行后续处理，否则就从数据库（或者其他接口）查询并处理。</p>
+<h1 id="Redis有序集合实现原理"><a href="#Redis有序集合实现原理" class="headerlink" title="Redis有序集合实现原理"></a>Redis有序集合实现原理</h1><p>Redis的有序集合是使用跳表实现的。</p>
+<p>相比红黑树，跳表的代码实现还是比较简单的，并且他也是一种支持动态扩容的数据结构。跳表的介绍不做多展开，具体参见数据结构章节的文章。</p>
+<p>跳表这种结构实现类的类似二分查找的速度，查询的时间复杂度是O(logn)，很高效。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-HashMap学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/27/HashMap学习笔记/" class="article-date">
+  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/HashMap学习笔记/">HashMap学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/27/HashMap学习笔记/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -644,7 +683,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
     </div>
   </div>
 
@@ -654,7 +693,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
     </div>
   </div>
 
@@ -663,7 +702,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
     </div>
   </div>
 
@@ -674,10 +713,6 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/09/03/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
-          </li>
         
           <li>
             <a href="/2019/08/02/数据结构12--动态规划【待完善】/">数据结构-12-动态规划</a>
@@ -693,6 +728,10 @@
         
           <li>
             <a href="/2019/07/21/数据结构9--图【待完善】/">数据结构-9-图</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/17/数据结构8--堆【待完善】/">数据结构-8-堆</a>
           </li>
         
       </ul>

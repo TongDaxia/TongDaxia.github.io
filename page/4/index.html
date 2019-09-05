@@ -70,10 +70,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-网络传输基础一" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-github无法更新的问题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/05/29/网络传输基础一/" class="article-date">
-  <time datetime="2019-05-29T01:24:56.000Z" itemprop="datePublished">2019-05-29</time>
+    <a href="/2019/05/27/github无法更新的问题/" class="article-date">
+  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
 </a>
     
   </div>
@@ -84,7 +84,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/29/网络传输基础一/">网络传输基础一</a>
+      <a class="article-title" href="/2019/05/27/github无法更新的问题/">github无法更新的问题</a>
     </h1>
   
 
@@ -92,100 +92,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>计算机网络的七层协议：</p>
-<p>物理层        传输介质，光纤，电缆。Rj45,802.3</p>
-<p>数据链层        单个链路如何传输数据。ATM,FDDI</p>
-<blockquote>
-<p><strong>以太网协议</strong>：Ethernet，一组电信号构成一个数据包，叫做”帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）。<strong>“标头”</strong>包含数据包的一些说明项，比如发送者、接受者、数据类型等等；”数据”则是数据包的具体内容。”标头”的长度，固定为18字节。<strong>“数据”</strong>的长度，最短为46字节，最长为1500字节。因此，整个”帧”最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</p>
-</blockquote>
-<blockquote>
-<p><strong>MAC地址</strong>：以太网规定，连入网络的所有设备，都必须具有”网卡”接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。</p>
-</blockquote>
-<p>广播：broadcasting， <strong>以太网采用了一种很”原始”的方式，它不是把数据包准确送到接收方，而是向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。</strong></p>
-<p>网络层        对端到端的包传输进行定义，定义逻辑地址，路由的实现，将包分解。IP,FDDI</p>
-<blockquote>
-<p>依照上面的方法，不同局域网的电脑无法相互传输信息。”网络层”出现以后，每台计算机有了两种地址，一种是MAC地址，另一种是网络地址。两种地址之间没有任何联系，MAC地址是绑定在网卡上的，网络地址则是管理员分配的，它们只是随机组合在一起。</p>
-<p>判断两台计算机是否属于同一个子网络呢？这就要用到另一个参数”子网掩码”（subnet mask）。</p>
-<p>知道”子网掩码”，我们就能判断，任意两个IP地址是否处在同一个子网络。方法是将两个IP地址与子网掩码分别进行AND运算（两个数位都为1，运算结果为1，否则为0），然后比较结果是否相同，如果是的话，就表明它们在同一个子网络中，否则就不是。</p>
-<p>IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。</p>
-</blockquote>
-<blockquote>
-<p> <strong>IP数据包</strong>： IP协议发送的数据，就叫做IP数据包。不难想象，其中必定包括IP地址信息。</p>
-<p>IP数据包也分为”标头”和”数据”两个部分：”标头”部分主要包括版本、长度、IP地址等信息，20到60字节，”数据”部分则是IP数据包的具体内容。Ip数据包组成了以太网数据包的数据部分。由于整个IP数据包的最大长度为65535字节，IP数据包的数据部分最长65515字节。如果IP数据包数据超过1500字节，就需要分割成多个以太网数据包分开发送。</p>
-</blockquote>
-<blockquote>
-<p>因为IP数据包是放在以太网数据包里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的（），但是我们不知道它的MAC地址。</p>
-<p>第一种情况，如果两台主机不在同一个子网络，那么事实上没有办法得到对方的MAC地址，只能把数据包传送到两个子网络连接处的”网关”（gateway），让网关去处理。</p>
-<p>第二种情况，如果两台主机在同一个子网络，那么我们可以用ARP协议，得到对方的MAC地址。ARP协议也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询主机的IP地址，在对方的MAC地址这一栏，填的是FF:FF:FF:FF:FF:FF，表示这是一个”广播”地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。</p>
-</blockquote>
-<p>传输层        是否选择差错恢复协议，对收到的数据包进行排序。TCP,UDP，SPX</p>
-<p>在互联网上任意两台主机上建立通信时，多个程序之间使用端口区分（每一个使用网卡的程序的编号），不同程序取得各自的数据。</p>
-<blockquote>
-<p><strong>“传输层”的功能，就是建立”端口到端口”的通信。相比之下，”网络层”的功能是建立”主机到主机”的通信。只要确定主机和端口，我们就能实现程序之间的交流。</strong>因此，Unix系统就把主机+端口，叫做”套接字”（socket）。有了它，就可以进行网络应用程序开发了。</p>
-</blockquote>
-<blockquote>
-<p><strong>UDP协议</strong>：也是由”标头”和”数据”两部分组成。UDP数据包非常简单，”标头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</p>
-</blockquote>
-<blockquote>
-<p><strong>TCP协议</strong>：有确认机制的UDP协议，每发出一个数据包都要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包了。TCP数据包和UDP数据包一样，都是内嵌在IP数据包的”数据”部分。TCP数据包没有长度限制，理论上可以无限长，但是为了保证网络的效率，通常TCP数据包的长度不会超过IP数据包的长度，以确保单个TCP数据包不必再分割。</p>
-</blockquote>
-<p><img src="E:\tyg\study\blog\source\_posts\img\以太网数据包结构.png" alt="以太网数据包结构"></p>
-<p>会话层        如何开始、结束一个会话。RPC,SQL</p>
-<p>表示层        定义数据格式及加密</p>
-<p>应用层        “应用层”的作用，就是规定应用程序的数据格式。</p>
-<p>参考：<a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议入门（一）</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络/">网络</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-分布式限流方案" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/28/分布式限流方案/" class="article-date">
-  <time datetime="2019-05-27T16:00:00.000Z" itemprop="datePublished">2019-05-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/28/分布式限流方案/">分布式限流方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、使用<a href="http://lib.csdn.net/base/javase" target="_blank" rel="noopener">Java</a>自带delayqueue的延迟队列实现</p>
-<p>2、使用<a href="http://lib.csdn.net/base/redis" target="_blank" rel="noopener">Redis</a>实现，存储两个key，一个用于计时，一个用于计数。请求每调用一次，计数器增加1，若在计时器时间内计数器未超过阈值，则可以处理任务</p>
-<p>3、使用guava提供工具库里的RateLimiter类(内部采用令牌捅算法实现)进行限流</p>
+        <p>使用github 无法正常更新</p>
         
           <p class="article-more-link">
-            <a href="/2019/05/28/分布式限流方案/#more">阅读全文</a>
+            <a href="/2019/05/27/github无法更新的问题/#more">阅读全文</a>
           </p>
         
       
@@ -202,7 +112,7 @@
  
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
 
     </footer>
   </div>
@@ -254,57 +164,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-HashMap学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/27/HashMap学习笔记/" class="article-date">
-  <time datetime="2019-05-26T16:00:00.000Z" itemprop="datePublished">2019-05-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/HashMap学习笔记/">HashMap学习笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>Hash是指把任意长度的输入压缩映射成为固定长度的散列值。不同散列值对应的输入肯定不同，但是同一个散列值对应的输入可能有多个(碰撞）。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/27/HashMap学习笔记/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-<div class="bdsharebuttonbox">
-<a href="#" class="bds_more" data-cmd="more"></a>
-<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
-<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
-</div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
- 
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 
     </footer>
   </div>
@@ -574,6 +433,58 @@
 
 
   
+    <article id="post-webMagic超时错误" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/13/webMagic超时错误/" class="article-date">
+  <time datetime="2019-05-12T16:00:00.000Z" itemprop="datePublished">2019-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/13/webMagic超时错误/">webMagic超时错误</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用场景</p>
+<p>使用webmagic爬取百度榜单的时候，出现超时错误</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/13/webMagic超时错误/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-elastic-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/01/elastic-1/" class="article-date">
@@ -635,6 +546,69 @@
 
 
   
+    <article id="post-分布式事务" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/分布式事务/" class="article-date">
+  <time datetime="2019-03-22T10:04:56.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/分布式事务/">分布式事务的解决</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分布式系统的核心就是处理各种异常情况，这也是分布式系统复杂的地方，因为分布式的网络环境很复杂，这种“断电”故障要比单机多很多，所以我们在做分布式系统的时候，最先考虑的就是这种情况。这些异常可能有 机器宕机、网络异常、消息丢失、消息乱序、数据错误、不可靠的TCP、存储数据丢失、其他异常等等…</p>
+<h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><ul>
+<li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li>
+<li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li>
+<li>分区容错性(Partition tolerance) ： 即使出现单个组件无法可用,操作依然可以完成</li>
+</ul>
+<h4 id="BASE理论"><a href="#BASE理论" class="headerlink" title="BASE理论"></a>BASE理论</h4><p>在分布式系统中，我们往往追求的是可用性，它的重要程序比一致性要高，那么如何实现高可用性呢？ 前人已经给我们提出来了另外一个理论，就是BASE理论，它是用来对CAP定理进行进一步扩充的。BASE理论指的是：</p>
+<ul>
+<li>Basically Available（基本可用）</li>
+<li>Soft state（软状态）</li>
+<li>Eventually consistent（最终一致性）</li>
+</ul>
+<p><strong>我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性</strong>（Eventual consistency）。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/22/分布式事务/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+<div class="bdsharebuttonbox">
+<a href="#" class="bds_more" data-cmd="more"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+<a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+<a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+ 
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -653,7 +627,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bug/">Bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elastic/">Elastic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/底层/">底层</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/爬虫，bug/">爬虫，bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基本功/">编程基本功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编程基础功/">编程基础功</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络/">网络</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/转载/">转载</a></li></ul>
     </div>
   </div>
 
@@ -663,7 +637,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
+      <a href="/tags/Bug/" style="font-size: 10px;">Bug</a> <a href="/tags/Elastic/" style="font-size: 13.33px;">Elastic</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/git/" style="font-size: 11.67px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/其他/" style="font-size: 10px;">其他</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/底层/" style="font-size: 11.67px;">底层</a> <a href="/tags/数据结构/" style="font-size: 18.33px;">数据结构</a> <a href="/tags/日志/" style="font-size: 10px;">日志</a> <a href="/tags/源码/" style="font-size: 10px;">源码</a> <a href="/tags/爬虫，bug/" style="font-size: 10px;">爬虫，bug</a> <a href="/tags/编程基本功/" style="font-size: 10px;">编程基本功</a> <a href="/tags/编程基础功/" style="font-size: 16.67px;">编程基础功</a> <a href="/tags/网络/" style="font-size: 11.67px;">网络</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/转载/" style="font-size: 11.67px;">转载</a>
     </div>
   </div>
 
@@ -672,7 +646,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li></ul>
     </div>
   </div>
 
@@ -683,10 +657,6 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2019/09/03/bug-SpringCloud+mybatis Mapper注入失败/">SpringCloud+mybatis+webmagic Mapper注入报错</a>
-          </li>
         
           <li>
             <a href="/2019/08/02/数据结构12--动态规划【待完善】/">数据结构-12-动态规划</a>
@@ -702,6 +672,10 @@
         
           <li>
             <a href="/2019/07/21/数据结构9--图【待完善】/">数据结构-9-图</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/17/数据结构8--堆【待完善】/">数据结构-8-堆</a>
           </li>
         
       </ul>
